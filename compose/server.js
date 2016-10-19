@@ -108,7 +108,7 @@ var App = {
 
 		/* serve static files */
 		app.use("/css", express.static(__dirname + "/static/styles"));
-		app.use("/images", express.static(__dirname + "/static/images"));
+		app.use("/img", express.static(__dirname + "/static/images"));
 		app.use("/js", express.static(__dirname + "/static/scripts"));
 		// ====
 
