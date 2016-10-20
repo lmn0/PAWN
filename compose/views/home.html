@@ -12,7 +12,7 @@
 <meta name="googlebot" content="index,follow,snippet,archive">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>IT Worker | responsive portfolio template</title>
+<title>PAWN</title>
 
 <meta name="keywords" content="">
 
@@ -62,7 +62,7 @@ _________________________________________________________ -->
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a class="navbar-brand scrollTo" href="#intro">IT Worker</a>
+<a class="navbar-brand scrollTo" href="#intro">PAWN</a>
 </div>
 
 <div class="navbar-collapse collapse" id="navigation">
@@ -74,14 +74,14 @@ _________________________________________________________ -->
 </li>
 <li><a href="#services">Services</a>
 </li>
-<li><a href="#testimonials">Testimonials</a>
-</li>
-<li><a href="#references">My work</a>
-</li>
+<li><a href="#signin">Sign In</a>
+</li>    
 <li><a href="#customers">Clients</a>
-</li>
+</li>    
+<!---<li><a href="#testimonials">Testimonials</a>
+</li>--->
 <li><a href="#contact">Contact</a>
-</li>
+</li>   
 </ul>
 </div>
 <!--/.nav-collapse -->
@@ -104,10 +104,10 @@ _________________________________________________________ -->
 <div class="row">
 <div class="carousel-caption">
 <div data-animate="fadeInDown" class="logo">
-<img src="img/logo-big.png" alt="logo" width="130">
+<img src="img/3.png" alt="logo" width="220">
 </div>
-<h1 data-animate="fadeInDown">Hello, hola, नमस्ते !</h1>
-<h2 data-animate="slideInUp">I grind HTML and CSS and then weld them with PHP into beautiful and efficient websites.</h2>
+<h1 data-animate="fadeInDown" style="color:black;">Welcome</h1>
+<h2 data-animate="slideInUp" style="color:black;">PAWN-Configuration Manager for Docker Cluster</h2>
 </div>
 </div>
 </div>
@@ -123,27 +123,31 @@ _________________________________________________________ -->
 <div class="row">
 
 <div class="col-sm-12">
-<h2 class="title" data-animate="fadeInDown">About me</h2>
+<h2 class="title" data-animate="fadeInDown">About PAWN</h2>
 </div>
 
 <div class="col-sm-12">
 
 <div class="row">
 
-<div class="col-sm-6 text-left" data-animate="fadeInUp">
+<div class="col-sm-18 text-left" data-animate="fadeInUp">
 
-<p>An sincerity so extremity he additions. Her yet <strong>there truth merit</strong>. Mrs all projecting favourable now unpleasing. Son law garden chatty temper. Oh children provided to mr elegance marriage strongly. Off can
-admiration prosperous now devonshire diminution law.</p>
+<p>Applications can be easily sandboxed in minutes compared to days that VM configuration would take.
+Docker is one of the major players in this field and Kuberenetes is an orchestration tool which is used to
+distribute docker containers, manage and monitor the cluster of hosts</p>
 
-<p>Received overcame oh sensible so at an. Formed do change merely to county it. <strong>Am separate contempt</strong> domestic to to oh. On relation my so addition branched. Put hearing cottage she norland letters equally prepare
-too. Replied exposed savings he no viewing as up. Soon body add him hill. No father living really people estate if. Mistake do produce beloved demesne if am pursuit.</p>
+<p>Monitoring tool for docker containers is necessary for the system administrators to take actions quickly
+based on the resource usage. Actions like scaling in and scaling out needs to be taken quickly when
+there is a surge in network, memory or CPU usage. These resources needs to be monitored frequently
+in order to make such decision.</p>
 
-<p>An sincerity so extremity he additions. Her yet <strong>there truth merit</strong>. Mrs all projecting favourable now unpleasing. Son law garden chatty temper. Oh children provided to mr elegance marriage strongly. Off can
-admiration prosperous now devonshire diminution law.</p>
+<p>So <strong> PAWN </strong> The tool will present a GUI for easy monitoring of the resources used by containers in a host. It would
+also be able to aggregate all the host resource utilization of each cluster. Grouping can also be done
+based on the pods in cluster.</p>
 
 </div>
 
-<div class="col-sm-6" data-animate="fadeInUp">
+<!---<div class="col-sm-6" data-animate="fadeInUp">
 
 <div class="skill-item">
 <div class="progress-title">
@@ -201,13 +205,13 @@ SEM
 </div>
 
 
-</div>
-</div>
-
+</div>--->
 </div>
 
-<div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 mt-big" data-animate="bounceIn">
-<img src="img/about.jpg" class="image img-circle img-responsive" alt="This is me - IT worker">
+</div>
+
+<div class="col-sm-6 col-sm-offset-9 col-md-4 col-md-offset-4 mt-big" data-animate="bounceIn">
+<img src="img/pawn.jpg" class="image img-circle img-responsive" alt="Docker">
 </div>
 </div>
 </div>
@@ -226,26 +230,22 @@ _________________________________________________________ -->
 <div class="row services">
 
 <div class="col-md-4" data-animate="fadeInUp">
-<div class="icon"><i class="fa fa-search"></i>
+<div><img src=img/create.png width="300" height="200">
 </div>
-<h3 class="heading">Consulting</h3>
-<p>On on produce colonel pointed. Just four sold need over how any. In to september suspicion determine he prevailed admitting. On adapted an as affixed limited on. Giving cousin warmly things no spring mr be abroad. Relation
-breeding be as repeated strictly followed margaret. One gravity son brought shyness waiting regular led ham.</p>
-</div>
-
-<div class="col-md-4" data-animate="fadeInUp">
-<div class="icon"><i class="fa fa-html5"></i>
-</div>
-<h3 class="heading">HTML coding</h3>
-<p>Manor we shall merit by chief wound no or would. Oh towards between subject passage sending mention or it. Sight happy do burst fruit to woody begin at. Assurance perpetual he in oh determine as.</p>
+<h3 class="heading">Create</h3>
+<p>&nbsp; &nbsp; &nbsp; Drag & Drop all the desired images to build the container.</p>
 </div>
 
 <div class="col-md-4" data-animate="fadeInUp">
-<div class="icon"><i class="fa fa-tachometer"></i> 
+<div><img src=img/file.png width="300" height="200"></div>
+<h3 class="heading">Save</h3>
+<p>&nbsp; &nbsp; &nbsp;   Save all the properties selected for particular images in a text file.</p>
 </div>
-<h3 class="heading">PHP webdelopment</h3>
-<p>Rooms oh fully taken by worse do. Points afraid but may end law lasted. Was out laughter raptures returned outweigh. Luckily cheered colonel me do we attacks on highest enabled. Tried law yet style child. Bore of true of no
-be deal.</p>
+
+<div class="col-md-4" data-animate="fadeInUp">
+<div><img src=img/build.png width="300" height="200"></div>
+<h3 class="heading">Build</h3>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Build the docker container.</p>
 </div>
 
 </div>
@@ -256,7 +256,7 @@ be deal.</p>
 
 <p class="lead">Would you like to know more or just discuss something?</p>
 
-<p><a href="#contact" class="btn btn-default btn-lg scrollTo">Contact me</a>
+<p><a href="#contact" class="btn btn-default btn-lg scrollTo">Contact us</a>
 </p>
 
 </div>
@@ -270,192 +270,25 @@ be deal.</p>
 
 <!-- *** SERVICES END *** -->
 
-<!-- *** TESTIMONIALS ***
-_________________________________________________________ -->
-
-<div class="section text-gray" id="testimonials" data-animate="fadeInUp">
-
-<div class="container">
-<div class="col-md-12">
-
-<div class="mb20">
-<h2 class="title" data-animate="fadeInUp">My customers said<br /><span>about me</span></h2>
-
-<p class="lead text-center" data-animate="fadeInUp">I am always glad to hear that my customers leave satisfied. Some of them shared with you their insights on our cooperation.</p>
-</div>
-
-<ul class="owl-carousel testimonials same-height-row" data-animate="fadeInUp">
-<li class="item">
-<div class="testimonial same-height-always">
-<div class="text">
-<p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly,
-slightly domed and divided by arches into stiff sections.</p>
-</div>
-<div class="bottom">
-<div class="icon"><i class="fa fa-quote-left"></i>
-</div>
-<div class="name-picture">
-<img class="" alt="" src="img/person-1.jpg">
-<h5>John McIntyre</h5>
-<p>CEO, TransTech</p>
-</div>
-</div>
-</div>
-</li>
-<li class="item">
-<div class="testimonial same-height-always">
-<div class="text">
-<p>The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me?
-" he thought. It wasn't a dream.</p>
-</div>
-<div class="bottom">
-<div class="icon"><i class="fa fa-quote-left"></i>
-</div>
-<div class="name-picture">
-<img class="" alt="" src="img/person-2.jpg">
-<h5>John McIntyre</h5>
-<p>CEO, TransTech</p>
-</div>
-</div>
-</div>
-</li>
-<li class="item">
-<div class="testimonial same-height-always">
-<div class="text">
-<p>His room, a proper human room although a little too small, lay peacefully between its four familiar walls.</p>
-
-<p>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded
-frame.</p>
-</div>
-<div class="bottom">
-<div class="icon"><i class="fa fa-quote-left"></i>
-</div>
-<div class="name-picture">
-<img class="" alt="" src="img/person-3.jpg">
-<h5>John McIntyre</h5>
-<p>CEO, TransTech</p>
-</div>
-</div>
-</div>
-</li>
-<li class="item">
-<div class="testimonial same-height-always">
-<div class="text">
-<p>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather.
-Drops of rain could be heard hitting the pane, which made him feel quite sad.</p>
-</div>
-
-<div class="bottom">
-<div class="icon"><i class="fa fa-quote-left"></i>
-</div>
-<div class="name-picture">
-<img class="" alt="" src="img/person-4.jpg">
-<h5>John McIntyre</h5>
-<p>CEO, TransTech</p>
-</div>
-</div>
-</div>
-</li>
-<li class="item">
-<div class="testimonial same-height-always">
-<div class="text">
-<p>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather.
-Drops of rain could be heard hitting the pane, which made him feel quite sad. Gregor then turned to look out the window at the dull weather. Drops of rain could be heard hitting the pane, which made him feel quite
-sad.</p>
-</div>
-
-<div class="bottom">
-<div class="icon"><i class="fa fa-quote-left"></i>
-</div>
-<div class="name-picture">
-<img class="" alt="" src="img/person-4.jpg">
-<h5>John McIntyre</h5>
-<p>CEO, TransTech</p>
-</div>
-</div>
-</div>
-</li>
-</ul>
-<!-- /.owl-carousel -->
-</div>
-<!-- /.12 -->
-</div>
-<!-- /.container -->
-
-</div>
-<!-- /.section -->
-
-<!-- *** TESTIMONIALS END *** -->
-
-<!-- *** SHOWCASE ***
-_________________________________________________________ -->
-<div class="section text-parallax parallax-image1" id="services">
-<div class="container">
-<div class="row showcase">
-<div class="col-md-3 col-sm-6" data-animate="fadeInUp">
-<div class="item">
-<div class="icon"><i class="fa fa-align-justify"></i>
-</div>
-<h4><span class="counter">120</span><br>Websites</h4>
-</div>
-</div>
-<div class="col-md-3 col-sm-6" data-animate="fadeInUp">
-<div class="item">
-<div class="icon"><i class="fa fa-users"></i>
-</div>
-<h4><span class="counter">50</span><br>  Satisfied Clients</h4>
-</div>
-</div>
-<div class="col-md-3 col-sm-6" data-animate="fadeInUp">
-<div class="item">
-<div class="icon"><i class="fa fa-copy"></i>
-</div>
-<h4><span class="counter">320</span><br>Projects</h4>
-</div>
-</div>
-<div class="col-md-3 col-sm-6" data-animate="fadeInUp">
-<div class="item">
-<div class="icon"><i class="fa fa-font"></i>
-</div>
-<h4><span class="counter">333</span><br> Magazines and Brochures</h4>
-</div>
-</div>
-</div>
-<!-- /.row -->
-</div>
-<!-- /.container -->
-
-<div class="dark-mask"></div>
-
-</div>
-<!-- /.section -->
 
 <!-- *** REFERENCES IMAGE ***
 _________________________________________________________ -->
-<div class="section" id="references">
+<div class="section" id="signin">
 <div class="container">
 <div class="col-sm-12">
 
 <div class="mb20">
-<h2 class="title" data-animate="fadeInUp">My work</h2>
+<h2 class="title" data-animate="fadeInUp"> Login/Sign up</h2>
+    
+    
 
-<p class="lead" data-animate="fadeInUp">I have worked on dozens of projects so I have picked only the latest for you.</p>
+<p class="lead" data-animate="fadeInUp">Click on the button below to either login or sign up</p>
+    
+<button type="submit"><a href="login/index.html">Login/Signup </a></button>
+    
 </div>
 
-<ul id="filter" data-animate="fadeInUp">
-<li class="active"><a href="#" data-filter="all">All</a>
-</li>
-<li><a href="#" data-filter="webdesign">Webdesign</a>
-</li>
-<li><a href="#" data-filter="seo">SEO</a>
-</li>
-<li><a href="#" data-filter="marketing">Marketing</a>
-</li>
-<li><a href="#" data-filter="other">Other</a>
-</li>
-</ul>
-
-<div id="detail">
+<!---<div id="detail">
 
 <span class="close">&times;</span> 
 
@@ -467,8 +300,8 @@ _________________________________________________________ -->
 
 <div id="detail-content"></div>
 
-</div>
-<!-- Reference detail -->
+</div>--->
+<!-- Reference detail 
 
 <div id="references-masonry" data-animate="fadeInUp">
 
@@ -690,7 +523,7 @@ talked may shy basket narrow see. Him she distrusts questions sportsmen. Tolerab
 </div>
 </div>
 
-</div>
+</div>--->
 <!-- /#references-masonry -->
 
 </div>
@@ -711,41 +544,45 @@ _________________________________________________________ -->
 
 
 <div class="row">
+  
 <div class="col-sm-4 col-md-2  col-xs-6">
 <div class="customer">
-<img class="img-responsive" src="img/customers/kofola.png" title="Kofola" data-placement="bottom" data-toggle="tooltip" alt="">
+<img class="img-responsive" src="img/customers/a.jpg" title="angular js" data-placement="bottom" data-toggle="tooltip" alt="" width="90" height="90">
 </div>
 </div>
 
 <div class="col-sm-4 col-md-2  col-xs-6">
 <div class="customer">
-<img class="img-responsive" src="img/customers/evian.png" title="Evian" data-placement="bottom" data-toggle="tooltip" alt="">
+<img class="img-responsive" src="img/customers/f.png" title="facebook" data-placement="bottom" data-toggle="tooltip" alt="" width="150" height="200">
 </div>
 </div>
 
 <div class="col-sm-4 col-md-2  col-xs-6">
 <div class="customer">
-<img class="img-responsive" src="img/customers/cslink.png" title="CS Link" data-placement="bottom" data-toggle="tooltip" alt="">
+<img class="img-responsive" src="img/customers/n.jpg" title="node js" data-placement="bottom" data-toggle="tooltip" alt="" width="480" height="390">
 </div>
 </div>
 
 <div class="col-sm-4 col-md-2  col-xs-6">
 <div class="customer">
-<img class="img-responsive" src="img/customers/botas66.png" title="Botas 66 Concept store" data-placement="bottom" data-toggle="tooltip" alt="">
+<img class="img-responsive" src="img/customers/m.png" title="mongo db" data-placement="bottom" data-toggle="tooltip" alt="" width="800" height="800">
 </div>
 </div>
 
 <div class="col-sm-4 col-md-2  col-xs-6">
 <div class="customer">
-<img class="img-responsive" src="img/customers/mdfc.png" title="MediaFabríca" data-placement="bottom" data-toggle="tooltip" alt="">
+<img class="img-responsive" src="img/customers/s.png" title="sql" data-placement="bottom" data-toggle="tooltip" alt="" width="90" height="90">
 </div>
 </div>
-
+    
 <div class="col-sm-4 col-md-2  col-xs-6">
 <div class="customer">
-<img class="img-responsive" src="img/customers/vanek.png" title="VANĚK Strojírenská výroba" data-placement="bottom" data-toggle="tooltip" alt="">
+<img class="img-responsive" src="img/customers/e.png" title="express js" data-placement="bottom" data-toggle="tooltip" alt="" width="800" height="800">
 </div>
 </div>
+    
+
+
 
 </div>
 <!-- /.row -->
@@ -758,7 +595,170 @@ _________________________________________________________ -->
 </div>
 <!-- /.section -->
 
-<!-- *** CUSTOMERS END *** -->
+<!-- *** CUSTOMERS END *** -->    
+    
+<!-- *** TESTIMONIALS ***
+_________________________________________________________ -->
+
+<!--<div class="section text-gray" id="testimonials" data-animate="fadeInUp">
+
+<div class="container">
+<div class="col-md-12">
+
+<div class="mb20">
+<h2 class="title" data-animate="fadeInUp">My customers said<br /><span>about me</span></h2>
+
+<p class="lead text-center" data-animate="fadeInUp">I am always glad to hear that my customers leave satisfied. Some of them shared with you their insights on our cooperation.</p>
+</div>
+
+<ul class="owl-carousel testimonials same-height-row" data-animate="fadeInUp">
+<li class="item">
+<div class="testimonial same-height-always">
+<div class="text">
+<p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly,
+slightly domed and divided by arches into stiff sections.</p>
+</div>
+<div class="bottom">
+<div class="icon"><i class="fa fa-quote-left"></i>
+</div>
+<div class="name-picture">
+<img class="" alt="" src="img/person-1.jpg">
+<h5>John McIntyre</h5>
+<p>CEO, TransTech</p>
+</div>
+</div>
+</div>
+</li>
+<li class="item">
+<div class="testimonial same-height-always">
+<div class="text">
+<p>The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me?
+" he thought. It wasn't a dream.</p>
+</div>
+<div class="bottom">
+<div class="icon"><i class="fa fa-quote-left"></i>
+</div>
+<div class="name-picture">
+<img class="" alt="" src="img/person-2.jpg">
+<h5>John McIntyre</h5>
+<p>CEO, TransTech</p>
+</div>
+</div>
+</div>
+</li>
+<li class="item">
+<div class="testimonial same-height-always">
+<div class="text">
+<p>His room, a proper human room although a little too small, lay peacefully between its four familiar walls.</p>
+
+<p>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded
+frame.</p>
+</div>
+<div class="bottom">
+<div class="icon"><i class="fa fa-quote-left"></i>
+</div>
+<div class="name-picture">
+<img class="" alt="" src="img/person-3.jpg">
+<h5>John McIntyre</h5>
+<p>CEO, TransTech</p>
+</div>
+</div>
+</div>
+</li>
+<li class="item">
+<div class="testimonial same-height-always">
+<div class="text">
+<p>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather.
+Drops of rain could be heard hitting the pane, which made him feel quite sad.</p>
+</div>
+
+<div class="bottom">
+<div class="icon"><i class="fa fa-quote-left"></i>
+</div>
+<div class="name-picture">
+<img class="" alt="" src="img/person-4.jpg">
+<h5>John McIntyre</h5>
+<p>CEO, TransTech</p>
+</div>
+</div>
+</div>
+</li>
+<li class="item">
+<div class="testimonial same-height-always">
+<div class="text">
+<p>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather.
+Drops of rain could be heard hitting the pane, which made him feel quite sad. Gregor then turned to look out the window at the dull weather. Drops of rain could be heard hitting the pane, which made him feel quite
+sad.</p>
+</div>
+
+<div class="bottom">
+<div class="icon"><i class="fa fa-quote-left"></i>
+</div>
+<div class="name-picture">
+<img class="" alt="" src="img/person-4.jpg">
+<h5>John McIntyre</h5>
+<p>CEO, TransTech</p>
+</div>
+</div>
+</div>
+</li>
+</ul>-->
+<!-- /.owl-carousel -->
+<!--</div>-->
+<!-- /.12 -->
+<!--</div>-->
+<!-- /.container -->
+
+<!--</div>-->
+<!-- /.section -->
+
+<!-- *** TESTIMONIALS END *** -->
+
+<!-- *** SHOWCASE ***
+_________________________________________________________ -->
+<!--<div class="section text-parallax parallax-image1" id="services">
+<div class="container">
+<div class="row showcase">
+<div class="col-md-3 col-sm-6" data-animate="fadeInUp">
+<div class="item">
+<div class="icon"><i class="fa fa-align-justify"></i>
+</div>
+<h4><span class="counter">120</span><br>Websites</h4>
+</div>
+</div>
+<div class="col-md-3 col-sm-6" data-animate="fadeInUp">
+<div class="item">
+<div class="icon"><i class="fa fa-users"></i>
+</div>
+<h4><span class="counter">50</span><br>  Satisfied Clients</h4>
+</div>
+</div>
+<div class="col-md-3 col-sm-6" data-animate="fadeInUp">
+<div class="item">
+<div class="icon"><i class="fa fa-copy"></i>
+</div>
+<h4><span class="counter">320</span><br>Projects</h4>
+</div>
+</div>
+<div class="col-md-3 col-sm-6" data-animate="fadeInUp">
+<div class="item">
+<div class="icon"><i class="fa fa-font"></i>
+</div>
+<h4><span class="counter">333</span><br> Magazines and Brochures</h4>
+</div>
+</div>
+</div>-->
+<!-- /.row -->
+<!--</div>->
+<!-- /.container -->
+
+<!---<div class="dark-mask"></div>
+
+</div>-->
+<!-- /.section -->
+    
+
+
 
 <!-- *** CONTACT ***
 _________________________________________________________ -->
@@ -768,7 +768,7 @@ _________________________________________________________ -->
 <div class="col-md-12">
 
 
-<h2 class="title">Contact me</h2>
+<h2 class="title">Contact us</h2>
 
 <div class="row">
 
@@ -820,9 +820,8 @@ _________________________________________________________ -->
 <!-- *** MAP ***
 _________________________________________________________ -->
 
-<div class="section" id="map">
-
-</div>
+<!--<div class="section" id="map">
+</div>--->
 <!-- /.section -->
 
 <!-- *** MAP END *** -->
@@ -847,10 +846,10 @@ _________________________________________________________ -->
 <!-- /.6 -->
 
 <div class="col-sm-6">
-<p>&copy; 2015 Your name goes here. All rights reserved.</p>
+<p>&copy;PAWN-All rights reserved.</p>
 </div>
 
-<div class="col-sm-12">
+<!---<div class="col-sm-12">
 <p class="template-bootstrapious">Template by <a href="https://bootstrapious.com/free-templates">Bootstrapious.com</a></p>
 
 <!-- Please do not remove the backlink to us, unless you support the development at https://bootstrapious.com/donate. It is part of the license conditions. Thanks for understanding :)-->
