@@ -22,8 +22,8 @@ var express = require('express'),
 //var rpi=[0,0];
 
 router.get(['/','/:action'],function(req,res, next){
-console.log("inside");
-res.render('home.html');
+//console.log("inside");
+res.render('drag.jade');
 });
 
 module.exports = router;

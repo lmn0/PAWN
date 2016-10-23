@@ -101,9 +101,9 @@ var App = {
 
 		/* set view engine, path */
 		app.set("views", "./views");
-		app.engine('html', require('jade').renderFile);
-		app.set('view engine', 'html');
-		//app.set("view engine", "jade");
+		//app.engine('html', require('jade').renderFile);
+		//app.set('view engine', 'html');
+		app.set("view engine", "jade");
 		// ====
 
 		/* serve static files */
