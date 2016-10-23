@@ -91,7 +91,7 @@ html(lang='en')
           p Sql
           img#drag5(style="background:#888;", src="img/s.png", draggable="true" ondragstart="drag(event)", onclick='clicked(this)', width='110', height='75')
     #ccdragMeCss(hidden="true")
-    #wrapper(ondrop="drop(event)", ondragover="allowDrop(event)")
+    #wrapper(ondrop="if(selected!='')drop(event)", ondragover="allowDrop(event)")
       #dragMe(class="dragMeCss")
         #withMe(class="withMeCss")
           | NodeJS
@@ -104,7 +104,7 @@ html(lang='en')
     script(type='text/javascript').
       var dragMe = document.getElementById('dragMe');
       var withMe = document.getElementById('withMe');
-
+      var selected;
 
 
       var shouldntHappen = function() {
@@ -125,11 +125,12 @@ html(lang='en')
       //ev.preventDefault();
       //var data=ev.dataTransfer.getData("Text");
       //ev.target.appendChild(document.getElementById(data));
-      console.log("Here");
+      console.log();
       var newbox = dragMe.cloneNode(true);
       newbox.id="newone";
       newbox.style=document.getElementById("ccdragMeCss").style;
-
+      newbox.firstChild.innerHTML=selected;
+      selected="";
       console.log(newbox);
       console.log(dragMe);
 
@@ -169,6 +170,16 @@ html(lang='en')
       }
 
 
+
+      var clicked=function(img){
+        switch(img.id)
+        {case 'drag1': selected = 'Angular JS';break;
+         case 'drag2': selected = 'Facebook';break;
+         case 'drag3': selected = 'Mongo';break;
+         case 'drag4': selected = 'NodeJS';break;
+         case 'drag5': selected = 'SQL';break;
+        }
+      }
 
       var dragRef = DragDrop.bind(dragMe, {
       anchor: dragMe,
