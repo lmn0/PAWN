@@ -22,7 +22,7 @@ html(lang='en')
       -webkit-box-shadow: 3px 3px 3px #888;
       box-shadow: 3px 3px 3px #888;
       }
-      #dragMe {
+      #ccdragMeCss {
       position: absolute;
       top: 15px;
       left: 15px;
@@ -34,7 +34,26 @@ html(lang='en')
       font-size: 12px;
       font-family: sans-serif;
       }
-      #withMe {
+      #ccwithMeCss {
+      width: 242px;
+      background: #666;
+      border-bottom: 1px #333 solid;
+      cursor: move;
+      padding: 4px;
+      }
+      .dragMeCss {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 250px;
+      height: 250px;
+      border: 1px #333 solid;
+      background: #06a;
+      color: #fff;
+      font-size: 12px;
+      font-family: sans-serif;
+      }
+      .withMeCss {
       width: 242px;
       background: #666;
       border-bottom: 1px #333 solid;
@@ -49,6 +68,7 @@ html(lang='en')
       font-size: 32px;
       font-family: "URW Chancery L", cursive;
       width: 650px;
+      height: 300px;
       margin: 0 auto;
       padding: 200px 0;
       }
@@ -70,17 +90,28 @@ html(lang='en')
         li
           p Sql
           img#drag5(style="background:#888;", src="img/s.png", draggable="true" ondragstart="drag(event)", onclick='clicked(this)', width='110', height='75')
+    #ccdragMeCss(hidden="true")
     #wrapper(ondrop="drop(event)", ondragover="allowDrop(event)")
-      #dragMe
-        #withMe
+      #dragMe(class="dragMeCss")
+        #withMe(class="withMeCss")
           | NodeJS
         p
       p.text
-        | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis libero enim, lacinia sed hendrerit
-        | sit amet, congue ut ipsum. Nullam mollis, risus eu porta scelerisque.
+
+
     // JavaScript Includes
     script(type='text/javascript', charset='utf-8', src='js/drag-drop.js')
     script(type='text/javascript').
+      var dragMe = document.getElementById('dragMe');
+      var withMe = document.getElementById('withMe');
+
+
+
+      var shouldntHappen = function() {
+      console.log('THIS SHOULDN HAPPEN');
+      };
+
+
       function allowDrop(ev)
       {
       ev.preventDefault();
@@ -95,26 +126,52 @@ html(lang='en')
       //var data=ev.dataTransfer.getData("Text");
       //ev.target.appendChild(document.getElementById(data));
       console.log("Here");
-      var btn = document.createElement("div")
-      btn.style=dragMe.style;
+      var newbox = dragMe.cloneNode(true);
+      newbox.id="newone";
+      newbox.style=document.getElementById("ccdragMeCss").style;
 
+      console.log(newbox);
+      console.log(dragMe);
+
+      var dragRef1 = DragDrop.bind(newbox, {
+      anchor: newbox,
+      boundingBox: 'offsetParent',
+      dragstart: function(evt) {
+        console.log('DragDrop.bind dragstart', evt);
+      },
+      drag: function(evt) {
+        console.log(evt.target.id);
+        console.log('DragDrop.bind drag', evt);
+      },
+      dragend: function(evt) {
+        console.log('DragDrop.bind dragend', evt);
+      }
+      });
+
+      dragRef1.bindEvent('dragstart', function(evt) {
+        console.log('DragDrop.bindEvent dragstart', evt);
+      });
+      dragRef1.bindEvent('drag', function(evt) {
+        console.log('DragDrop.bindEvent drag', evt);
+      });
+      dragRef1.bindEvent('dragend', function(evt) {
+        console.log('DragDrop.bindEvent dragend', evt);
+      });
+      dragRef1.bindEvent('dragstart', shouldntHappen);
+      dragRef1.unbindEvent('dragstart', shouldntHappen);
+      dragRef1.bindEvent('drag', shouldntHappen);
+      dragRef1.unbindEvent('drag', shouldntHappen);
+      dragRef1.bindEvent('dragend', shouldntHappen);
+      dragRef1.unbindEvent('dragend', shouldntHappen);
+
+      document.getElementById('wrapper').appendChild(newbox);
+      //btn.style=dragMe.style;
       }
 
 
 
-      var dragMe = document.getElementById('dragMe');
-      var withMe = document.getElementById('withMe');
-      var clicked = function(img){
-      console.log(img);
-      console.log(withMe);
-      withMe.style.background=img.style.background;
-      dragMe.style.background=img.style.background;
-      };
-      var shouldntHappen = function() {
-      console.log('THIS SHOULDN HAPPEN');
-      };
       var dragRef = DragDrop.bind(dragMe, {
-      anchor: withMe,
+      anchor: dragMe,
       boundingBox: 'offsetParent',
       dragstart: function(evt) {
       console.log('DragDrop.bind dragstart', evt);
@@ -127,6 +184,7 @@ html(lang='en')
       console.log('DragDrop.bind dragend', evt);
       }
       });
+
       dragRef.bindEvent('dragstart', function(evt) {
       console.log('DragDrop.bindEvent dragstart', evt);
       });
