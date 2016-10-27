@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Data Tags-->
+    <title>DragDrop Test</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+      * {
+      margin: 0;
+      padding: 0;
+      }
+      body {
+      background: #eee;
+      }
+      #wrapper {
+      position: relative;
+      width: 80%;
+      margin: 20px auto;
+      border: 2px #000 solid;
+      background: #fff;
+      -moz-box-shadow: 3px 3px 3px #888;
+      -webkit-box-shadow: 3px 3px 3px #888;
+      box-shadow: 3px 3px 3px #888;
+      }
+      #ccdragMeCss {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 250px;
+      height: 250px;
+      border: 1px #333 solid;
+      background: #06a;
+      color: #fff;
+      font-size: 12px;
+      font-family: sans-serif;
+      }
+      #ccwithMeCss {
+      width: 242px;
+      background: #666;
+      border-bottom: 1px #333 solid;
+      cursor: move;
+      padding: 4px;
+      }
+      .dragMeCss {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 250px;
+      height: 250px;
+      border: 1px #333 solid;
+      background: #06a;
+      color: #fff;
+      font-size: 12px;
+      font-family: sans-serif;
+      }
+      .withMeCss {
+      width: 242px;
+      background: #666;
+      border-bottom: 1px #333 solid;
+      cursor: move;
+      padding: 4px;
+      }
+      #dragMe p {
+      padding: 4px;
+      }
+      p.text {
+      color: #999;
+      font-size: 32px;
+      font-family: "URW Chancery L", cursive;
+      width: 650px;
+      height: 300px;
+      margin: 0 auto;
+      padding: 200px 0;
+      }
+      ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      }
+      li {
+      display: inline;
+      }
+      .menu {
+      right: -285px;
+      height: 100%;
+      position: fixed;
+      width: 285px;
+      z-index: 1;
+      background-color: white;
+      transition: .2s
+      }
+      ul.bar {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-size: 20px;
+      }
+      li.bar{
+      float: right;  
+      }
+      li bar {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      }
+      li bar:hover {
+      background-color: #111;
+      }
+      .menu ul {
+      border-top: 1px solid #636366;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      }
+      .menu li {
+      border-bottom: 1px solid #636366;
+      font-family: 'Open Sans', sans-serif;
+      line-height: 45px;
+      padding-bottom: 3px;
+      padding-left: 20px;
+      padding-top: 3px;
+      }
+      .menu li a {
+      color: white;
+      }
+      .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 72px;
+      right: 0px;
+      background-color: lightskyblue;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+      font-size: 20px;
+      }
+      .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      transition: 0.3s
+      }
+      .sidenav a:hover, .offcanvas a:focus{
+      color: #f1f1f1;
+      }
+      .sidenav .closebtn {
+       position: absolute;
+       top: 0;
+       right: 25px;
+       font-size: 36px;
+       margin-left: 50px;
+       }
+       .verticalLine {
+        border-left: thick solid black;
+        height: 700px;
+        }
+
+    </style>
+    </head>
+    <body style="background-color:#778899">
+
+        <ul class="bar" style="position:absolute;right:30px;top:10px;" >
+            <li><a class="active" href="#home">Home</a></li>
+            <li><a href="#news">Dashboard</a></li>
+            <li><a href="#contact">Account Settings</a></li>
+        </ul>
+
+    <div style="position:absolute;top:58px;left:20px;">
+      <div id="nav-toggle">
+        <div class="row">
+          <p onclick="openNav()">Angular js </p><img id="drag1" style="background:#222;" src="img/a.jpg" draggable="true" ondragstart="drag(event)" onclick="clicked(this)" width="90" height="75">
+        </div>
+        <div class="row">
+          <p onclick="openNav1()">Facebook</p><img id="drag2" style="background:#339;" src="img/f.png" draggable="true" ondragstart="drag(event)" onclick="clicked(this)" width="90" height="75">
+        </div>
+        <div class="row">
+          <p onclick="openNav2()">Mongo db</p><img id="drag3" style="background:#090;" src="img/m.png" draggable="true" ondragstart="drag(event)" onclick="clicked(this)" width="90" height="75">
+        </div>
+        <div class="row">
+          <p onclick="openNav3()">Node js</p><img id="drag4" style="background:#500;" src="img/n.png" draggable="true" ondragstart="drag(event)" onclick="clicked(this)" width="90" height="75">
+        </div>
+         <div class="row">
+          <p onclick="openNav4()">Sql</p><img id="drag5" style="background:#888;" src="img/s.png" draggable="true" ondragstart="drag(event)" onclick="clicked(this)" width="90" height="75">
+        </div>
+      </div>
+    </div>
+    <div id="ccdragMeCss" hidden="true" ></div>
+    <div id="wrapper" ondrop="if(selected!='')drop(event)" ondragover="allowDrop(event)"; style="position:absolute;top:50px;left:140px;" >
+      <div id="dragMe" class="dragMeCss" style="position:absolute;top:50px;">
+        <div id="withMe" class="withMeCss">NodeJS</div>
+        <p></p>
+      </div>
+      <p class="text"> 
+        </p>
+        <ul style="position:absolute;top:10px;right:10px;">
+             <li><button type="submit" style="height:40px;width:60px;"><a href="#home"><strong>Save   </strong></a> </button></li>
+             <li><button type="submit" style="height:40px;width:60px;"><a href="#home"><strong>Create </strong> </a></button></li>
+             <li><button type="submit" style="height:40px;width:60px;"><a href="#news"><strong>Delete </strong></a></button></li>
+             <li><button type="submit" style="height:40px;width:60px;"><a href="#contact"><strong>Exit</strong></a></button></li>
+        </ul>
+            
+    </div>
+      <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" >&times;</a>
+          <div style="position:absolute;left:45px;">
+             <input type="checkbox" name="Angular" value="CPU"> CPU <br/>
+             <input type="checkbox" name="Angular" value="Memory"> Memory  <br/>
+             <input type="checkbox" name="Angular" value="Size"> Size  <br/>
+             <input type="checkbox" name="Angular" value="Speed"> Speed  <br/>
+              <button type="submit" style="font-size:10px;position:absolute;top:100px;left:56px;" > Submit </button>
+            </div>
+      </div>
+        <div id="mySidenav1" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav1()">&times;</a>
+           <div style="position:absolute;left:45px;">
+             <input type="checkbox" name="Facebook" value="About"> CPU <br/>
+             <input type="checkbox" name="Facebook" value="About"> Memory  <br/>
+             <input type="checkbox" name="Facebook" value="About"> Size  <br/>
+             <input type="checkbox" name="Facebook" value="About"> Speed  <br/>
+               <button type="submit" style="font-size:10px;position:absolute;top:100px;left:56px;" > Submit </button>
+            </div>
+        </div>
+        <div id="mySidenav2" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()" >&times;</a>
+            <div style="position:absolute;left:45px;">
+             <input type="checkbox" name="Mongodb" value="About"> CPU <br/>
+             <input type="checkbox" name="Mongodb" value="About"> Memory  <br/>
+             <input type="checkbox" name="Mongodb" value="About"> Size  <br/>
+             <input type="checkbox" name="Mongodb" value="About"> Speed  <br/>
+                <button type="submit" style="font-size:10px;position:absolute;top:100px;left:56px;" > Submit </button>
+            </div>
+      </div>
+        <div id="mySidenav3" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav3()">&times;</a>
+            <div style="position:absolute;left:45px;">
+             <input type="checkbox" name="Node js" value="CPU"> CPU <br/>
+             <input type="checkbox" name="Node js" value="Memory"> Memory  <br/>
+             <input type="checkbox" name="Node js" value="Size"> Size  <br/>
+             <input type="checkbox" name="Node js" value="Speed"> Speed  <br/>
+                <button type="submit" style="font-size:10px;position:absolute;top:100px;left:56px;" > Submit </button>
+            </div>
+        </div>
+        <div id="mySidenav4" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav4()">&times;</a>
+            <div style="position:absolute;left:45px;">
+             <input type="checkbox" name="SQL" value="About"> CPU <br/>
+             <input type="checkbox" name="SQL" value="About"> Memory  <br/>
+             <input type="checkbox" name="SQL" value="About"> Size  <br/>
+             <input type="checkbox" name="SQL" value="About"> Speed  <br/>
+                <button type="submit" style="font-size:10px;position:absolute;top:100px;left:56px;" > Submit </button>
+            </div>
+        </div>
+
+      
+    <!-- JavaScript Includes-->
+    <script type="text/javascript" charset="utf-8" src="js/drag-drop.js"></script>
+    <script type="text/javascript">
+        function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginRight = "250px";
+    document.body.style.backgroundColor = "white";
+                        }
+        function openNav1() {
+    document.getElementById("mySidenav1").style.width = "250px";
+    document.getElementById("main").style.marginRight = "250px";
+    document.body.style.backgroundColor = "white";
+                        }
+        function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginRight= "0";
+    document.body.style.backgroundColor = "white";
+                        }
+        function closeNav1() {
+    document.getElementById("mySidenav1").style.width = "0";
+    document.getElementById("main").style.marginRight= "0";
+    document.body.style.backgroundColor = "white";
+                        }
+        function openNav2() {
+    document.getElementById("mySidenav2").style.width = "250px";
+    document.getElementById("main").style.marginRight = "250px";
+    document.body.style.backgroundColor = "white";
+                        }
+        function openNav3() {
+    document.getElementById("mySidenav3").style.width = "250px";
+    document.getElementById("main").style.marginRight = "250px";
+    document.body.style.backgroundColor = "white";
+                        }
+        function closeNav2() {
+    document.getElementById("mySidenav2").style.width = "0";
+    document.getElementById("main").style.marginRight= "0";
+    document.body.style.backgroundColor = "white";
+                        }
+        function closeNav3() {
+    document.getElementById("mySidenav3").style.width = "0";
+    document.getElementById("main").style.marginRight= "0";
+    document.body.style.backgroundColor = "white";
+                        }
+        function openNav4() {
+    document.getElementById("mySidenav4").style.width = "250px";
+    document.getElementById("main").style.marginRight = "250px";
+    document.body.style.backgroundColor = "white";
+                        }
+        function closeNav4() {
+    document.getElementById("mySidenav4").style.width = "0";
+    document.getElementById("main").style.marginRight= "0";
+    document.body.style.backgroundColor = "white";
+                        }
+       
+      var dragMe = document.getElementById('dragMe');
+      var withMe = document.getElementById('withMe');
+      var selected="";
+      var shouldntHappen = function() {
+      console.log('THIS SHOULDN HAPPEN');
+      };
+      function allowDrop(ev)
+      {
+      ev.preventDefault();
+      }
+      function drag(ev)
+      {
+      ev.dataTransfer.setData("Text",ev.target.id);
+      }
+      function drop(ev)
+      {
+      //ev.preventDefault();
+      //var data=ev.dataTransfer.getData("Text");
+      //ev.target.appendChild(document.getElementById(data));
+      console.log();
+      var newbox = dragMe.cloneNode(true);
+      newbox.id="newone";
+      newbox.style=document.getElementById("ccdragMeCss").style;
+          //alert(selected);
+      newbox.firstChild.innerHTML=selected;
+      selected="";
+      console.log(newbox);
+      console.log(dragMe);
+      var dragRef1 = DragDrop.bind(newbox, {
+      anchor: newbox,
+      boundingBox: 'offsetParent',
+      dragstart: function(evt) {
+        console.log('DragDrop.bind dragstart', evt);
+      },
+      drag: function(evt) {
+        console.log(evt.target.id);
+        console.log('DragDrop.bind drag', evt);
+      },
+      dragend: function(evt) {
+        console.log('DragDrop.bind dragend', evt);
+      }
+      });
+      dragRef1.bindEvent('dragstart', function(evt) {
+        console.log('DragDrop.bindEvent dragstart', evt);
+      });
+      dragRef1.bindEvent('drag', function(evt) {
+        console.log('DragDrop.bindEvent drag', evt);
+      });
+      dragRef1.bindEvent('dragend', function(evt) {
+        console.log('DragDrop.bindEvent dragend', evt);
+      });
+      dragRef1.bindEvent('dragstart', shouldntHappen);
+      dragRef1.unbindEvent('dragstart', shouldntHappen);
+      dragRef1.bindEvent('drag', shouldntHappen);
+      dragRef1.unbindEvent('drag', shouldntHappen);
+      dragRef1.bindEvent('dragend', shouldntHappen);
+      dragRef1.unbindEvent('dragend', shouldntHappen);
+      document.getElementById('wrapper').appendChild(newbox);
+      //btn.style=dragMe.style;
+      }
+      var clicked=function(img){
+          //alert(img.id);
+        switch(img.id)
+        {case 'drag1': selected = 'Angular JS';break;
+         case 'drag2': selected = 'Facebook';break;
+         case 'drag3': selected = 'Mongo';break;
+         case 'drag4': selected = 'NodeJS';break;
+         case 'drag5': selected = 'SQL';break;
+        }
+      }
+      var dragRef = DragDrop.bind(dragMe, {
+      anchor: dragMe,
+      boundingBox: 'offsetParent',
+      dragstart: function(evt) {
+      console.log('DragDrop.bind dragstart', evt);
+      },
+      drag: function(evt) {
+      console.log(evt.target.id);
+      console.log('DragDrop.bind drag', evt);
+      },
+      dragend: function(evt) {
+      console.log('DragDrop.bind dragend', evt);
+      }
+      });
+      dragRef.bindEvent('dragstart', function(evt) {
+      console.log('DragDrop.bindEvent dragstart', evt);
+      });
+      dragRef.bindEvent('drag', function(evt) {
+      console.log('DragDrop.bindEvent drag', evt);
+      });
+      dragRef.bindEvent('dragend', function(evt) {
+      console.log('DragDrop.bindEvent dragend', evt);
+      });
+      dragRef.bindEvent('dragstart', shouldntHappen);
+      dragRef.unbindEvent('dragstart', shouldntHappen);
+      dragRef.bindEvent('drag', shouldntHappen);
+      dragRef.unbindEvent('drag', shouldntHappen);
+      dragRef.bindEvent('dragend', shouldntHappen);
+      dragRef.unbindEvent('dragend', shouldntHappen);
+    </script>
+  </body>
+</html>
