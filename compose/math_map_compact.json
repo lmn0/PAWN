@@ -1,0 +1,61 @@
+{
+    "name": "Admin",
+    "children": [
+        {
+            "name": "Project 1",
+            "children": [
+                {
+                    "name": "Users",
+                    "children": [
+                        {
+                            "name": "User 1"
+                        },
+                        {
+                            "name": "User 2"
+                        },
+                        {
+                            "name": "User 3"
+                        },
+                        {
+                            "name": "User 4"
+                        },
+                        {
+                            "name": "User 5"
+                        },
+                        {
+                            "name": "User 6"
+                        },
+                        {
+                            "name": "User 7"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Project 2",
+            "children": [
+                {
+                    "name": "Users",
+                    "children": [
+                        {
+                            "name": "User 1"
+                        },
+                        {
+                            "name": "User 2"
+                        },
+                        {
+                            "name": "User 3"
+                        },
+                        {
+                            "name": "User 4"
+                        },
+                        {
+                            "name": "User 5"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

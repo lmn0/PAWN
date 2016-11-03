@@ -4,6 +4,25 @@ html(lang='en')
     // Data Tags
     title DragDrop Test
     meta(charset='utf-8')
+    meta(content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0', name='viewport')
+    meta(name='viewport', content='width=device-width')
+    script(src='http://s.codepen.io/assets/libs/modernizr.js', type='text/javascript')
+    link(rel='stylesheet', href='css/reset.css')
+    link(rel='stylesheet prefetch', href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css')
+    link(rel='stylesheet', href='css/style.css')
+    link(href='http://fonts.googleapis.com/css?family=Gloria+Hallelujah', rel='stylesheet', type='text/css')
+    // Bootstrap core CSS
+    link(href='assets/css/bootstrap.min.css', rel='stylesheet')
+    // Animation library for notifications
+    link(href='assets/css/animate.min.css', rel='stylesheet')
+    // Light Bootstrap Table core CSS
+    link(href='assets/css/light-bootstrap-dashboard.css', rel='stylesheet')
+    // CSS for Demo Purpose, don't include it in your project
+    link(href='assets/css/demo.css', rel='stylesheet')
+    // Fonts and icons
+    link(href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css', rel='stylesheet')
+    link(href='http://fonts.googleapis.com/css?family=Roboto:400,700,300', rel='stylesheet', type='text/css')
+    link(href='assets/css/pe-icon-7-stroke.css', rel='stylesheet')
     style(type='text/css').
       * {
       margin: 0;
@@ -14,7 +33,9 @@ html(lang='en')
       }
       #wrapper {
       position: relative;
-      width: 80%;
+      padding-left: 50px;
+      width: 75%;
+      height: 80%;
       margin: 20px auto;
       border: 2px #000 solid;
       background: #fff;
@@ -45,7 +66,7 @@ html(lang='en')
       position: absolute;
       top: 15px;
       left: 15px;
-      width: 250px;
+      width: 244px;
       height: 250px;
       border: 1px #333 solid;
       background: #06a;
@@ -133,7 +154,7 @@ html(lang='en')
       z-index: 1;
       top: 72px;
       right: 0px;
-      background-color: lightskyblue;
+      background-color: azure;
       overflow-x: hidden;
       transition: 0.5s;
       padding-top: 60px;
@@ -161,33 +182,113 @@ html(lang='en')
       border-left: thick solid black;
       height: 700px;
       }
+      @-webkit-keyframes spinner {
+      from { -webkit-transform: rotateY(0deg);    }
+      to   { -webkit-transform: rotateY(-360deg); }
+      }
+      /* all other browsers */
+      @keyframes spinner {
+      from {
+      -moz-transform: rotateY(0deg);
+      -ms-transform: rotateY(0deg);
+      transform: rotateY(0deg);
+      }
+      to {
+      -moz-transform: rotateY(-360deg);
+      -ms-transform: rotateY(-360deg);
+      transform: rotateY(-360deg);
+      }
+      }
+      #stage {
+      margin-left:2%;
+      -webkit-perspective: 1200px;
+      -moz-perspective: 1200px;
+      -ms-perspective: 1200px;
+      perspective: 1200px;
+      width:7%;
+      }
+      #spinner {
+      -webkit-animation-name: spinner;
+      -webkit-animation-timing-function: linear;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-duration: 5s;
+      animation-name: spinner;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-duration: 5s;
+      -webkit-transform-style: preserve-3d;
+      -moz-transform-style: preserve-3d;
+      -ms-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      }
+      #spinner:hover {
+      -webkit-animation-play-state: paused;
+      animation-play-state: paused;
+      }
   body(style='background-color:#778899')
-    ul.bar(style='position:absolute;right:30px;top:10px;')
-      li
-        a.active(href='#home') Home
-      li
-        a(href='#news') Dashboard
-      li
-        a(href='#contact') Account Settings
-    div(style='position:absolute;top:58px;left:20px;')
+    //
+      <ul class="bar" style="position:absolute;right:30px;top:10px;" >
+      <li><a class="active" href="#home">Home</a></li>
+      <li><a href="#news">Dashboard</a></li>
+      <li><a href="#contact">Account Settings</a></li>
+      </ul>
+    nav.navbar.navbar-default.navbar-fixed
+      .container-fluid
+        #stage(style='background:#00008B')
+          h3#spinner(style='background: #4d4dff; text-align: center; color: #fff;') PAWN
+        .collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-left(style='position:absolute;right:20px;top:5px;')
+            li
+              a(href='views/home.html')
+                | Home
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown')
+                i.fa.fa-globe
+                b.caret
+                span.notification 5
+              ul.dropdown-menu
+                li
+                  a(href='#') Notification 1
+                li
+                  a(href='#') Notification 2
+                li
+                  a(href='#') Notification 3
+                li
+                  a(href='#') Notification 4
+                li
+                  a(href='#') Another notification
+            li
+              a(href='')
+                i.fa.fa-search
+    div(style='position:absolute;top:68px;left:60px;')
       #nav-toggle
         .row
-          p(onclick='openNav()') Angular js 
-          img#drag1(style='background:#222;', src='img/a.jpg', draggable='true', ondragstart='drag(event)', onclick='clicked(this)', width='90', height='75')
+          p(onclick='openNav()')
+            | Angular js 
+            br
+            img#drag1(style='background:#222;', src='img/a.jpg', draggable='true', ondragstart='drag(event)', onclick='clicked(this)', width='90', height='75')
         .row
-          p(onclick='openNav1()') Facebook
-          img#drag2(style='background:#339;', src='img/f.png', draggable='true', ondragstart='drag(event)', onclick='clicked(this)', width='90', height='75')
+          p(onclick='openNav1()')
+            | Facebook
+            br
+            img#drag2(style='background:#339;', src='img/f.png', draggable='true', ondragstart='drag(event)', onclick='clicked(this)', width='90', height='75')
         .row
-          p(onclick='openNav2()') Mongo db
-          img#drag3(style='background:#090;', src='img/m.png', draggable='true', ondragstart='drag(event)', onclick='clicked(this)', width='90', height='75')
+          p(onclick='openNav2()')
+            | Mongo db
+            br
+            img#drag3(style='background:#090;', src='img/m.png', draggable='true', ondragstart='drag(event)', onclick='clicked(this)', width='90', height='75')
         .row
-          p(onclick='openNav3()') Node js
-          img#drag4(style='background:#500;', src='img/n.png', draggable='true', ondragstart='drag(event)', onclick='clicked(this)', width='90', height='75')
+          p(onclick='openNav3()')
+            | Node js
+            br
+            img#drag4(style='background:#500;', src='img/n.png', draggable='true', ondragstart='drag(event)', onclick='clicked(this)', width='90', height='75')
         .row
-          p(onclick='openNav4()') Sql
-          img#drag5(style='background:#888;', src='img/s.png', draggable='true', ondragstart='drag(event)', onclick='clicked(this)', width='90', height='75')
+          p(onclick='openNav4()')
+            | Sql
+            br
+            img#drag5(style='background:#888;', src='img/s.png', draggable='true', ondragstart='drag(event)', onclick='clicked(this)', width='90', height='75')
     #ccdragMeCss(hidden='true')
-    #wrapper(ondrop="if(selected!='')drop(event)", ondragover='allowDrop(event)', ;='', style='position:absolute;top:50px;left:140px;')
+    #wrapper(ondrop="if(selected!='')drop(event)", ondragover='allowDrop(event)', ;='', style='position:absolute;top:68px;left:180px;')
       #dragMe.dragMeCss(style='position:absolute;top:50px;')
         #withMe.withMeCss NodeJS
         p
@@ -195,19 +296,19 @@ html(lang='en')
       ul(style='position:absolute;top:10px;right:10px;')
         li
           button(type='submit', style='height:40px;width:60px;')
-            a(href='#home')
+            a(href='#save')
               strong Save   
         li
           button(type='submit', style='height:40px;width:60px;')
-            a(href='#home')
+            a(href='#create')
               strong Create 
         li
           button(type='submit', style='height:40px;width:60px;')
-            a(href='#news')
+            a(href='#delete')
               strong Delete 
         li
           button(type='submit', style='height:40px;width:60px;')
-            a(href='#contact')
+            a(href='dashboard.html')
               strong Exit
     #mySidenav.sidenav
       a.closebtn(href='javascript:void(0)', onclick='closeNav()') ×
@@ -224,7 +325,7 @@ html(lang='en')
         input(type='checkbox', name='Angular', value='Speed')
         |  Speed  
         br
-        button(type='submit', style='font-size:10px;position:absolute;top:100px;left:56px;')  Submit 
+        button(type='submit', style='font-size:10px;position:absolute;top:125px;left:60px;')  Submit 
     #mySidenav1.sidenav
       a.closebtn(href='javascript:void(0)', onclick='closeNav1()') ×
       div(style='position:absolute;left:45px;')
@@ -240,7 +341,7 @@ html(lang='en')
         input(type='checkbox', name='Facebook', value='About')
         |  Speed  
         br
-        button(type='submit', style='font-size:10px;position:absolute;top:100px;left:56px;')  Submit 
+        button(type='submit', style='font-size:10px;position:absolute;top:125px;left:60px;')  Submit 
     #mySidenav2.sidenav
       a.closebtn(href='javascript:void(0)', onclick='closeNav2()') ×
       div(style='position:absolute;left:45px;')
@@ -256,7 +357,7 @@ html(lang='en')
         input(type='checkbox', name='Mongodb', value='About')
         |  Speed  
         br
-        button(type='submit', style='font-size:10px;position:absolute;top:100px;left:56px;')  Submit 
+        button(type='submit', style='font-size:10px;position:absolute;top:125px;left:60px;')  Submit 
     #mySidenav3.sidenav
       a.closebtn(href='javascript:void(0)', onclick='closeNav3()') ×
       div(style='position:absolute;left:45px;')
@@ -272,7 +373,7 @@ html(lang='en')
         input(type='checkbox', name='Node js', value='Speed')
         |  Speed  
         br
-        button(type='submit', style='font-size:10px;position:absolute;top:100px;left:56px;')  Submit 
+        button(type='submit', style='font-size:10px;position:absolute;top:125px;left:60px;')  Submit 
     #mySidenav4.sidenav
       a.closebtn(href='javascript:void(0)', onclick='closeNav4()') ×
       div(style='position:absolute;left:45px;')
@@ -288,7 +389,7 @@ html(lang='en')
         input(type='checkbox', name='SQL', value='About')
         |  Speed  
         br
-        button(type='submit', style='font-size:10px;position:absolute;top:100px;left:56px;')  Submit 
+        button(type='submit', style='font-size:10px;position:absolute;top:125px;left:60px;')  Submit 
     // JavaScript Includes
     script(type='text/javascript', charset='utf-8', src='js/drag-drop.js')
     script(type='text/javascript').

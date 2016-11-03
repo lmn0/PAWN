@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Dashboard</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <script src="http://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>    
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel='stylesheet prefetch' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
+        <link rel="stylesheet" href="css/style.css">
+    <link href='http://fonts.googleapis.com/css?family=Gloria+Hallelujah' rel='stylesheet' type='text/css'>
+
+    <!-- Bootstrap core CSS     -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="assets/css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="assets/css/demo.css" rel="stylesheet" />
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    
+	<link href="interactive_tree.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.27.2"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.layout.js?1.27.2"></script>
+    <script type="text/javascript" src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+		<script type="text/javascript" src="https://www.amcharts.com/lib/3/serial.js"></script>
+		
+
+		<!-- amCharts javascript code -->
+		<script type="text/javascript">
+			AmCharts.makeChart("chartdiv",
+				{
+					"type": "serial",
+					"categoryField": "category",
+					"angle": 30,
+					"depth3D": 30,
+					"startDuration": 1,
+					"categoryAxis": {
+						"gridPosition": "start"
+					},
+					"trendLines": [],
+					"graphs": [
+						{
+							"balloonText": "[[title]] of [[category]]:[[value]]",
+							"fillAlphas": 1,
+							"id": "AmGraph-1",
+							"title": "Network",
+							"type": "column",
+							"valueField": "Network"
+						},
+						{
+							"balloonText": "[[title]] of [[category]]:[[value]]",
+							"fillAlphas": 1,
+							"id": "AmGraph-2",
+							"title": "Memory",
+							"type": "column",
+							"valueField": "Memory"
+						},
+						{
+							"balloonText": "[[title]] of [[category]]:[[value]]",
+							"fillAlphas": 1,
+							"id": "AmGraph-3",
+							"title": "CPU",
+							"type": "column",
+							"valueField": "CPU"
+						}
+					],
+					"guides": [],
+					"valueAxes": [
+						{
+							"id": "ValueAxis-1",
+							"stackType": "3d",
+							"title": ""
+						}
+					],
+					"allLabels": [],
+					"balloon": {},
+					"legend": {
+						"enabled": true,
+						"useGraphSettings": true
+					},
+					"titles": [
+						{
+							"id": "Title-1",
+							"size": 15,
+							"text": ""
+						}
+					],
+					"dataProvider": [
+						{
+							"category": "Project 1",
+							"Network": "1",
+							"Memory": 3,
+							"CPU": 7
+						},
+						{
+							"category": "Project 2",
+							"Network": 6,
+							"Memory": 7,
+							"CPU": 3
+						},
+						{
+							"category": "Project 3",
+							"Network": 2,
+							"Memory": 3,
+							"CPU": 6
+						}
+					]
+				}
+			);
+		</script>
+    <style type="text/css">
+    
+    @-webkit-keyframes spinner {
+    from { -webkit-transform: rotateY(0deg);    }
+    to   { -webkit-transform: rotateY(-360deg); }
+  }
+
+  /* all other browsers */
+  @keyframes spinner {
+    from {
+      -moz-transform: rotateY(0deg);
+      -ms-transform: rotateY(0deg);
+      transform: rotateY(0deg);
+    }
+    to {
+      -moz-transform: rotateY(-360deg);
+      -ms-transform: rotateY(-360deg);
+      transform: rotateY(-360deg);
+    }
+  } 
+   #stage {
+    margin-left:2%;
+    -webkit-perspective: 1200px;
+    -moz-perspective: 1200px;
+    -ms-perspective: 1200px;
+    perspective: 1200px;
+	width:9%;
+  }
+   #spinner {
+    -webkit-animation-name: spinner;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-duration: 5s;
+
+    animation-name: spinner;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+  }
+
+  #spinner:hover {
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+  }
+    
+    
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar" data-color="azure" data-image="assets/img/sidebar-5.jpg">
+
+    <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+    -->
+
+    	<div class="sidebar-wrapper">
+    
+            <ul class="nav">
+                <li class="active">
+                    <a href="dashboard.html">
+                        <i class="pe-7s-graph"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="user.html">
+                        <i class="pe-7s-user"></i>
+                        <p>User Settings</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="drag1.html">
+                        <i class="pe-7s-news-paper"></i>
+                        <p>Create Project</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="views/home.html">
+                        <i class="pe-7s-bell"></i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+    </div>
+    
+
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            
+            <div class="container-fluid">
+                <div id="stage" style="background:#00008B">
+                        <h3 id="spinner" style="background: #4d4dff; text-align: center; color: #fff;">PAWN</h3>
+                    </div>
+                
+                <div class="collapse navbar-collapse">
+                    
+                    <ul class="nav navbar-nav navbar-left" style="position:absolute;right:20px;top:10px;">
+                        <li>
+                           <a href="views/home.html">
+                               Home
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret"></b>
+                                    <span class="notification">5</span>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Notification 1</a></li>
+                                <li><a href="#">Notification 2</a></li>
+                                <li><a href="#">Notification 3</a></li>
+                                <li><a href="#">Notification 4</a></li>
+                                <li><a href="#">Another notification</a></li>
+                              </ul>
+                        </li>
+                        <li>
+                           <a href="">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"> <a href="charts.html">Docker Statistics</a></h4>
+                                <p class="category">Stats</p>
+                            </div>
+                            <div id="chartdiv" style="width: 100%; height: 400px; background-color: #FFFFFF;" ></div>
+                        </div>
+                    </div>
+                    <!---<div class="row">
+                    <body><strong>Project & User Details</strong>
+    <div id="chart"> </div>
+    <script type="text/javascript">
+
+var w = 500,
+    h = 500,
+    i = 0,
+    duration = 500,
+    root;
+
+var tree = d3.layout.tree()
+    .size([h, w - 160]);
+
+var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.y, d.x]; });
+
+var vis = d3.select("#chart").append("svg:svg")
+    .attr("width", w)
+    .attr("height", h)
+  .append("svg:g")
+    .attr("transform", "translate(40,0)");
+
+d3.json("math_map_compact.json", function(json) {
+  json.x0 = 800;
+  json.y0 = 0;
+  update(root = json);
+});
+
+function update(source) {
+
+  // Compute the new tree layout.
+  var nodes = tree.nodes(root).reverse();
+ console.log(nodes)
+  // Update the nodes…
+  	var node = vis.selectAll("g.node")
+      .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+	var nodeEnter = node.enter().append("svg:g")
+    	.attr("class", "node")
+    	.attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; });
+    	//.style("opacity", 1e-6);
+ 
+  // Enter any new nodes at the parent's previous position.
+ 
+  	nodeEnter.append("svg:circle")
+      //.attr("class", "node")
+      //.attr("cx", function(d) { return source.x0; })
+      //.attr("cy", function(d) { return source.y0; })
+      .attr("r", 4.5)
+      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; })
+      .on("click", click);
+	
+	nodeEnter.append("svg:text")
+      	.attr("x", function(d) { return d._children ? -8 : 8; })
+		.attr("y", 3)
+      	//.attr("fill","#ccc")
+      	//.attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+      	.text(function(d) { return d.name; });
+
+  // Transition nodes to their new position.
+	nodeEnter.transition()
+		.duration(duration)
+		.attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+      	.style("opacity", 1)
+      .select("circle")
+    	//.attr("cx", function(d) { return d.x; })
+		//.attr("cy", function(d) { return d.y; })
+        .style("fill", "lightsteelblue");
+      
+    node.transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+      .style("opacity", 1);
+    
+
+	node.exit().transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+      .style("opacity", 1e-6)
+      .remove();
+  // Update the links…
+  var link = vis.selectAll("path.link")
+      .data(tree.links(nodes), function(d) { return d.target.id; });
+
+  // Enter any new links at the parent's previous position.
+  link.enter().insert("svg:path", "g")
+      .attr("class", "link")
+      .attr("d", function(d) {
+        var o = {x: source.x0, y: source.y0};
+        return diagonal({source: o, target: o});
+      })
+    .transition()
+      .duration(duration)
+      .attr("d", diagonal);
+
+  // Transition links to their new position.
+  link.transition()
+      .duration(duration)
+      .attr("d", diagonal);
+
+  // Transition exiting nodes to the parent's new position.
+  link.exit().transition()
+      .duration(duration)
+      .attr("d", function(d) {
+        var o = {x: source.x, y: source.y};
+        return diagonal({source: o, target: o});
+      })
+      .remove();
+
+  // Stash the old positions for transition.
+  nodes.forEach(function(d) {
+    d.x0 = d.x;
+    d.y0 = d.y;
+  });
+}
+
+// Toggle children on click.
+function click(d) {
+  if (d.children) {
+    d._children = d.children;
+    d.children = null;
+  } else {
+    d.children = d._children;
+    d._children = null;
+  }
+  update(d);
+}
+
+d3.select(self.frameElement).style("height", "2000px");
+
+                        </script></body></div>
+            </div>
+        </div>
+    </div>--->
+        <a href="javascript:;" class="button" id="add_new" style="position:absolute;top:570px;">Add Notes</a>
+		<div id="board"></div>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+        <script src="js/index.js"></script> 
+</div>
+    </div>
+        </div>
+    </div></div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Checkbox, Radio & Switch Plugins -->
+	<script src="assets/js/bootstrap-checkbox-radio-switch.js"></script>
+
+	<!--  Charts Plugin -->
+	<script src="assets/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="assets/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="assets/js/light-bootstrap-dashboard.js"></script>
+
+	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+	<script src="assets/js/demo.js"></script>
+
+	<script type="text/javascript">
+    	$(document).ready(function(){
+
+        	demo.initChartist();
+
+    	});
+    </script>
+
+</html>
