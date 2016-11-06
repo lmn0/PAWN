@@ -1,7 +1,8 @@
 var amqp = require('amqplib/callback_api');
+var q;
 amqp.connect('amqp://localhost', function(err, conn) {
   conn.createChannel(function(err, ch) {
-    var q = 'hello';
+    q = 'hello';
 
     ch.assertQueue(q, {durable: false});
   });
