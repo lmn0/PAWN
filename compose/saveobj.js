@@ -23,7 +23,7 @@ var express = require('express'),
 
 router.get(['/','/:action'],function(req,res, next){
 //console.log("inside");
-res.render('dashboard.jade');
+res.render('home.jade');
 });
 
 module.exports = router;

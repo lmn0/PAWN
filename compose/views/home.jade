@@ -149,14 +149,18 @@ html.no-js
                       h1 Plans available
                       .row
                         .col-md-6(data-animate='fadeInUp')
-                          h3.heading Individual
+                          h3.heading
+                            input(type='radio', name='plan', value='Individual')
+                            |    Individual
                           p       Work on a project individually
-                          p       keep track of the project and stats
+                          p       Keep track of the progress and stats of the project
                         .col-md-6(data-animate='fadeInUp')
-                          h3.heading Organisation
-                          p            Add multiple people
-                          p            Work on multiple projects simaltaneously
-                          p            Keep track of individual work, stats, progress
+                          h3.heading
+                            input(type='radio', name='plan', value='Organisation')
+                            |    Organisation
+                          p       Add multiple people
+                          p       Work on different projects simaltaneously
+                          p       Keep track of individual work, stats, progress
                       .mb20
                         h2.title(data-animate='fadeInUp')  Login/Sign up
                         p.lead(data-animate='fadeInUp') Click on the button below to either login or sign up
