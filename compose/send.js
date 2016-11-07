@@ -1,20 +1,20 @@
 var amqp = require('amqplib/callback_api');
-amqp.connect('amqp://localhost', function(err, conn) {});
-amqp.connect('amqp://localhost', function(err, conn) {
-  conn.createChannel(function(err, ch) {});
-});
+//amqp.connect('amqp://localhost', function(err, conn) {});
+//amqp.connect('amqp://localhost', function(err, conn) {
+//  conn.createChannel(function(err, ch) {});
+//});
 
-amqp.connect('amqp://localhost', function(err, conn) {
+amqp.connect('amqp://pawn:password@35.163.10.192', function(err, conn) {
   conn.createChannel(function(err, ch) {
     var q = 'hello';
 
     ch.assertQueue(q, {durable: false});
     // Note: on Node 6 Buffer.from(msg) should be
-     used
+    // used
     ch.sendToQueue(q, new Buffer('Hello World!'));
     console.log(" [x] Sent 'Hello World!'");
   });
 });
 
-setTimeout(function() { conn.close(); process.exit(0) }, 500);
+//setTimeout(function() { conn.close(); process.exit(0) }, 500);
 
