@@ -463,11 +463,11 @@
       newbox.id="newone";
 
       newbox.style=document.getElementById("ccdragMeCss").style;
-          alert(selected);
+          //alert(selected);
           document.getElementById('wrapper').appendChild(newbox);
           document.querySelectorAll("#newone div")[0].innerHTML=selected;
       //getElementById("newone").firstChild.innerHTML=selected;
-      alert("Innu>"+document.querySelectorAll("#newone div")[0].innerHTML);
+      //alert("Innu>"+document.querySelectorAll("#newone div")[0].innerHTML);
       selected="";
       console.log(newbox);
       console.log(dragMe);
@@ -504,7 +504,7 @@
       //btn.style=dragMe.style;
       }
       var clicked=function(img){
-          alert(img.id);
+          //alert(img.id);
         switch(img.id)
         {case 'drag1': selected = 'Angular JS';break;
          case 'drag2': selected = 'Facebook';break;
@@ -512,7 +512,7 @@
          case 'drag4': selected = 'NodeJS';break;
          case 'drag5': selected = 'SQL';break;
         }
-        alert(selected);
+        //alert(selected);
       }
       var dragRef = DragDrop.bind(dragMe, {
       anchor: dragMe,
