@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html class="no-js">
+
+
+<head>
+<% include basic/head.ejs %>
+
+<title>PAWN</title>
+
+
+</head>
+
+<body data-spy="scroll" data-target="#navigation" data-offset="120">
+
+
+
+
+<div id="all">
+
+<% include basic/navigation.ejs %>
+<% include basic/image.ejs %>
+
+
+<!-- *** ABOUT ***
+_________________________________________________________ -->
+
+<div class="section" id="about">
+<div class="container">
+<div class="row">
+
+<div class="col-sm-12">
+<h2 class="title" data-animate="fadeInDown">About PAWN</h2>
+</div>
+
+<div class="col-sm-12">
+
+<div class="row">
+
+<div class="col-sm-18 text-left" data-animate="fadeInUp">
+
+<p>Applications can be easily sandboxed in minutes compared to days that VM configuration would take.
+Docker is one of the major players in this field and Kuberenetes is an orchestration tool which is used to
+distribute docker containers, manage and monitor the cluster of hosts</p>
+
+<p>Monitoring tool for docker containers is necessary for the system administrators to take actions quickly
+based on the resource usage. Actions like scaling in and scaling out needs to be taken quickly when
+there is a surge in network, memory or CPU usage. These resources needs to be monitored frequently
+in order to make such decision.</p>
+
+<p>So <strong> PAWN </strong> The tool will present a GUI for easy monitoring of the resources used by containers in a host. It would
+also be able to aggregate all the host resource utilization of each cluster. Grouping can also be done
+based on the pods in cluster.</p>
+
+</div>
+
+
+
+<!-- *** SERVICES ***
+_________________________________________________________ -->
+
+<% include basic/services.ejs %>
+
+<!-- *** SERVICES END *** -->
+
+
+<!-- *** REFERENCES IMAGE ***
+_________________________________________________________ -->
+<% include basic/reference_image.ejs %>
+
+<!-- *** REFERENCES END *** -->
+
+<!-- *** CUSTOMERS ***
+_________________________________________________________ -->
+
+<div class="section text-gray" id="customers">
+<div class="container">
+<div class="col-md-12">
+
+
+<div class="row">
+  
+<div class="col-sm-4 col-md-2  col-xs-6">
+<div class="customer">
+<img class="img-responsive" src="images/customers/a.jpg" title="angular js" data-placement="bottom" data-toggle="tooltip" alt="" width="90" height="90">
+</div>
+</div>
+
+<div class="col-sm-4 col-md-2  col-xs-6">
+<div class="customer">
+<img class="img-responsive" src="images/customers/f.png" title="facebook" data-placement="bottom" data-toggle="tooltip" alt="" width="150" height="200">
+</div>
+</div>
+
+<div class="col-sm-4 col-md-2  col-xs-6">
+<div class="customer">
+<img class="img-responsive" src="images/customers/n.jpg" title="node js" data-placement="bottom" data-toggle="tooltip" alt="" width="480" height="390">
+</div>
+</div>
+
+<div class="col-sm-4 col-md-2  col-xs-6">
+<div class="customer">
+<img class="img-responsive" src="images/customers/m.png" title="mongo db" data-placement="bottom" data-toggle="tooltip" alt="" width="800" height="800">
+</div>
+</div>
+
+<div class="col-sm-4 col-md-2  col-xs-6">
+<div class="customer">
+<img class="img-responsive" src="images/customers/s.png" title="sql" data-placement="bottom" data-toggle="tooltip" alt="" width="90" height="90">
+</div>
+</div>
+    
+<div class="col-sm-4 col-md-2  col-xs-6">
+<div class="customer">
+<img class="img-responsive" src="images/customers/e.png" title="express js" data-placement="bottom" data-toggle="tooltip" alt="" width="800" height="800">
+</div>
+</div>
+    
+
+
+
+</div>
+<!-- /.row -->
+
+
+</div>
+<!-- /.12 -->
+</div>
+<!-- /.container -->
+</div>
+
+
+<!-- *** CONTACT ***
+_________________________________________________________ -->
+
+<div class="section contact" id="contact" data-animate="bounceIn">
+<div class="container">
+<div class="col-md-12">
+
+
+<h2 class="title">Contact us</h2>
+
+<div class="row">
+
+<div class="col-md-8 col-md-offset-2">
+<form id="contact-form" method="post" action="contact.php">
+
+<div class="messages">
+
+</div>
+
+<div class="controls">
+
+<div class="row">
+<div class="col-md-6">
+<input type="text" name="name" class="form-control" placeholder="Your firstname *" required="required">
+</div>
+<div class="col-md-6">
+<input type="text" name="surname" class="form-control" placeholder="Your lastname *" required="required">
+</div>
+<div class="col-md-6">
+<input type="text" name="email" class="form-control" placeholder="Your email *" required="required">
+</div>
+<div class="col-md-6">
+<input type="text" name="phone" class="form-control" placeholder="Your phone">
+</div>
+<div class="col-md-12">
+<textarea name="message" class="form-control" placeholder="Message for me *" rows="4" required="required"></textarea>
+</div>
+<div class="col-md-12 text-center">
+<input type="submit" class="btn btn-primary btn-lg" value="Send message">
+</div>
+</div>
+</div>
+
+</form>
+</div>
+
+</div>
+
+</div>
+<!-- /.12 -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /.section -->
+
+<!-- *** CONTACT END *** -->
+
+<!-- *** MAP ***
+_________________________________________________________ -->
+
+<!--<div class="section" id="map">
+</div>--->
+<!-- /.section -->
+
+<!-- *** MAP END *** -->
+
+<!-- *** FOOTER ***
+_________________________________________________________ -->
+
+<div class="section" id="footer">
+<div class="container">
+
+<div class="row">
+
+<div class="col-sm-6">
+
+<p class="social">
+<a href="#" class="external facebook" data-animate-hover="shake" data-animate="fadeInUp"><i class="fa fa-facebook"></i></a>
+<a href="#" class="external instagram" data-animate-hover="shake" data-animate="fadeInUp"><i class="fa fa-instagram"></i></a>
+<a href="#" class="external gplus" data-animate-hover="shake" data-animate="fadeInUp"><i class="fa fa-google-plus"></i></a>
+<a href="#" class="email" data-animate-hover="shake" data-animate="fadeInUp"><i class="fa fa-envelope"></i></a>
+</p>
+</div>
+<!-- /.6 -->
+
+<div class="col-sm-6">
+<p>&copy;PAWN-All rights reserved.</p>
+</div>
+
+<!---<div class="col-sm-12">
+<p class="template-bootstrapious">Template by <a href="https://bootstrapious.com/free-templates">Bootstrapious.com</a></p>
+
+<!-- Please do not remove the backlink to us, unless you support the development at https://bootstrapious.com/donate. It is part of the license conditions. Thanks for understanding :)-->
+
+</div>
+
+</div>
+
+</div>
+<!-- /.container -->
+</div>
+<!-- /.section -->
+
+<!-- *** FOOTER END *** -->
+
+
+
+</div>
+
+<% include basic/jsdefaults.ejs %>
+
+
+
+</body>
+
+</html>
