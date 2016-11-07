@@ -460,10 +460,15 @@
       //ev.target.appendChild(document.getElementById(data));
       console.log();
       var newbox = dragMe.cloneNode(true);
+
       newbox.id="newone";
+
       newbox.style=document.getElementById("ccdragMeCss").style;
-          //alert(selected);
-      newbox.firstChild.innerHTML=selected;
+          alert(selected);
+          document.getElementById('wrapper').appendChild(newbox);
+          document.querySelectorAll("#newone div")[0].innerHTML=selected;
+      //getElementById("newone").firstChild.innerHTML=selected;
+      alert("Innu>"+document.querySelectorAll("#newone div")[0].innerHTML);
       selected="";
       console.log(newbox);
       console.log(dragMe);
@@ -496,11 +501,11 @@
       dragRef1.unbindEvent('drag', shouldntHappen);
       dragRef1.bindEvent('dragend', shouldntHappen);
       dragRef1.unbindEvent('dragend', shouldntHappen);
-      document.getElementById('wrapper').appendChild(newbox);
+      
       //btn.style=dragMe.style;
       }
       var clicked=function(img){
-          //alert(img.id);
+          alert(img.id);
         switch(img.id)
         {case 'drag1': selected = 'Angular JS';break;
          case 'drag2': selected = 'Facebook';break;
@@ -508,6 +513,7 @@
          case 'drag4': selected = 'NodeJS';break;
          case 'drag5': selected = 'SQL';break;
         }
+        alert(selected);
       }
       var dragRef = DragDrop.bind(dragMe, {
       anchor: dragMe,
