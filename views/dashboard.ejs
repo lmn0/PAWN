@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<% include dashboard_basic/head.ejs %>
+
+	<title>Dashboard</title>
+	
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div class="sidebar" data-color="azure" data-image="images/sidebar-5.jpg">
+
+    	<div class="sidebar-wrapper">
+    
+            <ul class="nav">
+                <li class="active">
+                    <a href="dashboard">
+                        <i class="pe-7s-graph"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="user">
+                        <i class="pe-7s-user"></i>
+                        <p>User Settings</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="drag1">
+                        <i class="pe-7s-news-paper"></i>
+                        <p>Create Project</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="index">
+                        <i class="pe-7s-bell"></i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+    </div>
+    
+
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            
+            <div class="container-fluid">
+                <div id="stage" style="background:#00008B">
+                        <h3 id="spinner" style="background: #4d4dff; text-align: center; color: #fff;">PAWN</h3>
+                    </div>
+                
+                <div class="collapse navbar-collapse">
+                    
+                    <ul class="nav navbar-nav navbar-left" style="position:absolute;right:20px;top:10px;">
+                        <li>
+                           <a href="index.ejs">
+                               Home
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret"></b>
+                                    <span class="notification">5</span>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Notification 1</a></li>
+                                <li><a href="#">Notification 2</a></li>
+                                <li><a href="#">Notification 3</a></li>
+                                <li><a href="#">Notification 4</a></li>
+                                <li><a href="#">Another notification</a></li>
+                              </ul>
+                        </li>
+                        <li>
+                           <a href="">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"> <a href="charts.html">Docker Statistics</a></h4>
+                                <p class="category">Stats</p>
+                            </div>
+                            <div id="chartdiv" style="width: 100%; height: 400px; background-color: #FFFFFF;" ></div>
+                        </div>
+                    </div>
+<a href="javascript:;" class="button" id="add_new" style="position:absolute;top:570px;">Add Notes</a>
+    <div id="board"></div>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+        <script src="javascripts/index_1.js"></script> 
+</div>
+    </div>
+        </div>
+    </div></div>
+    
+   <% include dashboard_basic/jsdefaults.ejs %>
+ </body>
+</html>
