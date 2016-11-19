@@ -18,8 +18,7 @@
     <!-- Bootstrap core CSS     -->
     <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" />
 
-    <!-- Animation library for notifications   -->
-    <link href="/stylesheets/animate.min.css" rel="stylesheet"/>
+
 
     <!--  Light Bootstrap Table core CSS    -->
     <link href="/stylesheets/light-bootstrap-dashboard.css" rel="stylesheet"/>
@@ -34,7 +33,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
 
-  
+<!--   
     <script src="/javascripts/jsPlumb-2.2.3.js"></script>
         <script>
             jsPlumb.ready(function() {    
@@ -77,13 +76,20 @@ function showCon(){
         jsPlumb.show(this.id, true);
     });
 }
-        </script>
+        </script> -->
             <link rel="stylesheet" href="/stylesheets/jsplumb/css/jsPlumbToolkit-defaults.css">
     <link rel="stylesheet" href="/stylesheets/jsplumb/css/main.css">
     <link rel="stylesheet" href="/stylesheets/jsplumb/css/jsPlumbToolkit-demo.css">
     <link rel="stylesheet" href="/stylesheets/workspace/workspace.css">
 </head>
 <body>
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">x</span>
+    <p>Some text in the Modal..</p>
+  </div></div>
 <div class="main-panel">
         <nav class="navbar navbar-default navbar-fixed">
             
@@ -96,27 +102,18 @@ function showCon(){
                     
                     <ul class="nav navbar-nav navbar-left" style="position:absolute;right:20px;top:10px;">
                         <li>
-                           <a href="index.ejs">
+                           <a href="/">
                                Home
                             </a>
                         </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret"></b>
-                                    <span class="notification">5</span>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
+                        <li>
+                           <a href="/dashboard">
+                               Dashboard
+                            </a>
                         </li>
                         <li>
-                           <a href="">
-                                <i class="fa fa-search"></i>
+                           <a href="/projects">
+                               Projects
                             </a>
                         </li>
                     </ul>
@@ -161,21 +158,16 @@ function showCon(){
   
  <div id="ccdragMeCss" hidden="true"></div>
     <div id="wrapper" ondrop="if(selected!='')drop(event)" ondragover="allowDrop(event)"; style="position:absolute;top:68px;left:280px;" >
-              <div class="jtk-demo-main">
+              <div class="jtk-demo-main" id="workspace-canvas">
         <!-- demo -->
         <div class="jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvas">
 
             <div class="group-container" id="container1" group="one">
-                <div class="title"></div>
-                <ul>
-                    <li>Elements constrained to group (<strong>constrain:true</strong>)</li>
-                    <li>Elements are draggable to other groups </li>
-                    <li>Deletes group and children</li>
-                    <li>Not droppable (<strong>droppable:false</strong>)</li>
-                </ul>
+                <div class="title">Node Servers</div>
+                
                 <div class="del" delete-all></div>
                 <div class="node-collapse"></div>
-                <div id="c1_1" class="w" style="left:30px;top:35px">1.1</div>
+                <div id="c1_1" class="w" style="left:30px;top:35px">Facebook</div>
                 <div id="c1_2" class="w" style="left:160px;top:140px">1.2</div>
             </div>
 
@@ -259,6 +251,8 @@ function showCon(){
 
             <div class="w" id="standalone" style="left:455px;top:280px" title="drag me into a group. if you want to.">?</div>
 
+            <!-- <div class="w" style="left:455px;top:280px">Faaaaaceeee</div> -->
+
             
         </div>
         
@@ -327,59 +321,71 @@ function showCon(){
     <script type="text/javascript" charset="utf-8" src="/javascripts/drag-drop.js"></script>
     <script type="text/javascript">
         function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginRight = "250px";
-    document.body.style.backgroundColor = "white";
+    //document.getElementById("mySidenav").style.width = "250px";
+    //document.getElementById("main").style.marginRight = "250px";
+    //document.body.style.backgroundColor = "white";
                         }
         function openNav1() {
-    document.getElementById("mySidenav1").style.width = "250px";
-    document.getElementById("main").style.marginRight = "250px";
-    document.body.style.backgroundColor = "white";
+    //document.getElementById("mySidenav1").style.width = "250px";
+    //document.getElementById("main").style.marginRight = "250px";
+    //document.body.style.backgroundColor = "white";
                         }
         function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginRight= "0";
-    document.body.style.backgroundColor = "white";
+    //document.getElementById("mySidenav").style.width = "0";
+    //document.getElementById("main").style.marginRight= "0";
+    //document.body.style.backgroundColor = "white";
                         }
         function closeNav1() {
-    document.getElementById("mySidenav1").style.width = "0";
-    document.getElementById("main").style.marginRight= "0";
-    document.body.style.backgroundColor = "white";
+    //document.getElementById("mySidenav1").style.width = "0";
+    //document.getElementById("main").style.marginRight= "0";
+    //document.body.style.backgroundColor = "white";
                         }
         function openNav2() {
-    document.getElementById("mySidenav2").style.width = "250px";
-    document.getElementById("main").style.marginRight = "250px";
-    document.body.style.backgroundColor = "white";
+    //document.getElementById("mySidenav2").style.width = "250px";
+    //document.getElementById("main").style.marginRight = "250px";
+    //document.body.style.backgroundColor = "white";
                         }
         function openNav3() {
-    document.getElementById("mySidenav3").style.width = "250px";
-    document.getElementById("main").style.marginRight = "250px";
-    document.body.style.backgroundColor = "white";
+    //document.getElementById("mySidenav3").style.width = "250px";
+    //document.getElementById("main").style.marginRight = "250px";
+    //document.body.style.backgroundColor = "white";
                         }
         function closeNav2() {
-    document.getElementById("mySidenav2").style.width = "0";
-    document.getElementById("main").style.marginRight= "0";
-    document.body.style.backgroundColor = "white";
+    //document.getElementById("mySidenav2").style.width = "0";
+    //document.getElementById("main").style.marginRight= "0";
+    //document.body.style.backgroundColor = "white";
                         }
         function closeNav3() {
-    document.getElementById("mySidenav3").style.width = "0";
-    document.getElementById("main").style.marginRight= "0";
-    document.body.style.backgroundColor = "white";
+    //document.getElementById("mySidenav3").style.width = "0";
+    //document.getElementById("main").style.marginRight= "0";
+    //document.body.style.backgroundColor = "white";
                         }
         function openNav4() {
-    document.getElementById("mySidenav4").style.width = "250px";
-    document.getElementById("main").style.marginRight = "250px";
-    document.body.style.backgroundColor = "white";
+    //document.getElementById("mySidenav4").style.width = "250px";
+    //document.getElementById("main").style.marginRight = "250px";
+    //document.body.style.backgroundColor = "white";
                         }
         function closeNav4() {
-    document.getElementById("mySidenav4").style.width = "0";
-    document.getElementById("main").style.marginRight= "0";
-    document.body.style.backgroundColor = "white";
+    //document.getElementById("mySidenav4").style.width = "0";
+    //document.getElementById("main").style.marginRight= "0";
+    //document.body.style.backgroundColor = "white";
                         }
        
-      var dragMe = document.getElementById('dragMe');
+      var dragMe = document.getElementById('standalone');
       var withMe = document.getElementById('withMe');
       var selected="";
+
+      var modal = document.getElementById('myModal');
+
+      // Get the button that opens the modal
+      var btn = document.getElementById("myBtn");
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+      span.onclick = function() {
+       modal.style.display = "none";
+      }
+
       var shouldntHappen = function() {
       console.log('THIS SHOULDN HAPPEN');
       };
@@ -396,49 +402,56 @@ function showCon(){
       //ev.preventDefault();
       //var data=ev.dataTransfer.getData("Text");
       //ev.target.appendChild(document.getElementById(data));
-      console.log();
+
+
+      modal.style.display = "block";
       var newbox = dragMe.cloneNode(true);
 
-      newbox.id="newone";
+      newbox.id="conti";
+      //newbox.name="container";
+      newbox.innerHTML="Facebook2";
+      newbox.style=document.getElementById("standalone").style;
+          alert(selected);
 
-      newbox.style=document.getElementById("ccdragMeCss").style;
-          //alert(selected);
-          document.getElementById('wrapper').appendChild(newbox);
-          document.querySelectorAll("#newone div")[0].innerHTML=selected;
+          document.getElementById('canvas').appendChild(newbox);
+          var j = window.j;
+          j.draggable("conti");
+          //document.querySelectorAll("#canvas div")[0].innerHTML=selected;
+      //alert(document.querySelectorAll("#contai div")[0].innerHTML);
       //getElementById("newone").firstChild.innerHTML=selected;
       //alert("Innu>"+document.querySelectorAll("#newone div")[0].innerHTML);
       selected="";
       console.log(newbox);
       console.log(dragMe);
-      var dragRef1 = DragDrop.bind(newbox, {
-      anchor: newbox,
-      boundingBox: 'offsetParent',
-      dragstart: function(evt) {
-        console.log('DragDrop.bind dragstart', evt);
-      },
-      drag: function(evt) {
-        console.log(evt.target.id);
-        console.log('DragDrop.bind drag', evt);
-      },
-      dragend: function(evt) {
-        console.log('DragDrop.bind dragend', evt);
-      }
-      });
-      dragRef1.bindEvent('dragstart', function(evt) {
-        console.log('DragDrop.bindEvent dragstart', evt);
-      });
-      dragRef1.bindEvent('drag', function(evt) {
-        console.log('DragDrop.bindEvent drag', evt);
-      });
-      dragRef1.bindEvent('dragend', function(evt) {
-        console.log('DragDrop.bindEvent dragend', evt);
-      });
-      dragRef1.bindEvent('dragstart', shouldntHappen);
-      dragRef1.unbindEvent('dragstart', shouldntHappen);
-      dragRef1.bindEvent('drag', shouldntHappen);
-      dragRef1.unbindEvent('drag', shouldntHappen);
-      dragRef1.bindEvent('dragend', shouldntHappen);
-      dragRef1.unbindEvent('dragend', shouldntHappen);
+      // var dragRef1 = DragDrop.bind(newbox, {
+      // anchor: newbox,
+      // boundingBox: 'offsetParent',
+      // dragstart: function(evt) {
+      //   console.log('DragDrop.bind dragstart', evt);
+      // },
+      // drag: function(evt) {
+      //   console.log(evt.target.id);
+      //   console.log('DragDrop.bind drag', evt);
+      // },
+      // dragend: function(evt) {
+      //   console.log('DragDrop.bind dragend', evt);
+      // }
+      // });
+      // dragRef1.bindEvent('dragstart', function(evt) {
+      //   console.log('DragDrop.bindEvent dragstart', evt);
+      // });
+      // dragRef1.bindEvent('drag', function(evt) {
+      //   console.log('DragDrop.bindEvent drag', evt);
+      // });
+      // dragRef1.bindEvent('dragend', function(evt) {
+      //   console.log('DragDrop.bindEvent dragend', evt);
+      // });
+      // dragRef1.bindEvent('dragstart', shouldntHappen);
+      // dragRef1.unbindEvent('dragstart', shouldntHappen);
+      // dragRef1.bindEvent('drag', shouldntHappen);
+      // dragRef1.unbindEvent('drag', shouldntHappen);
+      // dragRef1.bindEvent('dragend', shouldntHappen);
+      // dragRef1.unbindEvent('dragend', shouldntHappen);
       
       //btn.style=dragMe.style;
       }
@@ -453,35 +466,35 @@ function showCon(){
         }
         //alert(selected);
       }
-      var dragRef = DragDrop.bind(dragMe, {
-      anchor: dragMe,
-      boundingBox: 'offsetParent',
-      dragstart: function(evt) {
-      console.log('DragDrop.bind dragstart', evt);
-      },
-      drag: function(evt) {
-      console.log(evt.target.id);
-      console.log('DragDrop.bind drag', evt);
-      },
-      dragend: function(evt) {
-      console.log('DragDrop.bind dragend', evt);
-      }
-      });
-      dragRef.bindEvent('dragstart', function(evt) {
-      console.log('DragDrop.bindEvent dragstart', evt);
-      });
-      dragRef.bindEvent('drag', function(evt) {
-      console.log('DragDrop.bindEvent drag', evt);
-      });
-      dragRef.bindEvent('dragend', function(evt) {
-      console.log('DragDrop.bindEvent dragend', evt);
-      });
-      dragRef.bindEvent('dragstart', shouldntHappen);
-      dragRef.unbindEvent('dragstart', shouldntHappen);
-      dragRef.bindEvent('drag', shouldntHappen);
-      dragRef.unbindEvent('drag', shouldntHappen);
-      dragRef.bindEvent('dragend', shouldntHappen);
-      dragRef.unbindEvent('dragend', shouldntHappen);
+      // var dragRef = DragDrop.bind(dragMe, {
+      // anchor: dragMe,
+      // boundingBox: 'offsetParent',
+      // dragstart: function(evt) {
+      // console.log('DragDrop.bind dragstart', evt);
+      // },
+      // drag: function(evt) {
+      // console.log(evt.target.id);
+      // console.log('DragDrop.bind drag', evt);
+      // },
+      // dragend: function(evt) {
+      // console.log('DragDrop.bind dragend', evt);
+      // }
+      // });
+      // dragRef.bindEvent('dragstart', function(evt) {
+      // console.log('DragDrop.bindEvent dragstart', evt);
+      // });
+      // dragRef.bindEvent('drag', function(evt) {
+      // console.log('DragDrop.bindEvent drag', evt);
+      // });
+      // dragRef.bindEvent('dragend', function(evt) {
+      // console.log('DragDrop.bindEvent dragend', evt);
+      // });
+      // dragRef.bindEvent('dragstart', shouldntHappen);
+      // dragRef.unbindEvent('dragstart', shouldntHappen);
+      // dragRef.bindEvent('drag', shouldntHappen);
+      // dragRef.unbindEvent('drag', shouldntHappen);
+      // dragRef.bindEvent('dragend', shouldntHappen);
+      // dragRef.unbindEvent('dragend', shouldntHappen);
     </script>
 
     </div>
@@ -498,8 +511,7 @@ function showCon(){
   <!--  Charts Plugin -->
   <script src="/javascripts/chartist.min.js"></script>
 
-    <!--  Notifications Plugin    -->
-    <script src="/javascripts/bootstrap-notify.js"></script>
+
 
     <!--  Google Maps Plugin    -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
@@ -556,7 +568,7 @@ function showCon(){
   <script type="text/javascript">
       $(document).ready(function(){
 
-          demo.initChartist();
+          //demo.initChartist();
 
       });
     </script>
