@@ -1,0 +1,18 @@
+.row.widgets
+      .col-md-offset-4.col-md-4
+        .panel.panel-primary
+          .panel-heading.text-center
+            h3.panel-title Billing
+          .billing-content.text-center
+            span
+              h3.
+                Upgrade To Pro
+            form(action='/dashboard/charge', method='POST')
+              script.stripe-button(
+                src = 'https://checkout.stripe.com/checkout.js',
+                data-email = '#{user.email}',
+                data-key = '#{stripePublishableKey}',
+                data-name = '#{siteTitle}',
+                data-amount = '10',
+                data-allow-remember-me = 'false'
+              )
