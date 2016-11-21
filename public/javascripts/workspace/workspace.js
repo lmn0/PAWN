@@ -1,12 +1,51 @@
 jsPlumb.ready(function () {
 
-    var j = window.j = jsPlumb.getInstance({Container:canvas, Connector:"StateMachine", Endpoint:["Dot", {radius:3}], Anchor:"Center"});
+    var j = window.j = jsPlumb.getInstance({
+            DragOptions: { cursor: 'pointer', zIndex: 2000 },
+            PaintStyle: { stroke: '#666' },
+            EndpointHoverStyle: { fill: "orange" },
+            HoverPaintStyle: { stroke: "orange" },
+            EndpointStyle: { width: 20, height: 16, stroke: '#666' },
+            Endpoint: "Rectangle",
+            Anchors: ["TopCenter", "TopCenter"],
+            Container: "canvas"
+        });
 
     j.bind("connection", function(p) {
         p.connection.bind("click", function() {
             j.detach(this);
         });
     });
+    ////////////////////
+    var exampleDropOptions = {
+                tolerance: "touch",
+                hoverClass: "dropHover",
+                activeClass: "dragActive"
+            };
+    var color2 = "#316b31";
+    var exampleEndpoint2 = {
+        endpoint: ["Dot", { radius: 5 }],
+        paintStyle: { fill: color2 },
+        isSource: true,
+        scope: "green",
+        connectorStyle: { stroke: color2, strokeWidth: 6 },
+        connector: ["Bezier", { curviness: 63 } ],
+        maxConnections: 3,
+        isTarget: true,
+        dropOptions: exampleDropOptions
+    };
+      var anchors = [
+                    [1, 0.2, 1, 0],
+                    [0.8, 1, 0, 1],
+                    [0, 0.8, -1, 0],
+                    [0.2, 0, 0, -1]
+                ];
+
+     var e1 = j.addEndpoint('c3_1', { anchor: anchors}, exampleEndpoint2);
+     var e1 = j.addEndpoint('c3_2', { anchor: anchors}, exampleEndpoint2);
+
+
+    ////////////////////
 
     var evts = document.querySelector("#events");
     var _appendEvent = function(name, detail) {
@@ -31,108 +70,41 @@ jsPlumb.ready(function () {
         _appendEvent("group:remove", p.group.id);
     });
 
-    // connect some before configuring group
-    j.connect({source:c1_1, target:c2_1});
-    j.connect({source:c2_1, target:c3_1});
-    j.connect({source:c2_2, target:c6_2});
-    j.connect({source:c3_1, target:c4_1});
-    j.connect({source:c4_1, target:c5_1});
-    j.connect({source:c1_1,target:c1_2});
-    j.connect({source:c2_1,target:c2_2});
 
-    // NOTE ordering here. we make one draggable before adding it to the group, and we add the other to the group
-    //before making it draggable. they should both be constrained to the group extents.
-    j.draggable(c1_1);
-    j.addGroup({
-        el:container1,
-        id:"one",
-        constrain:true,
-        anchor:"Continuous",
-        endpoint:"Blank",
-        droppable:false
-    });
-    j.addToGroup("one", c1_1);
-    j.addToGroup("one", c1_2);
-    j.draggable(c1_2);
-
-
-    j.draggable(c2_1);
-    j.addGroup({
-        el:container2,
-        id:"two",
-        dropOverride:true,
-        endpoint:["Dot", { radius:3 }]
-    });  //(the default is to revert)
-    j.addToGroup("two", c2_1);
-    j.addToGroup("two", c2_2);
-    j.draggable(c2_2);
 
     j.draggable(c3_1);
     j.addGroup({
         el:container3,
         id:"three",
         revert:false,
+        orphan:true,
         endpoint:["Dot", { radius:3 }]
     });
     j.addToGroup("three", c3_1);
     j.addToGroup("three", c3_2);
     j.draggable(c3_2);
 
-    j.draggable(c4_1);
-    j.addGroup({
-        el:container4,
-        id:"four",
-        prune:true,
-        endpoint:["Dot", { radius:3 }]
-    });
-    j.addToGroup("four", c4_1);
-    j.addToGroup("four", c4_2);
-    j.draggable(c4_2);
 
-    j.draggable(c5_1);
-    j.addGroup({
-        el:container5,
-        id:"five",
-        orphan:true,
-        droppable:false,
-        endpoint:["Dot", { radius:3 }]
-    });
-    j.addToGroup("five", [c5_1, c5_2]);
-    j.draggable(c5_2);
+////////////// Connector!
+            var dragLinks = jsPlumb.getSelector(".drag-drop-demo .drag");
+            instance.on(dragLinks, "click", function (e) {
+                var s = instance.toggleDraggable(this.getAttribute("rel"));
+                this.innerHTML = (s ? 'disable dragging' : 'enable dragging');
+                jsPlumbUtil.consume(e);
+            });
 
-    j.draggable(c6_1);
-    j.addGroup({
-        el:container6,
-        id:"six",
-        proxied:false,
-        endpoint:["Dot", { radius:3 }]
-    });
-    j.addToGroup("six", [c6_1, c6_2]);
-    j.draggable(c6_2);
-
-    j.draggable(c7_1);
-    j.addGroup({
-        el:container7,
-        id:"seven",
-        ghost:true,
-        endpoint:["Dot", { radius:3 }]
-    });
-    j.addToGroup("seven", [c7_1, c7_2]);
-    j.draggable(c7_2);
+            var detachLinks = jsPlumb.getSelector(".drag-drop-demo .detach");
+            instance.on(detachLinks, "click", function (e) {
+                instance.detachAllConnections(this.getAttribute("rel"));
+                jsPlumbUtil.consume(e);
+            });
+//////////////
 
     // the independent element that demonstrates the fact that it can be dropped onto a group
     j.draggable("standalone");
 
-    //... and connect others afterwards.
-    j.connect({source:c3_1,target:c3_2});
-    j.connect({source:c4_1,target:c4_2});
-    j.connect({source:c5_1,target:c5_2});
-    j.connect({source:c5_1,target:c3_2});
-    j.connect({source:c5_1,target:container5, anchors:["Center", "Continuous"]});
-    j.connect({source:c5_2,target:c6_1});
-    j.connect({source:c6_2,target:c7_1});
 
-    // delete group button
+
     j.on(canvas, "click", ".del", function() {
         var g = this.parentNode.getAttribute("group");
         j.removeGroup(g, this.getAttribute("delete-all") != null);
@@ -149,3 +121,4 @@ jsPlumb.ready(function () {
     jsPlumb.fire("jsPlumbDemoLoaded", j);
 
 });
+
