@@ -222,7 +222,7 @@
 
 .w {
     position:absolute;
-    width:auto;
+    width:120px;
     height:40px;
     border:1px solid black;
     font-size:12px;
