@@ -87,14 +87,14 @@ jsPlumb.ready(function () {
 
 ////////////// Connector!
             var dragLinks = jsPlumb.getSelector(".drag-drop-demo .drag");
-            instance.on(dragLinks, "click", function (e) {
+            j.on(dragLinks, "click", function (e) {
                 var s = instance.toggleDraggable(this.getAttribute("rel"));
                 this.innerHTML = (s ? 'disable dragging' : 'enable dragging');
                 jsPlumbUtil.consume(e);
             });
 
             var detachLinks = jsPlumb.getSelector(".drag-drop-demo .detach");
-            instance.on(detachLinks, "click", function (e) {
+            j.on(detachLinks, "click", function (e) {
                 instance.detachAllConnections(this.getAttribute("rel"));
                 jsPlumbUtil.consume(e);
             });

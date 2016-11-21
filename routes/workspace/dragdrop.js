@@ -3,7 +3,7 @@ var router = express.Router();
 
 //GET Req
 router.get('/',function(req,res,next){
-	res.render('drag1.ejs')
+	res.render('workspace/newProject.ejs')
 })
 
 

@@ -119,7 +119,7 @@ function showCon(){
             &br;
             &br;
 
-            <button type="submit" onclick="conainter_options()" style="font-size:10px;position:absolute;left:60px;" > Submit </button>       
+            <button type="submit" onclick="modal_close()" style="font-size:10px;position:absolute;left:60px;" > Submit </button>       
             </div>
             
             
@@ -206,12 +206,12 @@ function showCon(){
                 </ul> -->
                 <div class="del"></div>
                 <div class="node-collapse"></div>
-                <div id="c3_1" class="w" style="left:30px;top:35px">3.1</div>
-                <div id="c3_2" class="w" style="left:80px;top:162px">3.2</div>
+                <div id="c3_1" class="w" ondblclick="openConfig(this)" style="left:30px;top:35px">3.1</div>
+                <div id="c3_2" class="w" ondblclick="openConfig(this)" style="left:80px;top:162px">3.2</div>
             </div>
 
            
-            <div class="w" id="standalone" style="left:455px;top:280px;display:none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="w" id="standalone" ondblclick="openConfig(this)" style="left:455px;top:280px;display:none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
            
             
@@ -220,78 +220,18 @@ function showCon(){
     </div>
         </p>
         <ul style="position:absolute;top:10px;right:10px;">
-             <li><button type="submit" style="height:40px;width:60px;"><a href="#save"><strong>Save   </strong></a> </button></li>
+             <li><button type="submit" onclick="save_config()" style="height:40px;width:60px;"><a href="#save"><strong>Save   </strong></a> </button></li>
              <li><button type="submit" style="height:40px;width:60px;"><a href="#create"><strong>Create </strong> </a></button></li>
              <li><button type="submit" style="height:40px;width:60px;"><a href="#delete"><strong>Delete </strong></a></button></li>
              <li><button type="submit" style="height:40px;width:60px;"><a href="dashboard.ejs"><strong>Exit</strong></a></button></li>
         </ul>
             
     </div>
-
-    <script type="text/javascript" charset="utf-8" src="/javascripts/drag-drop.js"></script>
-    <script type="text/javascript">
-    var containerID;
-      var shouldntHappen = function() {
-      console.log('THIS SHOULDN HAPPEN');
-      };
-      function allowDrop(ev)
-      {
-      ev.preventDefault();
-      }
-      function drag(ev)
-      {
-      ev.dataTransfer.setData("Text",ev.target.id);
-      }
-      function drop(ev)
-      {
-          containerID="cont_"+Math.random((Math.random() * 1000) + 1);
-          document.getElementById("container-id").value=containerID;
-          modal.style.display = "block";
-      }
-
-    //This function is called after the modal is submitted successfullly
-    var cloneStandalone = function(name){
-      var newbox = dragMe.cloneNode(true);
-
-      newbox.id=containerID
-      newbox.style.display = "block";
-      newbox.innerHTML=name+'\n'+containerID;
-      newbox.style=document.getElementById("standalone").style;
-          
-
-          document.getElementById('canvas').appendChild(newbox);
-          var j = window.j;
-          j.draggable(newbox.id);
-    }
-
-    //This function is called when a node is dropped
-    var conainter_options = function() {
-      //alert("hi");
-      var containername = document.getElementById("container-name").value;
-      cloneStandalone(containername);
-      modal.style.display = "none";
-    }
-       
-      //Element that is to be cloned!
-      var dragMe = document.getElementById('standalone');
-
-      var modal = document.getElementById('myModal');
-
-      // Get the button that opens the modal
-      var btn = document.getElementById("myBtn");
-
-      // Get the <span> element that closes the modal
-      var span = document.getElementsByClassName("close")[0];
-      span.onclick = function() {
-       modal.style.display = "none";
-      }
-
-    
-    
-     
-    </script>
+   
 
     </div>
+    
+    
 
 </body>
 
@@ -359,12 +299,107 @@ function showCon(){
 <script src="/javascripts/jsplumb/src/group.js"></script>
 <script src="/javascripts/workspace/workspace.js"></script>
 
-  <script type="text/javascript">
-      $(document).ready(function(){
+<script type="text/javascript">
+  var containerID;
+  var shouldntHappen = function() {
+    console.log('THIS SHOULDN HAPPEN');
+  };
+  function allowDrop(ev)
+  {
+    ev.preventDefault();
+  }
+  function drag(ev)
+  {
+    ev.dataTransfer.setData("Text",ev.target.id);
+  }
+  function drop(ev)
+  {
+    containerID="cont_"+ Math.floor(Math.random((Math.random() * 1000) + 1)*1000);
+    document.getElementById("container-id").value=containerID;
+    modal.style.display = "block";
+  }
 
-          //demo.initChartist();
+//This function is called after the modal is submitted successfullly
+  var cloneStandalone = function(name){
+    var newbox = dragMe.cloneNode(true);
+    newbox.id=containerID
+    newbox.style.display = "block";
+    newbox.innerHTML=name+'\n'+containerID;
+    newbox.style=document.getElementById("standalone").style;
+    document.getElementById('canvas').appendChild(newbox);
+    var j = window.j;
+    j.draggable(newbox.id);
 
-      });
-    </script>
+//Anchors for the newly dropped node
+    var exampleDropOptions = {
+      tolerance: "touch",
+      hoverClass: "dropHover",
+      activeClass: "dragActive"
+    };
+    var color2 = "#316b31";
+    var exampleEndpoint2 = {
+      endpoint: ["Dot", { radius: 5 }],
+      paintStyle: { fill: color2 },
+      isSource: true,
+      scope: "green",
+      connectorStyle: { stroke: color2, strokeWidth: 6 },
+      connector: ["Bezier", { curviness: 63 } ],
+      maxConnections: 3,
+      isTarget: true,
+      dropOptions: exampleDropOptions
+    };
+    var anchors = [
+                    [1, 0.2, 1, 0],
+                    [0.8, 1, 0, 1],
+                    [0, 0.8, -1, 0],
+                    [0.2, 0, 0, -1]
+                  ];
+
+    j.addEndpoint(newbox.id, { anchor: anchors}, exampleEndpoint2);
+  }
+
+//This function is called when a node is dropped
+  var modal_close = function() {
+//Get all the values from the modal box and save it in the sessionStorage of the browser
+    var containername = document.getElementById("container-name").value;
+
+//End - values from modal box
+    cloneStandalone(containername);
+    modal.style.display = "none";
+
+    var containerConfig = {
+                            'id':containerID,
+                            'name':containername
+                          };
+    sessionStorage.setItem(containerID, JSON.stringify(containerConfig));
+    //var obj = JSON.parse(sessionStorage.user);
+
+  }
+
+//Element that is to be cloned!
+  var dragMe = document.getElementById('standalone');
+
+  var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+    
+  var save_config=function(){
+    modal.style.display = "none";
+  }
+
+  var openConfig=function(cont){
+    
+    var obj = JSON.parse(sessionStorage.getItem(cont.id));
+     alert(sessionStorage.getItem(cont.id)); 
+  }
+</script>
 
 </html>
