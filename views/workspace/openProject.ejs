@@ -152,9 +152,9 @@
         <!-- demo -->
         <div class="jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvas">
 
-          <div class="" id="kitchensink-demo">
+          
 
-            <div class="group-container node" id="container3" data-nodetype="group" group="three">
+            <div class="group-container" id="container3" group="three">
                 <div class="title"></div>
                 <!-- <ul>
                     <li>Elements may be dragged outside bounds (<strong>revert:false</strong>)</li>
@@ -163,14 +163,14 @@
                 </ul> -->
                 <div class="del"></div>
                 <div class="node-collapse"></div>
-                <div id="c3_1" class="w node" data-nodetype="container" ondblclick="openConfig(this)" style="left:30px;top:35px">3.1</div>
-                <div id="c3_2" class="w node" data-nodetype="container" ondblclick="openConfig(this)" style="left:80px;top:162px">3.2</div>
+                <div id="c3_1" class="w node" ondblclick="openConfig(this)" style="left:30px;top:35px">3.1</div>
+                <div id="c3_2" class="w node" ondblclick="openConfig(this)" style="left:80px;top:162px">3.2</div>
             </div>
 
            
-            <div class="w node" id="standalone" data-nodetype="standalone" ondblclick="openConfig(this)" style="left:455px;top:280px;display:none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="w node" id="standalone" ondblclick="openConfig(this)" style="left:455px;top:280px;display:none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
-           </div>
+           
             
         </div>
         
@@ -178,8 +178,8 @@
         </p>
         <ul style="position:absolute;top:10px;right:10px;">
              <li><button type="submit" onclick="save_diagram()" style="height:40px;width:60px;"><a href="#save"><strong>Save   </strong></a> </button></li>
-             <li><button type="submit" onclick="clear_diagram()" style="height:40px;width:60px;"><a href="#clear"><strong>Clear </strong> </a></button></li>
-             <li><button type="submit" onclick="loadFlowchart()" style="height:40px;width:60px;"><a href="#load"><strong>Load </strong></a></button></li>
+             <li><button type="submit" style="height:40px;width:60px;"><a href="#create"><strong>Create </strong> </a></button></li>
+             <li><button type="submit" style="height:40px;width:60px;"><a href="#delete"><strong>Delete </strong></a></button></li>
              <li><button type="submit" style="height:40px;width:60px;"><a href="dashboard.ejs"><strong>Exit</strong></a></button></li>
         </ul>
             
@@ -252,7 +252,6 @@
 <script src="/javascripts/jsplumb/src/dom.jsPlumb.js"></script>
 
 <script src="/javascripts/jsplumb/src/group.js"></script>
-
 <script src="/javascripts/workspace/workspace.js"></script>
 
 <script type="text/javascript">
@@ -283,6 +282,7 @@
     var newbox = dragMe.cloneNode(true);
     newbox.id=containerID
     newbox.style.display = "block";
+//TODO: NEXT LINEEEE
     newbox.innerHTML=name+'<br/>'+containerID;
     newbox.style=document.getElementById("standalone").style;
     document.getElementById('canvas').appendChild(newbox);
@@ -378,15 +378,13 @@
                           };
     sessionStorage.setItem(id, JSON.stringify(containerConfig));
   }
-  var endpoints = [];
+
   function saveFlowchart(){
-    
     var nodes = []
     var jsPlumb = window.j;
-    $(".node:not(#standalone)").each(function (idx, elem) {
+    $(".node").each(function (idx, elem) {
     var $elem = $(elem);
-    
-    endpoints.push(jsPlumb.getEndpoints($elem.attr('id')));
+    var endpoints = jsPlumb.getEndpoints($elem.attr('id'));
     console.log('endpoints of '+$elem.attr('id'));
     console.log(endpoints);
       nodes.push({
@@ -397,8 +395,7 @@
       });
     });
     var connections = [];
-    
-    $.each(jsPlumb.getAllConnections(), function (idx, connection) {
+    $.each(jsPlumb.getConnections(), function (idx, connection) {
       connections.push({
         connectionId: connection.id,
         pageSourceId: connection.sourceId,
@@ -411,115 +408,11 @@
     flowChart.connections = connections;
     flowChart.numberOfElements = numberOfElements;
     
-    flowChartJson = JSON.stringify(flowChart);
+    var flowChartJson = JSON.stringify(flowChart);
     console.log(flowChartJson);
-
-    //savedObj = jsPlumb.save({selector : ".node:not(#standalone)" });
     
     //$('#jsonOutput').val(flowChartJson);
-
-//End of save function
   }
-  var flowChartJson;
-  var savedObj
-  //var jsPlumbInst = window.j;
-  function loadFlowchart(){
-
-    var jsPlumb = window.j;
-    //var flowChartJson = $('#jsonOutput').val();
-    var flowChart = JSON.parse(flowChartJson);
-    var nodes = flowChart.nodes;
-    function repositionElement(id, posX, posY, eindex){
-      var dragMe = document.getElementById('standalone');
-      var newbox = dragMe.cloneNode(true);
-      newbox.id=id
-      newbox.style.display = "block";
-      newbox.style=document.getElementById("standalone").style;
-    
-      newbox.innerHTML=id;
-      document.getElementById('canvas').appendChild(newbox);
-      newbox.style.left=posX;
-      newbox.style.top=posY;
-    
-      var exampleDropOptions = {
-        tolerance: "touch",
-        hoverClass: "dropHover",
-        activeClass: "dragActive"
-      };
-      var color2 = "#316b31";
-      var exampleEndpoint2 = {
-        endpoint: ["Dot", { radius: 5 }],
-        paintStyle: { fill: color2 },
-        isSource: true,
-        scope: "green",
-        connectorStyle: { stroke: color2, strokeWidth: 6 },
-        connector: ["Bezier", { curviness: 63 } ],
-        maxConnections: 3,
-        isTarget: true,
-        dropOptions: exampleDropOptions
-      };
-      var anchors = [
-                    [0.5, 0.5, 0.5, 0.5]
-                    //[0.8, 1, 0, 1],
-                    //[0, 0.8, -1, 0],
-                    //[0.2, 0, 0, -1]
-                  ];
-      var e1 = j.addEndpoint(newbox.id, { anchor: anchors}, exampleEndpoint2);
-      jsPlumb.draggable(newbox.id);
-      jsPlumb.repaint(newbox.id);
-  }
-  $.each(nodes, function( index, elem ) {
-    // if(elem.nodetype === 'startpoint'){
-      console.log(elem.blockId);
-       repositionElement(elem.blockId, elem.positionX, elem.positionY,index);
-    // }else if(elem.nodetype === 'endpoint'){
-    //   repositionElement('endpoint', elem.positionX, elem.positionY);
-    // }else if(elem.nodetype === 'task'){
-    //   var id = addTask(elem.blockId);
-    //   repositionElement(id, elem.positionX, elem.positionY);
-    // }else if(elem.nodetype === 'decision'){
-    //   var id = addDecision(elem.blockId);
-    //   repositionElement(id, elem.positionX, elem.positionY);
-    // }else{
-      
-    // }
-
-  });
-              
-  var connections = flowChart.connections;
-  $.each(connections, function( index, elem ) {
-    var anchors = [
-                    [0.5, 0.5, 0.5, 0.5]
-                    //[0.8, 1, 0, 1],
-                    //[0, 0.8, -1, 0],
-                    //[0.2, 0, 0, -1]
-                  ];
-     var connection1 = jsPlumb.connect({
-      source: elem.pageSourceId,
-      target: elem.pageTargetId,
-      anchors: anchors
-      
-    });
-  });
-  
-  numberOfElements = flowChart.numberOfElements;
-  
-//End of load function
-  }
-  var clear_diagram=function(){
-    var jsPlumb = window.j;
-
-    $(".node:not(#standalone)").each(function () {
-            jsPlumb.detachAllConnections($(this));
-            jsPlumb.unmakeTarget($(this), false);
-            jsPlumb.removeAllEndpoints($(this));
-        });
-    // var conns = jsPlumb.getAllConnections();
-    // for (var i = 0; i < conns.length; i++)
-    // jsPlumb.detach(conns[i]);
-    // jsPlumb.removeAllEndpoints(someElement or element Id);
-    $(".node:not(#standalone)").remove();
-  }
-
 </script>
+
 </html>

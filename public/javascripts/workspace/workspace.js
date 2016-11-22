@@ -35,10 +35,10 @@ jsPlumb.ready(function () {
         dropOptions: exampleDropOptions
     };
       var anchors = [
-                    [1, 0.2, 1, 0],
-                    [0.8, 1, 0, 1],
-                    [0, 0.8, -1, 0],
-                    [0.2, 0, 0, -1]
+                    [0.5, 0.5, 0.5, 0.5]
+                    //[0.8, 1, 0, 1],
+                    //[0, 0.8, -1, 0],
+                    //[0.2, 0, 0, -1]
                 ];
 
      var e1 = j.addEndpoint('c3_1', { anchor: anchors}, exampleEndpoint2);
