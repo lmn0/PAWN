@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="/stylesheets/jsplumb/css/main.css">
     <link rel="stylesheet" href="/stylesheets/jsplumb/css/jsPlumbToolkit-demo.css">
     <link rel="stylesheet" href="/stylesheets/workspace/workspace.css">
+
 </head>
 <body>
 <div id="myModal" class="modal">
@@ -48,36 +49,121 @@
     <label>Container ID:  </label><label id="container-id"></label><br/>
     Container Name*:  <input id="container-name" type="text" size=10 maxlength=10 required="required"/>
     <div style="position:absolute;left:25px;">
-           
-            <input type="checkbox" name="Angular1" value="Build"/> Build <textarea id="build" rows="1" style="width:200px;"></textarea>                       <br/>
-            <input type="checkbox" name="Angular2" value="cap_add"/> Cap_add <textarea id="cap_add" rows="1" style="width:200px;">                        </textarea> <br/>
-            <input type="checkbox" name="Angular3" value="cap_drop"/> Cap_drop <textarea id="cap_drop" rows="1" style="width:200px;">                         </textarea> <br/>
-            <input type="checkbox" name="Angular4" value="Version"/> Version <br/>
-                        <input type="radio" name="Version5" value="Version 1" style="position:absolute;left:40px;"/>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Version 1 <br/>
-                        <input type="radio" name="Version6" value="Version 2" style="position:absolute;left:40px;"/>
-                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Version 2 <br/>
-            <input type="checkbox" name="Angular7" value="Command"/> Command <textarea id="command" rows="1" style="width:200px;">                    </textarea> <br/>
-            <input type="checkbox" name="Angular8" value="dns"/> dns  <br/>
-            <input type="checkbox" name="Angular9" value="tmpfs"/> tmpfs  <br/>
-            <input type="checkbox" name="Angular0" value="Expose"/> Expose <textarea id="expose" rows="1" style="width:200px;">                         </textarea> <br/>
-            <input type="checkbox" name="Angular11" value="Env_var"/> Env_file <textarea id="env_file" rows="1" style="width:200px;">                   </textarea> <br/>
-            <input type="checkbox" name="Angular22" value="Extends"/> Extends  <br/>
-            <input type="checkbox" name="Angular33" value="net"/> net  <br/>
-            <input type="checkbox" name="Angular44" value="Labels"/> Labels <textarea id="Lables" rows="1" style="width:200px;">                          </textarea><br/>
-            <input type="checkbox" name="Angular55" value="Image"/> Image <textarea id="image" rows="1" style="width:200px;"></textarea>                   <br/>
-            <input type="checkbox" name="Angular66" value="Network_Mode"/> Network_Mode <textarea id="Network_Mode" rows="1"                           style="width:200px;"></textarea>  <br/>
-            <input type="checkbox" name="Angular77" value="ulimits"/> ulimits <textarea id="ulimits" rows="1" style="width:200px;">                    </textarea>  <br/>
-            <input type="checkbox" name="Angular88" value="networks"/> Networks  <br/>
-            <input type="checkbox" name="Angular99" value="pid"/> pid <br/>
-            <input type="checkbox" name="Angular00" value="volume"/> Volume_driver <textarea id="Volume_driver" rows="1"                                 style="width:200px;"></textarea><br/>
-            
-            <input type="checkbox" name="Angular12" value="ports"/> Ports <textarea id="ports" rows="1" style="width:200px;"></textarea>
-            <br/>
-
-            <button type="submit" id="modal-create" onclick="modal_create()" style="font-size:10px;position:absolute;left:60px;" > Create </button> 
-            <br/>
-            <button type="submit" id="modal-save" onclick="modal_save()" style="font-size:10px;position:absolute;left:60px;visibility:hidden;" > Save </button>      
+    <form enctype="application/json" action="javascript:test()">
+        <input type="hidden" name="config[apiVersion]" value="v1"/>
+        <input type="hidden" name="config[]kind" value="ReplicationController"/>
+        <div style="width:100%;display:table;">
+          <div style="display:table-row;"> 
+            <div style="display:table-cell;width:50%">Metadata:<br/>
+              <ul>
+                <li>Name     :<input type="text" name="config[metadata][name]"/><br/></li>
+                <li>Labels   :<input type="text" name="config[metadata][labels]"/><br/></li>
+                <li>Namespace:<input type="text" name="config[metadata][namespace]"/><br/></li>    
+              </ul>
             </div>
+            <div style="display:table-cell;width:50%"> Spec:<br/>
+              <ul>
+                <li>Spec: Replicas     :<input type="text" name="config[spec][replicas]"/><br/></li>
+                <li>Spec: Selector     :<input type="text" name="config[spec][selector]"/><br/></li>
+                <li>Spec: Template     :<br/>
+                  <ul>
+                    <li>Spec: Template: Metadata: Labels:<input type="text" name="config[spec][template][metadata][labels]"/></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div style="display:table-row;width:100%;text-align: center;">
+                Pod Specification:
+          </div>
+          <div style="display:table-row;">
+                <div style="display:table-cell;width:50%">
+                    <ul>
+                      <li>Name :<input type="text" name="config[spec][template][spec][containers][name]"/><br/></li>
+                      <li>Image:<input type="text" name="config[spec][template][spec][containers][image]"/><br/></li>
+                      <li>Command:<br/>
+                        <ul>
+                          <li><input type="text" name="config[spec][template][spec][containers][command][0]"/><br/></li>
+                          <li><input type="text" name="config[spec][template][spec][containers][command][1]"/><br/></li>
+                          <li><input type="text" name="config[spec][template][spec][containers][command][2]"/><br/></li>
+                          <li><input type="text" name="config[spec][template][spec][containers][command][3]"/><br/></li>
+                          <li><input type="text" name="config[spec][template][spec][containers][command][4]"/><br/></li>
+                        </ul>
+                      </li>
+                      <li>Arguments:<br/>
+                        <ul>
+                          <li><input type="text" name="config[spec][template][spec][containers][args][0]"/><br/></li>
+                          <li><input type="text" name="config[spec][template][spec][containers][args][1]"/><br/></li>
+                          <li><input type="text" name="config[spec][template][spec][containers][args][2]"/><br/></li>
+                          <li><input type="text" name="config[spec][template][spec][containers][args][3]"/><br/></li>
+                          <li><input type="text" name="config[spec][template][spec][containers][args][4]"/><br/></li>
+                        </ul>
+                      </li>
+                      <li>Environment (Name:Value):<br/>
+                        <ul>
+                          <li><input type="text" name="config[spec][template][spec][containers][env][0][name]"/>:<input type="text" name="config[spec][template][spec][containers][env][0][value]"/><br/></li>
+                          <li><input type="text" name="config[spec][template][spec][containers][env][1][name]"/>:<input type="text" name="config[spec][template][spec][containers][env][1][value]"/><br/></li>
+                          <li><input type="text" name="config[spec][template][spec][containers][env][2][name]"/>:<input type="text" name="config[spec][template][spec][containers][env][2][value]"/><br/></li>
+                          <li><input type="text" name="config[spec][template][spec][containers][env][3][name]"/>:<input type="text" name="config[spec][template][spec][containers][env][3][value]"/><br/></li>
+                          <li><input type="text" name="config[spec][template][spec][containers][env][4][name]"/>:<input type="text" name="config[spec][template][spec][containers][env][4][value]"/><br/></li>
+                        </ul>
+                      </li></ul>
+                </div>
+                <div style="display:table-cell;">
+                  <ul>
+                      <li>Ports:<br/>
+                        <ul>
+                          <li>
+                            <ul>
+                              <li>Container Port:<input type="text" name="config[spec][template][spec][containers][ports][0][containerPort]"/><br/></li>
+                              <li>Name:<input type="text" name="config[spec][template][spec][containers][ports][0][name]"/><br/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" name="config[spec][template][spec][containers][ports][0][protocol]"/><br/></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <ul>
+                              <li>Container Port:<input type="text" name="config[spec][template][spec][containers][ports][1][containerPort]"/><br/></li>
+                              <li>Name:<input type="text" name="config[spec][template][spec][containers][ports][1][name]"/><br/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" name="config[spec][template][spec][containers][ports][1][protocol]"/><br/></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <ul>
+                              <li>Container Port:<input type="text" name="config[spec][template][spec][containers][ports][2][containerPort]"/><br/></li>
+                              <li>Name:<input type="text" name="config[spec][template][spec][containers][ports][2][name]"/><br/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" name="config[spec][template][spec][containers][ports][2][protocol]"/><br/></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <ul>
+                              <li>Container Port:<input type="text" name="config[spec][template][spec][containers][ports][3][containerPort]"/></li>
+                              <li>Name:<input type="text" name="config[spec][template][spec][containers][ports][3][name]"/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" name="config[spec][template][spec][containers][ports][3][protocol]"/></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <ul>
+                              <li>Container Port:<input type="text" name="config[spec][template][spec][containers][ports][4][containerPort]"/><br/></li>
+                              <li>Name:<input type="text" name="config[spec][template][spec][containers][ports][4][name]"/><br/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" name="config[spec][template][spec][containers][ports][4][protocol]"/><br/></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <br/><br/><br/>
+                        <button type="submit" id="modal-create" onclick="modal_create()"  > Create </button>
+                        <button type="submit" id="modal-save" onclick="modal_save()" style="visibility:hidden;" > Save </button>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+          <!-- </li> -->
+        </div> <br/>  
+        
+      </form>     
+               
+    </div>
             
             
   </div></div>
@@ -154,18 +240,11 @@
 
           <div class="" id="kitchensink-demo">
 
-            <div class="group-container node" id="container3" data-nodetype="group" group="three">
-                <div class="title"></div>
-                <!-- <ul>
-                    <li>Elements may be dragged outside bounds (<strong>revert:false</strong>)</li>
-                    <li>Elements are draggable to other groups</li>
-                    <li>Deletes group only</li>
-                </ul> -->
-                <div class="del"></div>
-                <div class="node-collapse"></div>
+
+               
                 <div id="c3_1" class="w node" data-nodetype="container" ondblclick="openConfig(this)" style="left:30px;top:35px">3.1</div>
                 <div id="c3_2" class="w node" data-nodetype="container" ondblclick="openConfig(this)" style="left:80px;top:162px">3.2</div>
-            </div>
+            
 
            
             <div class="w node" id="standalone" data-nodetype="standalone" ondblclick="openConfig(this)" style="left:455px;top:280px;display:none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
@@ -256,8 +335,15 @@
 <script src="/javascripts/workspace/workspace.js"></script>
 
 <script type="text/javascript">
+
   var numberOfElements = 4;
   var containerID;
+   var anchors = [
+                    [0.5, 1, 0.5, 0.5]//,
+                    // [0.8, 1, 0, 1],
+                    // [0, 0.8, -1, 0],
+                    // [0.2, 0, 0, -1]
+                  ];
   var shouldntHappen = function() {
     console.log('THIS SHOULDN HAPPEN');
   };
@@ -271,7 +357,7 @@
   }
   function drop(ev)
   {
-    containerID="cont_"+ Math.floor(Math.random((Math.random() * 1000) + 1)*1000);
+    containerID="cont_"+ Math.floor(Math.random((Math.random() * 10000) + 1)*10000);
     document.getElementById("container-id").innerHTML=containerID;
     document.getElementById("modal-create").style.visibility='visible';
     document.getElementById("modal-save").style.visibility='hidden';
@@ -307,12 +393,6 @@
       isTarget: true,
       dropOptions: exampleDropOptions
     };
-    var anchors = [
-                    [1, 0.2, 1, 0],
-                    [0.8, 1, 0, 1],
-                    [0, 0.8, -1, 0],
-                    [0.2, 0, 0, -1]
-                  ];
 
     j.addEndpoint(newbox.id, { anchor: anchors}, exampleEndpoint2);
   }
@@ -385,7 +465,7 @@
     var jsPlumb = window.j;
     $(".node:not(#standalone)").each(function (idx, elem) {
     var $elem = $(elem);
-    
+    console.log($elem.css);
     endpoints.push(jsPlumb.getEndpoints($elem.attr('id')));
     console.log('endpoints of '+$elem.attr('id'));
     console.log(endpoints);
@@ -396,6 +476,7 @@
         positionY: parseInt($elem.css("top"), 10)
       });
     });
+    
     var connections = [];
     
     $.each(jsPlumb.getAllConnections(), function (idx, connection) {
@@ -432,15 +513,29 @@
     function repositionElement(id, posX, posY, eindex){
       var dragMe = document.getElementById('standalone');
       var newbox = dragMe.cloneNode(true);
+      console.log(newbox.style.left);
+      console.log(dragMe.style.left);
       newbox.id=id
       newbox.style.display = "block";
       newbox.style=document.getElementById("standalone").style;
     
       newbox.innerHTML=id;
-      document.getElementById('canvas').appendChild(newbox);
-      newbox.style.left=posX;
-      newbox.style.top=posY;
+
+      newbox.style.position= "absolute";
+      newbox.style.left=''+posX+'px';
+      newbox.style.top=''+posY+'px';
+
+      console.log(posX);
+      console.log(newbox.style.left);
+      document.getElementById('kitchensink-demo').appendChild(newbox);
+      console.log(newbox.style.left);
+
+      document.getElementById(id).style.position="absolute";
+      document.getElementById(id).style.left=''+posX+'px';
+      document.getElementById(id).style.top=''+posY+'px';
     
+      
+
       var exampleDropOptions = {
         tolerance: "touch",
         hoverClass: "dropHover",
@@ -458,19 +553,15 @@
         isTarget: true,
         dropOptions: exampleDropOptions
       };
-      var anchors = [
-                    [0.5, 0.5, 0.5, 0.5]
-                    //[0.8, 1, 0, 1],
-                    //[0, 0.8, -1, 0],
-                    //[0.2, 0, 0, -1]
-                  ];
-      var e1 = j.addEndpoint(newbox.id, { anchor: anchors}, exampleEndpoint2);
+
+      var e1 = j.addEndpoint(newbox.id, {anchor: anchors,uuid:id}, exampleEndpoint2);
       jsPlumb.draggable(newbox.id);
-      jsPlumb.repaint(newbox.id);
+      
   }
   $.each(nodes, function( index, elem ) {
     // if(elem.nodetype === 'startpoint'){
       console.log(elem.blockId);
+
        repositionElement(elem.blockId, elem.positionX, elem.positionY,index);
     // }else if(elem.nodetype === 'endpoint'){
     //   repositionElement('endpoint', elem.positionX, elem.positionY);
@@ -488,17 +579,12 @@
               
   var connections = flowChart.connections;
   $.each(connections, function( index, elem ) {
-    var anchors = [
-                    [0.5, 0.5, 0.5, 0.5]
-                    //[0.8, 1, 0, 1],
-                    //[0, 0.8, -1, 0],
-                    //[0.2, 0, 0, -1]
-                  ];
+   
      var connection1 = jsPlumb.connect({
-      source: elem.pageSourceId,
-      target: elem.pageTargetId,
-      anchors: anchors
-      
+      // source: elem.pageSourceId,
+      // target: elem.pageTargetId,
+      // anchors: anchors
+      uuids:[elem.pageSourceId,elem.pageTargetId]
     });
   });
   
@@ -520,6 +606,16 @@
     // jsPlumb.removeAllEndpoints(someElement or element Id);
     $(".node:not(#standalone)").remove();
   }
+
+
+//MODAL JQUERY COMMANDS!!!
+      $('#build').click(function(){
+        
+      });
+      $('#image').click(function(){
+        
+      });
+    function test(){alert($(config));}
 
 </script>
 </html>

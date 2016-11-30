@@ -35,10 +35,10 @@ jsPlumb.ready(function () {
         dropOptions: exampleDropOptions
     };
       var anchors = [
-                    [0.5, 0.5, 0.5, 0.5]
-                    //[0.8, 1, 0, 1],
-                    //[0, 0.8, -1, 0],
-                    //[0.2, 0, 0, -1]
+                    [0.5, 1, 0.5, 0.5]
+                    // [0.8, 1, 0, 1],
+                    // [0, 0.8, -1, 0],
+                    // [0.2, 0, 0, -1]
                 ];
 
      var e1 = j.addEndpoint('c3_1', { anchor: anchors}, exampleEndpoint2);
@@ -73,15 +73,15 @@ jsPlumb.ready(function () {
 
 
     j.draggable(c3_1);
-    j.addGroup({
-        el:container3,
-        id:"three",
-        revert:false,
-        orphan:true,
-        endpoint:["Dot", { radius:3 }]
-    });
-    j.addToGroup("three", c3_1);
-    j.addToGroup("three", c3_2);
+    // j.addGroup({
+    //     el:container3,
+    //     id:"three",
+    //     revert:false,
+    //     orphan:true,
+    //     endpoint:["Dot", { radius:3 }]
+    // });
+    // j.addToGroup("three", c3_1);
+    // j.addToGroup("three", c3_2);
     j.draggable(c3_2);
 
 
