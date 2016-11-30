@@ -7,3 +7,8 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
+
+
+router.get('/project',function(req,res,next){
+    res.render('project.ejs')
+})
