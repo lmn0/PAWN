@@ -49,7 +49,8 @@
     <label>Container ID:  </label><label id="container-id"></label><br/>
     Container Name*:  <input id="container-name" type="text" size=10 maxlength=10 required="required"/>
     <div style="position:absolute;left:25px;">
-    <form enctype="application/json" action="javascript:test()">
+
+    <form id="modalForm" enctype="application/json" action="javascript:test()">
         <input type="hidden" name="config[apiVersion]" value="v1"/>
         <input type="hidden" name="config[]kind" value="ReplicationController"/>
         <div style="width:100%;display:table;">
@@ -214,20 +215,20 @@
             <ul class="nav" style="position:absolute;left:80px;top:50px;">
                 
                 <li class="active">
-                    <p onclick="openNav()">Angular js <br><img id="drag1" style="background:#222;" src="/images/a.jpg" draggable="true" ondragstart="drag(event)" onclick="clicked(this)" width="90" height="75"></p>
+                    <p onclick="openNav()">Kubernetes Service<br><img id="service" style="background:#222;" src="/images/containers/s.png" draggable="true" ondragstart="drag(event)"  width="90" height="75"></p>
                 </li>
                 <li>
-                    <p onclick="openNav1()">Facebook<br><img id="drag2" style="background:#339;" src="/images/f.png" draggable="true" ondragstart="drag(event)" onclick="clicked(this)" width="90" height="75"></p>
+                    <p onclick="openNav1()">NodeJS Container<br><img id="container_nodejs" style="background:#339;" src="/images/containers/n.jpg" draggable="true" ondragstart="drag(event)"  width="90" height="75"></p>
                 </li>
                 <li>
-                    <p onclick="openNav2()">Mongo db<br><img id="drag3" style="background:#090;" src="/images/m.png" draggable="true" ondragstart="drag(event)" onclick="clicked(this)" width="90" height="75"></p>
+                    <p onclick="openNav2()">MongoDB Container<br><img id="container_mongodb" style="background:#090;" src="/images/containers/m.png" draggable="true" ondragstart="drag(event)"  width="90" height="75"></p>
                 </li>
-                <li>
+               <!--  <li>
                    <p onclick="openNav3()">Node js<br><img id="drag4" style="background:#500;" src="/images/n.jpg" draggable="true" ondragstart="drag(event)" onclick="clicked(this)" width="90" height="75"></p>
                 </li>
                 <li>
                    <p onclick="openNav4()">Sql<br><img id="drag5" style="background:#888;" src="/images/s.png" draggable="true" ondragstart="drag(event)" onclick="clicked(this)" width="90" height="75"></p>
-                </li>
+                </li> -->
                 
             </ul>
       </div>
@@ -240,10 +241,8 @@
 
           <div class="" id="kitchensink-demo">
 
-
-               
-                <div id="c3_1" class="w node" data-nodetype="container" ondblclick="openConfig(this)" style="left:30px;top:35px">3.1</div>
-                <div id="c3_2" class="w node" data-nodetype="container" ondblclick="openConfig(this)" style="left:80px;top:162px">3.2</div>
+          <!-- <div id="c3_1" class="w node" data-nodetype="container" ondblclick="openConfig(this)" style="left:30px;top:35px">3.1</div>
+                <div id="c3_2" class="w node" data-nodetype="container" ondblclick="openConfig(this)" style="left:80px;top:162px">3.2</div> -->
             
 
            
@@ -353,15 +352,23 @@
   }
   function drag(ev)
   {
-    ev.dataTransfer.setData("Text",ev.target.id);
+    ev.dataTransfer.setData("dropped_element",ev.target.id);
   }
-  function drop(ev)
+  function drop(ev,target)
   {
-    containerID="cont_"+ Math.floor(Math.random((Math.random() * 10000) + 1)*10000);
-    document.getElementById("container-id").innerHTML=containerID;
-    document.getElementById("modal-create").style.visibility='visible';
-    document.getElementById("modal-save").style.visibility='hidden';
-    modal.style.display = "block";
+    //var draggableId=ui.draggable.attr("id");
+    
+    if(ev.dataTransfer.getData("dropped_element")==="service")
+    {
+
+    }
+    else{
+      containerID="cont_"+ Math.floor(Math.random((Math.random() * 10000) + 1)*10000);
+      document.getElementById("container-id").innerHTML=containerID;
+      document.getElementById("modal-create").style.visibility='visible';
+      document.getElementById("modal-save").style.visibility='hidden';
+      modal.style.display = "block";
+    }
   }
 
 //This function is called after the modal is submitted successfullly
@@ -609,13 +616,15 @@
 
 
 //MODAL JQUERY COMMANDS!!!
-      $('#build').click(function(){
+      // $('#build').click(function(){
         
-      });
-      $('#image').click(function(){
+      // });
+      // $('#image').click(function(){
         
-      });
-    function test(){alert($(config));}
+      // });
+    function test(){alert(document.getElementById('modalForm').config);
+
+  }
 
 </script>
 </html>
