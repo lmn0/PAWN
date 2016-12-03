@@ -40,121 +40,86 @@
 
 </head>
 <body>
-<div id="myModal" class="modal">
 
-  <!-- Modal content -->
+<div id="modalService" class="modal">
+
+  <!-- Service Modal content -->
   <div class="modal-content">
-    <span class="close">x</span>
+    <span class="closeServiceModal">x</span>
     <!-- <form name="containerOptions" id="containerOptions"> -->
-    <label>Container ID:  </label><label id="container-id"></label><br/>
-    Container Name*:  <input id="container-name" type="text" size=10 maxlength=10 required="required"/>
+    <label>Service ID:  </label><label id="service-id"></label><br/>
+    Service Name*:  <input id="service-name" type="text" size=10 maxlength=10 required="required"/>
     <div style="position:absolute;left:25px;">
 
-    <form id="modalForm" enctype="application/json" action="javascript:test()">
-        <input type="hidden" name="config[apiVersion]" value="v1"/>
-        <input type="hidden" name="config[]kind" value="ReplicationController"/>
+    <form id="modalServiceForm" enctype="application/json" action="javascript:test()">
+        <input type="hidden" name="service[apiVersion]" value="v1"/>
+        <input type="hidden" name="service[kind]" value="Service"/>
         <div style="width:100%;display:table;">
           <div style="display:table-row;"> 
             <div style="display:table-cell;width:50%">Metadata:<br/>
               <ul>
-                <li>Name     :<input type="text" name="config[metadata][name]"/><br/></li>
-                <li>Labels   :<input type="text" name="config[metadata][labels]"/><br/></li>
-                <li>Namespace:<input type="text" name="config[metadata][namespace]"/><br/></li>    
+                <li>Name     :<input type="text" name="service[metadata][name]"/><br/><br/></li>   
               </ul>
+            </div></div>
+            <div style="display:table-row;text-align: center;"> 
+            Specs:
             </div>
-            <div style="display:table-cell;width:50%"> Spec:<br/>
-              <ul>
-                <li>Spec: Replicas     :<input type="text" name="config[spec][replicas]"/><br/></li>
-                <li>Spec: Selector     :<input type="text" name="config[spec][selector]"/><br/></li>
-                <li>Spec: Template     :<br/>
-                  <ul>
-                    <li>Spec: Template: Metadata: Labels:<input type="text" name="config[spec][template][metadata][labels]"/></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div style="display:table-row;width:100%;text-align: center;">
-                Pod Specification:
-          </div>
-          <div style="display:table-row;">
-                <div style="display:table-cell;width:50%">
-                    <ul>
-                      <li>Name :<input type="text" name="config[spec][template][spec][containers][name]"/><br/></li>
-                      <li>Image:<input type="text" name="config[spec][template][spec][containers][image]"/><br/></li>
-                      <li>Command:<br/>
-                        <ul>
-                          <li><input type="text" name="config[spec][template][spec][containers][command][0]"/><br/></li>
-                          <li><input type="text" name="config[spec][template][spec][containers][command][1]"/><br/></li>
-                          <li><input type="text" name="config[spec][template][spec][containers][command][2]"/><br/></li>
-                          <li><input type="text" name="config[spec][template][spec][containers][command][3]"/><br/></li>
-                          <li><input type="text" name="config[spec][template][spec][containers][command][4]"/><br/></li>
-                        </ul>
-                      </li>
-                      <li>Arguments:<br/>
-                        <ul>
-                          <li><input type="text" name="config[spec][template][spec][containers][args][0]"/><br/></li>
-                          <li><input type="text" name="config[spec][template][spec][containers][args][1]"/><br/></li>
-                          <li><input type="text" name="config[spec][template][spec][containers][args][2]"/><br/></li>
-                          <li><input type="text" name="config[spec][template][spec][containers][args][3]"/><br/></li>
-                          <li><input type="text" name="config[spec][template][spec][containers][args][4]"/><br/></li>
-                        </ul>
-                      </li>
-                      <li>Environment (Name:Value):<br/>
-                        <ul>
-                          <li><input type="text" name="config[spec][template][spec][containers][env][0][name]"/>:<input type="text" name="config[spec][template][spec][containers][env][0][value]"/><br/></li>
-                          <li><input type="text" name="config[spec][template][spec][containers][env][1][name]"/>:<input type="text" name="config[spec][template][spec][containers][env][1][value]"/><br/></li>
-                          <li><input type="text" name="config[spec][template][spec][containers][env][2][name]"/>:<input type="text" name="config[spec][template][spec][containers][env][2][value]"/><br/></li>
-                          <li><input type="text" name="config[spec][template][spec][containers][env][3][name]"/>:<input type="text" name="config[spec][template][spec][containers][env][3][value]"/><br/></li>
-                          <li><input type="text" name="config[spec][template][spec][containers][env][4][name]"/>:<input type="text" name="config[spec][template][spec][containers][env][4][value]"/><br/></li>
-                        </ul>
-                      </li></ul>
-                </div>
+            
+           <div style="display:table-row;"> 
                 <div style="display:table-cell;">
                   <ul>
                       <li>Ports:<br/>
                         <ul>
                           <li>
                             <ul>
-                              <li>Container Port:<input type="text" name="config[spec][template][spec][containers][ports][0][containerPort]"/><br/></li>
-                              <li>Name:<input type="text" name="config[spec][template][spec][containers][ports][0][name]"/><br/></li>
-                              <li>Protocol(TCP/UDP):<input type="text" name="config[spec][template][spec][containers][ports][0][protocol]"/><br/></li>
+                              <li>Port:<input type="text" name="service[spec][ports][0][port]"/><br/></li>
+                              <li>TargetPort:<input type="text" name="service[spec][ports][0][targetPort]"/><br/><br/></li>
                             </ul>
                           </li>
                           <li>
                             <ul>
-                              <li>Container Port:<input type="text" name="config[spec][template][spec][containers][ports][1][containerPort]"/><br/></li>
-                              <li>Name:<input type="text" name="config[spec][template][spec][containers][ports][1][name]"/><br/></li>
-                              <li>Protocol(TCP/UDP):<input type="text" name="config[spec][template][spec][containers][ports][1][protocol]"/><br/></li>
+                              <li>Port:<input type="text" name="service[spec][ports][1][port]"/><br/></li>
+                              <li>TargetPort:<input type="text" name="service[spec][ports][1][targetPort]"/><br/><br/></li>
                             </ul>
                           </li>
                           <li>
                             <ul>
-                              <li>Container Port:<input type="text" name="config[spec][template][spec][containers][ports][2][containerPort]"/><br/></li>
-                              <li>Name:<input type="text" name="config[spec][template][spec][containers][ports][2][name]"/><br/></li>
-                              <li>Protocol(TCP/UDP):<input type="text" name="config[spec][template][spec][containers][ports][2][protocol]"/><br/></li>
+                              <li>Port:<input type="text" name="service[spec][ports][2][port]"/><br/></li>
+                              <li>TargetPort:<input type="text" name="service[spec][ports][2][targetPort]"/><br/><br/></li>
                             </ul>
                           </li>
                           <li>
                             <ul>
-                              <li>Container Port:<input type="text" name="config[spec][template][spec][containers][ports][3][containerPort]"/></li>
-                              <li>Name:<input type="text" name="config[spec][template][spec][containers][ports][3][name]"/></li>
-                              <li>Protocol(TCP/UDP):<input type="text" name="config[spec][template][spec][containers][ports][3][protocol]"/></li>
+                              <li>Port:<input type="text" name="service[spec][ports][3][port]"/><br/></li>
+                              <li>TargetPort:<input type="text" name="service[spec][ports][3][targetPort]"/><br/><br/></li>
                             </ul>
                           </li>
                           <li>
                             <ul>
-                              <li>Container Port:<input type="text" name="config[spec][template][spec][containers][ports][4][containerPort]"/><br/></li>
-                              <li>Name:<input type="text" name="config[spec][template][spec][containers][ports][4][name]"/><br/></li>
-                              <li>Protocol(TCP/UDP):<input type="text" name="config[spec][template][spec][containers][ports][4][protocol]"/><br/></li>
+                              <li>Port:<input type="text" name="service[spec][ports][4][port]"/><br/></li>
+                              <li>TargetPort:<input type="text" name="service[spec][ports][4][targetPort]"/><br/><br/></li>
                             </ul>
                           </li>
                         </ul>
                       </li>
+                </div>
+                <divstyle="display:table-cell;>
+                        <!-- This needs to be changed!!! THINK!! -->
+                      <li>Selector:<br/><input type="text" name="service[spec][selector][key]"/>:<input type="text" name="service[spec][selector][value]"/><br/></li>
+                      <li>Type:<input type="text" name="service[spec][selector][type]"/><br/></li>
+                      <li>Load Balancer Source Ranges:<br/>
+                        <ul>
+                          <li><input type="text" name="service[spec][loadBalancerSourceRanges][0]"/><br/></li>
+                          <li><input type="text" name="service[spec][loadBalancerSourceRanges][1]"/><br/></li>
+                          <li><input type="text" name="service[spec][loadBalancerSourceRanges][2]"/><br/></li>
+                          <li><input type="text" name="service[spec][loadBalancerSourceRanges][3]"/><br/></li>
+                          <li><input type="text" name="service[spec][loadBalancerSourceRanges][4]"/><br/></li>
+                        </ul>
+                      </li>
                       <li>
                         <br/><br/><br/>
-                        <button type="submit" id="modal-create" onclick="modal_create()"  > Create </button>
-                        <button type="submit" id="modal-save" onclick="modal_save()" style="visibility:hidden;" > Save </button>
+                        <button type="submit" id="modalService-create" onclick="modalService_create()"  > Create </button>
+                        <button type="submit" id="modalService-save" onclick="modalService_save()" style="visibility:hidden;" > Save </button>
                       </li>
                     </ul>
                 </div>
@@ -167,7 +132,142 @@
     </div>
             
             
-  </div></div>
+  </div>
+  </div>
+
+<div id="modalContainer" class="modal">
+
+
+
+  <!-- Container Modal content -->
+  <div class="modal-content">
+    <span class="closeContainerModal">x</span>
+    <!-- <form name="containerOptions" id="containerOptions"> -->
+    <label>Container ID:  </label><label id="container-id"></label><br/>
+    Container Name*:  <input id="container-name" type="text" size=10 maxlength=10 required="required"/>
+    <div style="position:absolute;left:25px;">
+
+    <form id="modalContainerForm" enctype="application/json" action="javascript:modalContainer_create()">
+        <input type="hidden" id="config[apiVersion]" value="v1"/>
+        <input type="hidden" id="config[kind]" value="ReplicationController"/>
+        <div style="width:100%;display:table;">
+          <div style="display:table-row;"> 
+            <div style="display:table-cell;width:50%">Metadata:<br/>
+              <ul>
+                <li>Name*     :<input type="text" id="config[metadata][name]" value ="" required="" /><br/></li>
+                <li>Labels   :<input type="text" id="config[metadata][labels]" value ="{'':''}"/><br/></li>
+                <li>Namespace:<input type="text" id="config[metadata][namespace]" value =""/><br/></li>    
+              </ul>
+            </div>
+            <div style="display:table-cell;width:50%"> Spec:<br/>
+              <ul>
+                <li>Spec: Replicas     :<input type="text" id="config[spec][replicas]"/><br/></li>
+                <li>Spec: Selector     :<input type="text" id="config[spec][selector]"/><br/></li>
+                <li>Spec: Template     :<br/>
+                  <ul>
+                    <li>Spec: Template: Metadata: Labels:<input type="text" id="config[spec][template][metadata][labels]"/></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div style="display:table-row;width:100%;text-align: center;">
+                Pod Specification:
+          </div>
+          <div style="display:table-row;">
+                <div style="display:table-cell;width:50%">
+                    <ul>
+                      <li>Name*:<input type="text" id="config[spec][template][spec][containers][name]" required/><br/></li>
+                      <li>Image*: <input type="text" id="config[spec][template][spec][containers][image]" required/><br/></li>
+                      <li>Command:<br/>
+                        <ul>
+                          <li><input type="text" id="config[spec][template][spec][containers][command][0]"/><br/></li>
+                          <li><input type="text" id="config[spec][template][spec][containers][command][1]"/><br/></li>
+                          <li><input type="text" id="config[spec][template][spec][containers][command][2]"/><br/></li>
+                          <li><input type="text" id="config[spec][template][spec][containers][command][3]"/><br/></li>
+                          <li><input type="text" id="config[spec][template][spec][containers][command][4]"/><br/></li>
+                        </ul>
+                      </li>
+                      <li>Arguments:<br/>
+                        <ul>
+                          <li><input type="text" id="config[spec][template][spec][containers][args][0]"/><br/></li>
+                          <li><input type="text" id="config[spec][template][spec][containers][args][1]"/><br/></li>
+                          <li><input type="text" id="config[spec][template][spec][containers][args][2]"/><br/></li>
+                          <li><input type="text" id="config[spec][template][spec][containers][args][3]"/><br/></li>
+                          <li><input type="text" id="config[spec][template][spec][containers][args][4]"/><br/></li>
+                        </ul>
+                      </li>
+                      <li>Environment (Name:Value):<br/>
+                        <ul>
+                          <li><input type="text" id="config[spec][template][spec][containers][env][0][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][0][value]"/><br/></li>
+                          <li><input type="text" id="config[spec][template][spec][containers][env][1][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][1][value]"/><br/></li>
+                          <li><input type="text" id="config[spec][template][spec][containers][env][2][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][2][value]"/><br/></li>
+                          <li><input type="text" id="config[spec][template][spec][containers][env][3][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][3][value]"/><br/></li>
+                          <li><input type="text" id="config[spec][template][spec][containers][env][4][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][4][value]"/><br/></li>
+                        </ul>
+                      </li></ul>
+                </div>
+                <div style="display:table-cell;">
+                  <ul>
+                      <li>Ports:<br/>
+                        <ul>
+                          <li>
+                            <ul>
+                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][0][containerPort]"/><br/></li>
+                              <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][0][name]"/><br/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][0][protocol]"/><br/></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <ul>
+                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][1][containerPort]"/><br/></li>
+                              <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][1][name]"/><br/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][1][protocol]"/><br/></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <ul>
+                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][2][containerPort]"/><br/></li>
+                              <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][2][name]"/><br/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][2][protocol]"/><br/></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <ul>
+                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][3][containerPort]"/></li>
+                              <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][3][name]"/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][3][protocol]"/></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <ul>
+                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][4][containerPort]"/><br/></li>
+                              <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][4][name]"/><br/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][4][protocol]"/><br/></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <br/><br/><br/>
+                        <button type="submit" id="modalContainer-create"   > Create </button>
+                        <button type="submit" id="modalContainer-save" onclick="modalContainer_save()" style="visibility:hidden;" > Save </button>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+          <!-- </li> -->
+        </div> <br/>  
+        
+      </form>     
+               
+    </div>
+            
+            
+  </div>
+  </div>
+
+
 <div class="main-panel">
         <nav class="navbar navbar-default navbar-fixed">
             
@@ -254,12 +354,20 @@
         
     </div>
         </p>
-        <ul style="position:absolute;top:10px;right:10px;">
-             <li><button type="submit" onclick="save_diagram()" style="height:40px;width:60px;"><a href="#save"><strong>Save   </strong></a> </button></li>
+        <div style="position:absolute;top:10px;left:30px;">
+          <ul>
+            <li><h3><b><label id="project-name"></label></b></h1></h3>
+            <li><h7>ID:<label id="project-id"></label></h7></li>
+          </ul>
+        </div>
+        <div style="position:absolute;top:10px;right:10px;">
+          <ul>
+             <li><button type="submit" onclick="fireup()" style="height:40px;width:60px;"><a href="#save"><strong>Fire Up   </strong></a> </button></li>
              <li><button type="submit" onclick="clear_diagram()" style="height:40px;width:60px;"><a href="#clear"><strong>Clear </strong> </a></button></li>
-             <li><button type="submit" onclick="loadFlowchart()" style="height:40px;width:60px;"><a href="#load"><strong>Load </strong></a></button></li>
+             <!-- <li><button type="submit" onclick="loadFlowchart()" style="height:40px;width:60px;"><a href="#load"><strong>Load </strong></a></button></li> -->
              <li><button type="submit" style="height:40px;width:60px;"><a href="dashboard.ejs"><strong>Exit</strong></a></button></li>
-        </ul>
+          </ul>
+        </div>
             
     </div>
    
@@ -333,10 +441,13 @@
 
 <script src="/javascripts/workspace/workspace.js"></script>
 
+<script src="/javascripts/workspace/json-formdata.js"></script>
+
 <script type="text/javascript">
 
   var numberOfElements = 4;
   var containerID;
+  var configFiles={};
    var anchors = [
                     [0.5, 1, 0.5, 0.5]//,
                     // [0.8, 1, 0, 1],
@@ -356,18 +467,31 @@
   }
   function drop(ev,target)
   {
-    //var draggableId=ui.draggable.attr("id");
+    var dropped_element=ev.dataTransfer.getData("dropped_element");
     
-    if(ev.dataTransfer.getData("dropped_element")==="service")
+    if(dropped_element==="service")
     {
-
+      containerID="service_"+ Math.floor(Math.random((Math.random() * 10000) + 1)*10000);
+      
+      document.getElementById("service-id").innerHTML=containerID;
+      document.getElementById("modalService-create").style.visibility='visible';
+      document.getElementById("modalService-save").style.visibility='hidden';
+      modalService.style.display = "block";
     }
-    else{
-      containerID="cont_"+ Math.floor(Math.random((Math.random() * 10000) + 1)*10000);
+    else if(dropped_element==="container_nodejs"){
+      containerID="nodeJS_"+ Math.floor(Math.random((Math.random() * 10000) + 1)*10000);
       document.getElementById("container-id").innerHTML=containerID;
-      document.getElementById("modal-create").style.visibility='visible';
-      document.getElementById("modal-save").style.visibility='hidden';
-      modal.style.display = "block";
+      document.getElementById("modalContainer-create").style.visibility='visible';
+      document.getElementById("modalContainer-save").style.visibility='hidden';
+      modalContainer.style.display = "block";
+    }
+    else if(dropped_element==="container_mongodb")
+    {
+      containerID="mongoDB_"+ Math.floor(Math.random((Math.random() * 10000) + 1)*10000);
+      document.getElementById("container-id").innerHTML=containerID;
+      document.getElementById("modalContainer-create").style.visibility='visible';
+      document.getElementById("modalContainer-save").style.visibility='hidden';
+      modalContainer.style.display = "block";
     }
   }
 
@@ -405,51 +529,139 @@
   }
 
 //This function is called when a node is dropped
-  var modal_create = function() {
+  var modalContainer_create = function() {
 //Get all the values from the modal box and save it in the sessionStorage of the browser
 //***********
     var containername = document.getElementById("container-name").value;
+    
+///////////////Get json and store/////////////////////
+  config={
+    apiVersion:document.getElementById('config[apiVersion]').value,
+    kind:document.getElementById('config[kind]').value,
+    metadata:{
+      labels:document.getElementById('config[kind]').value,
+      name:document.getElementById('config[metadata][name]').value,
+      namespace:document.getElementById('config[metadata][namespace]').value
+    },
+    spec:{
+      replicas:document.getElementById('config[spec][replicas]').value,
+      selector:document.getElementById('config[spec][selector]').value,
+      template:{
+        metadata:{
+          labels:document.getElementById('config[spec][template][metadata][labels]').value
+        },
+        spec:{
+          containers:{
+            name:document.getElementById('config[spec][template][spec][containers][name]').value,
+            image:document.getElementById('config[spec][template][spec][containers][image]').value,
+            args:[document.getElementById('config[spec][template][spec][containers][args][0]').value,document.getElementById('config[spec][template][spec][containers][args][1]').value,document.getElementById('config[spec][template][spec][containers][args][2]').value,document.getElementById('config[spec][template][spec][containers][args][3]').value,document.getElementById('config[spec][template][spec][containers][args][4]').value],
+            command:[document.getElementById('config[spec][template][spec][containers][command][0]').value,document.getElementById('config[spec][template][spec][containers][command][1]').value,document.getElementById('config[spec][template][spec][containers][command][2]').value,document.getElementById('config[spec][template][spec][containers][command][3]').value,document.getElementById('config[spec][template][spec][containers][command][4]').value],
+            env:[{
+                name:document.getElementById('config[spec][template][spec][containers][env][0][name]').value,
+                value:document.getElementById('config[spec][template][spec][containers][env][0][value]').value
+              },{
+                name:document.getElementById('config[spec][template][spec][containers][env][1][name]').value,
+                value:document.getElementById('config[spec][template][spec][containers][env][1][value]').value
+              },{
+                name:document.getElementById('config[spec][template][spec][containers][env][2][name]').value,
+                value:document.getElementById('config[spec][template][spec][containers][env][2][value]').value
+              },{
+                name:document.getElementById('config[spec][template][spec][containers][env][3][name]').value,
+                value:document.getElementById('config[spec][template][spec][containers][env][3][value]').value
+              },{
+                name:document.getElementById('config[spec][template][spec][containers][env][4][name]').value,
+                value:document.getElementById('config[spec][template][spec][containers][env][4][value]').value
+            }],
+            ports:[{
+              containerPort:document.getElementById('config[spec][template][spec][containers][ports][0][containerPort]').value,
+              name:document.getElementById('config[spec][template][spec][containers][ports][0][name]').value,
+              protocol:document.getElementById('config[spec][template][spec][containers][ports][0][protocol]').value
+            },{
+              containerPort:document.getElementById('config[spec][template][spec][containers][ports][1][containerPort]').value,
+              name:document.getElementById('config[spec][template][spec][containers][ports][1][name]').value,
+              protocol:document.getElementById('config[spec][template][spec][containers][ports][1][protocol]').value
+            },{
+              containerPort:document.getElementById('config[spec][template][spec][containers][ports][2][containerPort]').value,
+              name:document.getElementById('config[spec][template][spec][containers][ports][2][name]').value,
+              protocol:document.getElementById('config[spec][template][spec][containers][ports][2][protocol]').value
+            },{
+              containerPort:document.getElementById('config[spec][template][spec][containers][ports][3][containerPort]').value,
+              name:document.getElementById('config[spec][template][spec][containers][ports][3][name]').value,
+              protocol:document.getElementById('config[spec][template][spec][containers][ports][3][protocol]').value
+            },{
+              containerPort:document.getElementById('config[spec][template][spec][containers][ports][4][containerPort]').value,
+              name:document.getElementById('config[spec][template][spec][containers][ports][4][name]').value,
+              protocol:document.getElementById('config[spec][template][spec][containers][ports][4][protocol]').value
+            }]
+          }
+        }
+      }
+    }
+  }
+///////////////End////////////////////
+
+//console.log(config);
 
 //End - values from modal box
     cloneStandalone(containername);
-    modal.style.display = "none";
-    updateSessionValues(containerID,containername);
+    modalContainer.style.display = "none";
+    updateSessionValues(containerID,config);
+    configFiles[containerID]=config;
 //var obj = JSON.parse(sessionStorage.user);
 
   }
-  var modal_save = function(){
+  var modalContainer_save = function(){
 //***************
     var name = document.getElementById("container-name").value;
     var id = document.getElementById("container-id").value;
     document.getElementById(id).innerHTML=name+'<br/>'+id;
     updateSessionValues(id,name);
-    modal.style.display = "none";
+    configFiles[id]=config;
+    modalContainer.style.display = "none";
   }
 
 //Element that is to be cloned!
   var dragMe = document.getElementById('standalone');
-  var modal = document.getElementById('myModal');
+  var modalContainer = document.getElementById('modalContainer');
+  var modalService = document.getElementById('modalService');
 // Get the button that opens the modal
   var btn = document.getElementById("myBtn");
 // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
+  var spanContainer = document.getElementsByClassName("closeContainerModal")[0];
+  var spanService = document.getElementsByClassName("closeServiceModal")[0];
 
-  span.onclick = function() {
-    modal.style.display = "none";
+  spanContainer.onclick = function() {
+    modalContainer.style.display = "none";
   }
-
+  spanService.onclick = function() {
+    modalService.style.display = "none";
+  }
     
-  var save_diagram=function(){
+  var fireup=function(){
     //Save the entire diagram !!!
     saveFlowchart();
+    //send flowChartJson and config to nodejs
+    
+    var data ={
+      chart:flowChartJson,
+      config:{"configFiles":configFiles}
+    }
+
+      var url = 'http://192.168.1.3:3000/workspace/fireUpContainers';
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST",url,true);
+      xhr.setRequestHeader('Content-Type' , 'application/json;charset=UTF-8');
+      xhr.send(JSON.stringify(data));
+
   }
 
   var openConfig=function(cont){
     var obj = JSON.parse(sessionStorage.getItem(cont.id));
     updateModalValues(obj.id,obj.name);
-    document.getElementById("modal-create").style.visibility='hidden';
-    document.getElementById("modal-save").style.visibility='visible';
-    modal.style.display = "block";
+    containerID=cont.id;
+    document.getElementById("modalContainer-create").style.visibility='hidden';
+    document.getElementById("modalContainer-save").style.visibility='visible';
+    modalContainer.style.display = "block";
   }
 
 //Update the values of the modal with the passed values!! This avoids a lot of repeatition!
@@ -622,7 +834,13 @@
       // $('#image').click(function(){
         
       // });
-    function test(){alert(document.getElementById('modalForm').config);
+    function test(){
+
+      //alert(document.getElementById('modalContainerForm').config);
+      // var form = $("#modalContainerForm");
+      // console.log(JSON.stringify(new JSONFormData(form).config))
+
+       
 
   }
 
