@@ -18,7 +18,7 @@ amqp.connect(amqpURL,function(err,conn){
       	console.log("<- Recieved %s ",msg.content.toString());
       	jsondata = JSON.parse(msg.content.toString());
 
-     	dir = dir + jsondata.projectID;
+     	dir = dir+"/"+"test";//jsondata.projectID;
      	if(!fs.existsSync(dir)){
       		fs.mkdirSync(dir);
      	}
