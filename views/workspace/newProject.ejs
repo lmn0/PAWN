@@ -541,14 +541,14 @@
       namespace:document.getElementById('config[metadata][namespace]').value
     },
     spec:{
-      replicas:document.getElementById('config[spec][replicas]').value,
+      replicas:parseInt(document.getElementById('config[spec][replicas]').value),
       selector:document.getElementById('config[spec][selector]').value,
       template:{
         metadata:{
           labels:document.getElementById('config[spec][template][metadata][labels]').value
         },
         spec:{
-          containers:{
+          containers:[{
             name:document.getElementById('config[spec][template][spec][containers][name]').value,
             image:document.getElementById('config[spec][template][spec][containers][image]').value,
             args:[document.getElementById('config[spec][template][spec][containers][args][0]').value,document.getElementById('config[spec][template][spec][containers][args][1]').value,document.getElementById('config[spec][template][spec][containers][args][2]').value,document.getElementById('config[spec][template][spec][containers][args][3]').value,document.getElementById('config[spec][template][spec][containers][args][4]').value],
@@ -570,27 +570,27 @@
                 value:document.getElementById('config[spec][template][spec][containers][env][4][value]').value
             }],
             ports:[{
-              containerPort:document.getElementById('config[spec][template][spec][containers][ports][0][containerPort]').value,
+              containerPort:parseInt(document.getElementById('config[spec][template][spec][containers][ports][0][containerPort]').value),
               name:document.getElementById('config[spec][template][spec][containers][ports][0][name]').value,
               protocol:document.getElementById('config[spec][template][spec][containers][ports][0][protocol]').value
             },{
-              containerPort:document.getElementById('config[spec][template][spec][containers][ports][1][containerPort]').value,
+              containerPort:parseInt(document.getElementById('config[spec][template][spec][containers][ports][1][containerPort]').value),
               name:document.getElementById('config[spec][template][spec][containers][ports][1][name]').value,
               protocol:document.getElementById('config[spec][template][spec][containers][ports][1][protocol]').value
             },{
-              containerPort:document.getElementById('config[spec][template][spec][containers][ports][2][containerPort]').value,
+              containerPort:parseInt(document.getElementById('config[spec][template][spec][containers][ports][2][containerPort]').value),
               name:document.getElementById('config[spec][template][spec][containers][ports][2][name]').value,
               protocol:document.getElementById('config[spec][template][spec][containers][ports][2][protocol]').value
             },{
-              containerPort:document.getElementById('config[spec][template][spec][containers][ports][3][containerPort]').value,
+              containerPort:parseInt(document.getElementById('config[spec][template][spec][containers][ports][3][containerPort]').value),
               name:document.getElementById('config[spec][template][spec][containers][ports][3][name]').value,
               protocol:document.getElementById('config[spec][template][spec][containers][ports][3][protocol]').value
             },{
-              containerPort:document.getElementById('config[spec][template][spec][containers][ports][4][containerPort]').value,
+              containerPort:parseInt(document.getElementById('config[spec][template][spec][containers][ports][4][containerPort]').value),
               name:document.getElementById('config[spec][template][spec][containers][ports][4][name]').value,
               protocol:document.getElementById('config[spec][template][spec][containers][ports][4][protocol]').value
             }]
-          }
+          }]
         }
       }
     }
