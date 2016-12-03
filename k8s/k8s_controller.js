@@ -9,7 +9,7 @@ var jsonfile = require('jsonfile');
 
 amqp.connect(amqpURL,function(err,conn){
   conn.createChannel(function(err,ch){
-    var q ='k8dcontroller'
+    var q ='k8scontroller'
     ch.assertQueue(q,{durable:false})
     console.log("<- wAiting for messages in %s",q)
     ch.consume(q,function(msg){
