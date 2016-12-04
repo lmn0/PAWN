@@ -5,12 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
-
+var stripe=require('stripe')("sk_test_g3WF6wdXVLB5GHA2bAgmW3RU");
+var session=require('express-session');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.locals.stripePublishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
 
-/*
 //MIDDLEWARE
 //Sessions
 app.use(session({
@@ -22,7 +23,7 @@ app.use(session({
   secure: true,
   ephemeral: true
 }));
-
+/*
 app.use(function(req, res, next) {
   if (req.session && req.session.user) {
     User.findOne({ email: req.session.user.email }, function(err, user) {
@@ -58,6 +59,102 @@ app.use(function(req, res, next) {
 			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 			return next();
 		});
+
+
+
+app.use(stormpath.init(app, {
+  debug:'info',
+    expand:{
+        apiKeys:true,
+        customData:true
+    },
+  web:{
+      register:{
+      enabled:true,
+          uri:'/signup',
+          nextUri:'/login',
+          form:{
+            fields:{
+              orgName:{
+                enabled:true,
+                label:'Organisation Name',
+                required:true,
+                type:'text'
+              }  ,
+              orgDesc:{
+                enabled:true,
+                label:'Organisation Description',
+                required:true,
+                type:'text'
+              },
+              dirName:{
+                enabled:true,
+                label:'Directory Name',
+                required:true,
+                type:'text'
+              },
+              dirDesc:{
+                enabled:true,
+                label:'Directory Description',
+                required:true,
+                type:'text'
+              }
+            }
+          }
+  },
+      login:{
+          nextUri:'/dashboard'
+      }
+  },
+  preRegistrationHandler: function (formData, req, res, next) {
+    console.log(req.query.valid)
+    console.log('Got registration request', formData)
+    var newOrganization = {
+   name: formData.orgName,
+   nameKey: formData.orgDesc
+ };
+
+
+    next()
+     },
+     postRegistrationHandler: function (account, req, res, next) {
+       var client = req.app.get('stormpathClient');
+    console.log('User:', account.email, 'just registered!');
+    async.parallel([
+        function(cb){
+            account.createApiKey(function(err,key){
+                if(err) return cb(err);
+                cb();
+            })
+        }
+    ],function(err){
+        if(err) return next(err);
+
+    })
+     account.customData.subscriber='admin'
+     account.customData.customer_id=req.query.valid
+     account.customData.save();
+    console.log(account.customData.subscriber)
+    console.log(account.customData.orgName)
+
+
+
+    //res.sendfile('views/paypal.jade')
+    next();
+  },
+    preLoginHandler: function (formData, req, res, next) {
+    if (formData.login.indexOf('something') !== -1) {
+      return next(new Error('You\'re not allowed to login with \'@\'.'));
+    }
+
+    next();
+  },
+    postLoginHandler: function (account, req, res, next) {
+    console.log('User:', account.email, 'just logged in!');
+
+    next();
+  }
+}));
 
 
 
