@@ -14,13 +14,13 @@ router.get('/',function(req,res,next){
 //POST Req
 router.post('/fireUpContainers',function(req,res){
 	var options;
-	var body ='';
-	req.on('data',function(chunk){
-		body+=chunk.toString('utf8');
-	});
-	req.on('end',function(){
+	// var body ='';
+	// req.on('data',function(chunk){
+	// 	body+=chunk.toString('utf8');
+	// });
+	// req.on('end',function(){
 		var createsystem = require('../../lib/msgqueue/rabbit.js');
-		options = JSON.parse(body);
+		options = JSON.parse(req.body);
 		createsystem.sendData(options);
 
 		
@@ -38,7 +38,7 @@ router.post('/fireUpContainers',function(req,res){
 	})
 
 		
-	})
+	// })
 
 	
 })

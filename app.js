@@ -14,6 +14,7 @@ app.locals.stripePublishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
 
 //MIDDLEWARE
 //Sessions
+app.use(cookieParser('cdERer$5&73csdg82#voopsm(&te'));
 app.use(session({
   cookieName: 'session',
   secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
@@ -34,14 +35,7 @@ app.use(function(req, res, next) {
         res.locals.user = user;
       }*/
       // finishing processing the middleware and run the route
-      //ROUTE SETUP
-		//Static
-		app.use(express.static(path.join(__dirname, 'public')));
-		//Routes
-		app.use('/', require('./routes/index.js'));
-		app.use('/users', require('./routes/users/users.js'));
-		app.use('/dashboard',require('./routes/dashboard/dashboard.js'));
-		app.use('/workspace',require('./routes/workspace/dragdrop.js'));/*
+      /*
       next();
     });
   } else {
@@ -50,8 +44,6 @@ app.use(function(req, res, next) {
 });*/
 
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(function(req, res, next) {
 			res.header("Access-Control-Allow-Origin", "*");
@@ -156,7 +148,19 @@ app.use(stormpath.init(app, {
   }
 }));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+
+//ROUTE SETUP
+		//Static
+		app.use(express.static(path.join(__dirname, 'public')));
+		//Routes
+		app.use('/', require('./routes/index.js'));
+		app.use('/users', stormpath.loginRequired, require('./routes/users/users.js'));
+		app.use('/dashboard', stormpath.loginRequired, require('./routes/dashboard/dashboard.js'));
+		app.use('/workspace', stormpath.loginRequired, require('./routes/workspace/dragdrop.js'));
+		app.use('/projects', require('./routes/projects/projects.js'));
 
 
 // catch 404 and forward to error handler
@@ -176,5 +180,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
 
 module.exports = app;

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var stormpath=require('express-stormpath');
 var stripe=require('stripe')("sk_test_g3WF6wdXVLB5GHA2bAgmW3RU");
-var app=express();
+
 
 
 /* GET home page. */
@@ -15,26 +15,24 @@ router.get('/', function(req, res, next) {
 
 
 
-
 router.get('/payment',function(req,res,next){
   res.render('payment.ejs')
 })
-
 router.post('/payment', function(req, res, next) {
     console.log("check-1")
-    
     var client = req.app.get('stormpathClient');
     stripe.customers.create({
-        	source:req.body.stripeToken ,
-        	plan: 'pro',
-        	email:'tjskrishna@gmail.com'
-        }, function(err, customer) {
-        	if (err) return next(err);
-        	req.somevariable=customer.id
-        	res.redirect('/signup_2/?valid=' + customer.id);
-        });
+        source: req.body.stripeToken,
+        plan: 'pro',
+        email:req.body.email
+          }, function(err, customer) {
+        if (err) return next(err);
+        req.somevariable=customer.id
+        res.redirect('/signup_2/?valid=' + customer.id);
 
-});
+          });
+
+          });
 
 router.get('/signup_2',function(req,res,next){
   console.log(req.query.valid)
@@ -102,7 +100,9 @@ organization.createAccount(accountData, function (err, account) {
 if (err) {
 return console.error(err);
 }
-console.log('Hello %s', account.fullName);
+console.log('----------\n', account);
+req.session.user = account;
+console.log('----------\n');
 
 /*organization.setDefaultGroupStore(directory.href, function (err) {
   if (!err) {

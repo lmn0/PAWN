@@ -265,7 +265,7 @@
             
             
   </div>
-  </div>
+</div>
 
 
 <div class="main-panel">
@@ -428,7 +428,6 @@
 <script src="/javascripts/jsplumb/src/connectors-straight.js"></script>
 <!-- SVG renderer -->
 <script src="/javascripts/jsplumb/src/renderers-svg.js"></script>
-
 <!-- common adapter -->
 <script src="/javascripts/jsplumb/src/base-library-adapter.js"></script>
 <!-- no library jsPlumb adapter -->
@@ -545,7 +544,8 @@
       selector:document.getElementById('config[spec][selector]').value,
       template:{
         metadata:{
-          labels:document.getElementById('config[spec][template][metadata][labels]').value
+          labels:{
+            name:document.getElementById('config[spec][template][metadata][labels]').value}
         },
         spec:{
           containers:[{
