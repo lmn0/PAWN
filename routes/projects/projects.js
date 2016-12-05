@@ -143,4 +143,21 @@ client.getAccount(href, function (err, account) {
 
 })
 
+router.get('/delete_users',function(req,res,next){
+	//delHref=req.body.delete_href
+	var client=req.app.get('stormpathClient')
+	client.getGroup(delHref, function (err, group) {
+	  console.log(group);
+		group.delete(function(err){
+			if(!err){
+				console.log('Successfully Removed')
+			}
+			else {
+				console.log('Failed to Delete')
+			}
+
+		})
+	});
+})
+
 module.exports = router;

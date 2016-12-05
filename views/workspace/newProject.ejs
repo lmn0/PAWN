@@ -9,7 +9,7 @@
 
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-    <script src="http://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>    
+    <script src="http://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
     <link rel="stylesheet" href="/stylesheets/reset.css">
     <link rel='stylesheet prefetch' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
         <link rel="stylesheet" href="/stylesheets/style.css">
@@ -55,17 +55,17 @@
         <input type="hidden" id="service[apiVersion]" value="v1"/>
         <input type="hidden" id="service[kind]" value="Service"/>
         <div style="width:80%;height:180%;display:table;">
-          <div style="display:table-row;"> 
+          <div style="display:table-row;">
             <div style="display:table-cell;width:50%">Metadata:<br/>
               <ul>
-                <li>&nbsp;&nbsp;Name     :<input type="text" id="service[metadata][name]" style="margin-left:115px;" size=20/><br/><br/></li>   
+                <li>&nbsp;&nbsp;Name     :<input type="text" id="service[metadata][name]" style="margin-left:115px;" size=20/><br/><br/></li>
               </ul>
             </div></div>
-            <div style="display:table-row;text-align: left;"> 
+            <div style="display:table-row;text-align: left;">
             <strong>Specs</strong>
             </div>
-            
-           <div style="display:table-row;position:absolute;left:30px;"> 
+
+           <div style="display:table-row;position:absolute;left:30px;">
                 <div style="display:table-cell;">
                   <ul>
                       <li><strong>Ports:</strong><br/>
@@ -108,7 +108,7 @@
                         <!-- This needs to be changed!!! THINK!! -->
                       <li>Selector:<br/><input type="text" id="service[spec][selector][key]" style="position:absolute;left:80px;"/><input type="text" id="service[spec][selector][value]" style="position:relative;left:240px;"/>:<br/></li><p></p>
                       <li>Type:<input type="text" id="service[spec][type]" style="position:relative;left:45px;"/><br/></li><p></p>
-                      
+
                       <li>
                         <br/><br/><br/>
                         <button type="submit" id="modalService-create" onclick="modalService_create()" style="position:relative;left:285px;background-color: #e7e7e7;font-size: 16px;border-radius: 8px;" > Create </button>
@@ -118,13 +118,13 @@
                 </div>
             </div>
           <!-- </li> -->
-        </div> <br/>  
-        
-      </form>     
-               
+        </div> <br/>
+
+      </form>
+
     </div>
-            
-            
+
+
   </div>
   </div>
 
@@ -143,11 +143,11 @@
         <input type="hidden" id="config[apiVersion]" value="v1"/>
         <input type="hidden" id="config[kind]" value="ReplicationController"/>
         <div style="width:100%;height:100%;display:table;">
-          <div style="display:table-row;"> 
+          <div style="display:table-row;">
             <div style="display:table-cell;width:30%">Metadata:<br/>
               <ul style="margin-left:12px;">
                 <li>Name*     :<input type="text" id="config[metadata][name]" value ="" required="" style="margin-left:100px;"/><br/></li>
-                <li>Namespace:<input type="text" id="config[metadata][namespace]" value ="" style="margin-left:72px;"/><br/></li>    
+                <li>Namespace:<input type="text" id="config[metadata][namespace]" value ="" style="margin-left:72px;"/><br/></li>
               </ul>
             </div>
             <div style="display:table-cell;width:50%;margin-left:62px;"> <strong>Spec:</strong><br/>
@@ -163,12 +163,12 @@
             </div>
           </div>
           <div style="display:table-row;width:100%;text-align: left;">
-              <strong> Pod Specification:</strong> 
+              <strong> Pod Specification:</strong>
           </div>
           <div style="display:table-row;">
                 <div style="display:table-cell;width:50%">
                     <ul>
-                      
+
                       <li>Image*: <input type="text" id="config[spec][template][spec][containers][image]" required/ style="margin-left:114px;"><br/></li>
                       <li>Command:<br/>
                         <ul style="margin-left:164px;">
@@ -248,27 +248,27 @@
                 </div>
             </div>
           <!-- </li> -->
-        </div> <br/>  
-        
-      </form>     
-               
+        </div> <br/>
+
+      </form>
+
     </div>
-            
-            
+
+
   </div>
   </div>
 
 
 <div class="main-panel">
         <nav class="navbar navbar-default navbar-fixed">
-            
+
             <div class="container-fluid">
                 <div id="stage" style="background:#00008B">
                         <h3 id="spinner" style="background: #4d4dff; text-align: center; color: #fff;">PAWN</h3>
                     </div>
-                
+
                 <div class="collapse navbar-collapse">
-                    
+
                     <ul class="nav navbar-nav navbar-left" style="position:absolute;right:20px;top:10px;">
                         <li>
                            <a href="/">
@@ -289,7 +289,7 @@
                 </div>
             </div>
         </nav>
-        
+
     </div>
 <div class="wrapper">
     <div class="sidebar" data-color="azure" data-image="/images/sidebar-5.jpg">
@@ -304,7 +304,7 @@
       <div class="sidebar-wrapper" >
                 <h3 style="position:absolute;left:75px;color:black;">Images</h3>
             <ul class="nav" style="position:absolute;left:80px;top:50px;">
-                
+
                 <li class="active">
                     <p onclick="openNav()">Kubernetes Service<br><img id="service" style="background:#222;" src="/images/containers/s.png" draggable="true" ondragstart="drag(event)"  width="90" height="75"></p>
                 </li>
@@ -320,11 +320,11 @@
                 <li>
                    <p onclick="openNav4()">Sql<br><img id="drag5" style="background:#888;" src="/images/s.png" draggable="true" ondragstart="drag(event)" onclick="clicked(this)" width="90" height="75"></p>
                 </li> -->
-                
+
             </ul>
       </div>
     </div>
-  
+
     <div id="wrapper" ondrop="drop(event)" ondragover="allowDrop(event)"; style="position:absolute;top:68px;left:280px;" >
               <div class="jtk-demo-main" id="workspace-canvas">
         <!-- demo -->
@@ -334,13 +334,13 @@
 
           <!-- <div id="c3_1" class="w node" data-nodetype="container" ondblclick="openConfig(this)" style="left:30px;top:35px">3.1</div>
                 <div id="c3_2" class="w node" data-nodetype="container" ondblclick="openConfig(this)" style="left:80px;top:162px">3.2</div> -->
-            
+
             <div class="w node" id="standalone" data-nodetype="standalone" ondblclick="openConfig(this)" style="left:455px;top:280px;display:none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
            </div>
-            
+
         </div>
-        
+
     </div>
         <div style="position:absolute;top:10px;left:30px;">
           <ul>
@@ -356,13 +356,13 @@
              <li><button type="submit" style="height:40px;width:60px;"><a href="dashboard.ejs"><strong>Exit</strong></a></button></li>
           </ul>
         </div>
-            
-    </div>
-   
 
     </div>
-    
-    
+
+
+    </div>
+
+
 
 </body>
 
@@ -382,7 +382,7 @@
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 <script src="/javascripts/light-bootstrap-dashboard.js"></script>
 
-  <!-- Light Bootstrap Table DEMO methods, don't include it in your project! 
+  <!-- Light Bootstrap Table DEMO methods, don't include it in your project!
   <script src="/javascripts/demo.js"></script>
    JS -->
 <!-- support lib for bezier stuff -->
@@ -456,11 +456,11 @@
   function drop(ev,target)
   {
     var dropped_element=ev.dataTransfer.getData("dropped_element");
-    
+
     if(dropped_element==="service")
     {
       containerID="service_"+ Math.floor(Math.random((Math.random() * 10000) + 1)*10000);
-      
+
       document.getElementById("box-id").innerHTML=containerID;
       document.getElementById("modalService-create").style.visibility='visible';
       document.getElementById("modalService-save").style.visibility='hidden';
@@ -520,7 +520,7 @@
   var modalContainer_create = function() {
 //Get all the values from the modal box and save it in the sessionStorage of the browser
 //***********
-    
+
     var op = containerID.split("_");
 ///////////////Get json and store/////////////////////
 
@@ -629,10 +629,10 @@
 //console.log(config);
 
 //End - values from modal box
-    
+
     modalContainer.style.display = "none";
     //updateSessionValues(containerID,config);
-    
+
 //var obj = JSON.parse(sessionStorage.user);
 
   }
@@ -662,12 +662,12 @@
   spanService.onclick = function() {
     modalService.style.display = "none";
   }
-    
+
   var fireup=function(){
     //Save the entire diagram !!!
     saveFlowchart();
     //send flowChartJson and config to nodejs
-    
+
     var data ={
       chart:JSON.parse(flowChartJson),
       config:configFiles
@@ -772,7 +772,7 @@
   }
   var endpoints = [];
   function saveFlowchart(){
-    
+
     var nodes = []
     var jsPlumb = window.j;
     $(".node:not(#standalone)").each(function (idx, elem) {
@@ -788,9 +788,9 @@
         positionY: parseInt($elem.css("top"), 10)
       });
     });
-    
+
     var connections = [];
-    
+
     $.each(jsPlumb.getAllConnections(), function (idx, connection) {
       connections.push({
         connectionId: connection.id,
@@ -798,17 +798,17 @@
         pageTargetId: connection.targetId
       });
     });
-    
+
     var flowChart = {};
     flowChart.nodes = nodes;
     flowChart.connections = connections;
     flowChart.numberOfElements = numberOfElements;
-    
+
     flowChartJson = JSON.stringify(flowChart);
     //console.log(flowChartJson);
 
     //savedObj = jsPlumb.save({selector : ".node:not(#standalone)" });
-    
+
     //$('#jsonOutput').val(flowChartJson);
 
 //End of save function
@@ -830,7 +830,7 @@
       newbox.id=id
       newbox.style.display = "block";
       newbox.style=document.getElementById("standalone").style;
-    
+
       newbox.innerHTML=id;
 
       newbox.style.position= "absolute";
@@ -845,8 +845,8 @@
       document.getElementById(id).style.position="absolute";
       document.getElementById(id).style.left=''+posX+'px';
       document.getElementById(id).style.top=''+posY+'px';
-    
-      
+
+
 
       var exampleDropOptions = {
         tolerance: "touch",
@@ -868,7 +868,7 @@
 
       var e1 = j.addEndpoint(newbox.id, {anchor: anchors,uuid:id}, exampleEndpoint2);
       jsPlumb.draggable(newbox.id);
-      
+
   }
   $.each(nodes, function( index, elem ) {
     // if(elem.nodetype === 'startpoint'){
@@ -884,14 +884,14 @@
     //   var id = addDecision(elem.blockId);
     //   repositionElement(id, elem.positionX, elem.positionY);
     // }else{
-      
+
     // }
 
   });
-              
+
   var connections = flowChart.connections;
   $.each(connections, function( index, elem ) {
-   
+
      var connection1 = jsPlumb.connect({
       // source: elem.pageSourceId,
       // target: elem.pageTargetId,
@@ -899,9 +899,9 @@
       uuids:[elem.pageSourceId,elem.pageTargetId]
     });
   });
-  
+
   numberOfElements = flowChart.numberOfElements;
-  
+
 //End of load function
   }
   var clear_diagram=function(){
