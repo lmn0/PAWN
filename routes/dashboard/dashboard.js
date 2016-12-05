@@ -14,8 +14,37 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.get('/',function(req,res,next){
 console.log('User:',req.user.email,'jsut accessed the /home page');
 
+	var client=req.app.get('stormpathClient')
+	var projects=[];
+
+ var dir_href=req.user.directory.href
+	client.getDirectory(dir_href,function (err, directory) {
+  console.log(directory);
+	directory.getGroups(function(err, groupsCollection) {
+  groupsCollection.each(function(group, next) {
+		if(group.name!='user'||group.name!='admin'){
+		console.log('^^^^^^^^^^^^^^')
+    console.log(group.name);
+		console.log(group.href)
+		console.log('^^^^^^^^^^^^^^^^^^^^^^^^^')}
+
+			projects.push(group);
+
+	})
+  });
+
+});
+
+	//Query the MongoDB and get the project details - 
+
+var resourceMonitor = require('../../lib/msgqueue/rabbit.js');
+		options = {uhref:req.user.href,projects:projects};
+		resourceMonitor.sendData(options,'resource');
+
+
 res.render('dashboard',{
     user:req.user.username,
+    userhred:req.user.href,
     email:req.user.email
 })
 next();

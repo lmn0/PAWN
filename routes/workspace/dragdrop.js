@@ -34,7 +34,7 @@ router.post('/fireUpContainers',function(req,res){
 	// req.on('end',function(){
 		var createsystem = require('../../lib/msgqueue/rabbit.js');
 		options = JSON.parse(req.body);
-		createsystem.sendData(options);
+		createsystem.sendData(options,'k8s');
 
 		
 	mongoClient.connect ( url, function(err, db){
@@ -44,7 +44,7 @@ router.post('/fireUpContainers',function(req,res){
 		}
 		else{
 			var projects = db.collection('projects');
-			projects.update({id:options.id},{$set:options},{upsert:true});
+			projects.update({href:options.project_href},{$set:options},{upsert:true});
 			db.close;
 			res.redirect('/dashboard');
 		}

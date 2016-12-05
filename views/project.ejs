@@ -38,7 +38,12 @@
    $('#remove').click(function() {  
     return !$('#select2 option:selected').remove().appendTo('#select1');  
    });  
+   $('#btn_adduser').click(function(){
+   })
   });  
+
+
+
  </script>  
    
  <style type="text/css">  
@@ -73,7 +78,10 @@
           <h4 class="modal-title" style="color:white;">Add Users</h4>
         </div>
         <form action="/add_users" method="post">
-        <hidden name="projectName"/>
+
+        <hidden name="project_name" id="userModal_proj_name" value=""/> 
+        <hideen name="project_href" id="userModal_proj_href" value=""/>
+
         <div class="modal-body" style="left:30%">
         <table ><tr><td>
        <!-- <div class="userModal">   -->
@@ -191,17 +199,18 @@
     <div style="width:100%;height: 70%;background-color:#FFFFFF;">
          
      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+     <% for( i=0; i<userProjects.length;i++ ){ %>
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
+    <div class="panel-heading" role="tab" id="<%=userProjects[i].project_href%>">
       <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="color:green">
-         Project 1 <i class="fa fa-lightbulb-o" style="font-size:20px;position:relative;float:left;"></i>
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#<%=i%>" aria-expanded="false" aria-controls="<%=i%>" style="color:green">
+         <%=userProjects[i].project_name%> <i class="fa fa-lightbulb-o" style="font-size:20px;position:relative;float:left;"></i>
          
     
         </a>
       </h4>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+    <div id="<%=i%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="<%=userProjects[i].project_href%>">
       <div class="panel-body">
        <table border="1" style="width:300px">
            <thead>
@@ -209,28 +218,18 @@
            <th> <strong>Users</strong></th>
            <th> <strong>Project 1 Stats </strong></th>
                </tr></thead>
-            <tr><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Workspace diagram</button><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;" data-toggle="modal" data-target="#userModal">Add Members</button><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Delete Project</button></tr>
+            <tr>
+            <form><hidden name="project_name" value="<%=userProjects[i].project_name%>"/> <hidden name="project_href" value="<%=userProjects[i].project_href%>"/><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Workspace diagram</button></form><button type="button" id="btn_adduser" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;" data-toggle="modal" data-target="#userModal">Add Members</button><form><hidden name="project_name" value="<%=userProjects[i].project_name%>"/> <hidden name="project_href" value="<%=userProjects[i].project_href%>"/><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Delete Project</button></form></tr>
                   <tr>
                         <td>Roy</td>
                         <td>CPU</td>
-                  </tr>
-                  <tr>
-                        <td>Hanks</td>
-                        <td>Memory</td>
-                  </tr>
-                  <tr>
-                        <td>Lily</td>
-                        <td>Network</td>
-                  </tr>
-                  <tr>
-                        <td>Evanks</td>
-                        <td>I/O</td>
                   </tr>
            </table> 
      
       </div>
     </div>
   </div>
+  <% } %>
  
           <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingFive">
