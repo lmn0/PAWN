@@ -20,6 +20,7 @@ router.get('/payment',function(req,res,next){
 })
 router.post('/payment', function(req, res, next) {
     console.log("check-1")
+
     var client = req.app.get('stormpathClient');
     stripe.customers.create({
         source: req.body.stripeToken,

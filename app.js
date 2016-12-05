@@ -24,24 +24,7 @@ app.use(session({
   secure: true,
   ephemeral: true
 }));
-/*
-app.use(function(req, res, next) {
-  if (req.session && req.session.user) {
-    User.findOne({ email: req.session.user.email }, function(err, user) {
-      if (user) {
-        req.user = user;
-        delete req.user.password; // delete the password from the session
-        req.session.user = user;  //refresh the session value
-        res.locals.user = user;
-      }*/
-      // finishing processing the middleware and run the route
-      /*
-      next();
-    });
-  } else {
-    next();
-  }
-});*/
+
 
 app.use(logger('dev'));
 app.use(cookieParser());
@@ -62,37 +45,10 @@ app.use(stormpath.init(app, {
     },
   web:{
       register:{
-      enabled:true,
+      enabled:false,
           uri:'/signup',
           nextUri:'/login',
-          form:{
-            fields:{
-              orgName:{
-                enabled:true,
-                label:'Organisation Name',
-                required:true,
-                type:'text'
-              }  ,
-              orgDesc:{
-                enabled:true,
-                label:'Organisation Description',
-                required:true,
-                type:'text'
-              },
-              dirName:{
-                enabled:true,
-                label:'Directory Name',
-                required:true,
-                type:'text'
-              },
-              dirDesc:{
-                enabled:true,
-                label:'Directory Description',
-                required:true,
-                type:'text'
-              }
-            }
-          }
+
   },
       login:{
           nextUri:'/dashboard'
@@ -110,24 +66,7 @@ app.use(stormpath.init(app, {
     next()
      },
      postRegistrationHandler: function (account, req, res, next) {
-       var client = req.app.get('stormpathClient');
-    console.log('User:', account.email, 'just registered!');
-    async.parallel([
-        function(cb){
-            account.createApiKey(function(err,key){
-                if(err) return cb(err);
-                cb();
-            })
-        }
-    ],function(err){
-        if(err) return next(err);
 
-    })
-     account.customData.subscriber='admin'
-     account.customData.customer_id=req.query.valid
-     account.customData.save();
-    console.log(account.customData.subscriber)
-    console.log(account.customData.orgName)
 
 
 
