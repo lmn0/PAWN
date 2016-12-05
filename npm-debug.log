@@ -7,7 +7,7 @@
 6 silly lifecycle pawn-1@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle pawn-1@0.0.0~start: pawn-1@0.0.0
 8 verbose lifecycle pawn-1@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle pawn-1@0.0.0~start: PATH: /usr/share/npm/bin/node-gyp-bin:/home/tjs/Desktop/CMPE295B/pawn/node_modules/.bin:/root/google-cloud-sdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+9 verbose lifecycle pawn-1@0.0.0~start: PATH: /usr/share/npm/bin/node-gyp-bin:/home/tjs/Desktop/CMPE295B/pawn/node_modules/.bin:/home/tjs/.gvm/bin:/usr/local/heroku/bin:~/android-studio/bin:/usr/local/src/scala/scala-2.10.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/bin:/home/tjs/go/bin
 10 verbose lifecycle pawn-1@0.0.0~start: CWD: /home/tjs/Desktop/CMPE295B/pawn
 11 silly lifecycle pawn-1@0.0.0~start: Args: [ '-c', 'node ./bin/www' ]
 12 silly lifecycle pawn-1@0.0.0~start: Returned: code: 1  signal: null

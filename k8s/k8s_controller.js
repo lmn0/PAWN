@@ -6,6 +6,7 @@ var fs = require('fs');
 var jsonfile = require('jsonfile');
 var json2yaml = require('json2yaml');
 var y = require('yamljs');
+var k8s = require('k8s');
 //var jy = require('node-yaml');
 
 amqp.connect(amqpURL,function(err,conn){
@@ -72,7 +73,7 @@ amqp.connect(amqpURL,function(err,conn){
 
       }
 
-      
+
 
 
 

@@ -7,18 +7,18 @@ var url = 'mongodb://tjs:password@ds039684.mlab.com:39684/mongo';
 
 //GET Req
 router.get('/',function(req,res,next){
-	mongoClient.connect ( url, function(err, db){
-		if(err)
-		{
-			res.status(500).send({error:"Server error. Please try again later."})				
-		}
-		else{
-			var projects = db.collection('projects');
-			projects.update({id:options.id},{$set:options},{upsert:true});
-			db.close;
-			res.redirect('/dashboard');
-		}
-	})
+	// mongoClient.connect ( url, function(err, db){
+	// 	if(err)
+	// 	{
+	// 		res.status(500).send({error:"Server error. Please try again later."})				
+	// 	}
+	// 	else{
+	// 		var projects = db.collection('projects');
+	// 		projects.update({id:options.id},{$set:options},{upsert:true});
+	// 		db.close;
+	// 		res.redirect('/dashboard');
+	// 	}
+	// })
 
 	res.render('workspace/newProject.ejs')
 })
