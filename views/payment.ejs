@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title> Payment </title>
+</head>
+<body style="background-image:url(images/bg.jpg);">
+    <text style="color:grey;font-size:38px;position:absolute;left:540px;top:290px;">Upgarde to Pro</text>
+<form action="/payment" method="POST" style="position:absolute;left:590px;top:350px;">
+
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_oIrA7qYeky3E70KpkFtky8Dl"
+    data-amount="999"
+    data-name="Pawn Payment"
+    data-description="Widget"
+    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+    data-locale="auto">
+  </script>
+</form> 
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<head>
+	<% include dashboard_basic/head.ejs %>
+  <title>Projects</title>
+
+<style type="text/css">
+  #mainselection select {
+   border: 0;
+   color: #EEE;
+   background: transparent;
+   font-size: 20px;
+   font-weight: bold;
+   padding: 2px 10px;
+   width: 378px;
+   *width: 350px;
+   *background: #58B14C;
+   -webkit-appearance: none;
+}
+
+#mainselection {
+   overflow:hidden;
+   width:350px;
+   -moz-border-radius: 9px 9px 9px 9px;
+   -webkit-border-radius: 9px 9px 9px 9px;
+   border-radius: 9px 9px 9px 9px;
+   box-shadow: 1px 1px 11px #330033;
+   background: #58B14C url("http://i62.tinypic.com/15xvbd5.png") no-repeat scroll 319px center;
+}
+
+</style>
+ <script type="text/javascript">  
+  $().ready(function() {  
+   $('#add').click(function() {  
+    return !$('#select1 option:selected').remove().appendTo('#select2');  
+   });  
+   $('#remove').click(function() {  
+    return !$('#select2 option:selected').remove().appendTo('#select1');  
+   });  
+  });  
+ </script>  
+   
+ <style type="text/css">  
+  a.userModal {  
+   display: block;  
+   border: 1px solid #aaa;  
+   text-decoration: none;  
+   background-color: #fafafa;  
+   color: #123456;  
+   margin: 2px;  
+   clear:both;  
+  }  
+  div.userModal {   
+   text-align: center;  
+   margin: 10px;  
+  }  
+  select.userModal {  
+   width: 100px;  
+   height: 80px;  
+  }  
+ </style> 
+</head>
+<body>
+ <!-- Modal -->
+  <div class="modal fade" id="userModal" role="dialog" >
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style="background-color:#97765F;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="color:white;">Add Users</h4>
+        </div>
+        <form action="/add_users" method="post">
+        <hidden name="projectName"/>
+        <div class="modal-body" style="left:30%">
+        <table ><tr><td>
+       <!-- <div class="userModal">   -->
+  <select multiple id="select1" class="userModal">  
+   <option value="{name:,href:}">Option 1</option>  
+   <option value="{name:,href:}">Option 2</option>  
+   <option value="{name:,href:}">Option 3</option>  
+   <option value="{name:,href:}">Option 4</option>  
+  </select></td><td><select class="userModal" multiple id="select2"></select></td></tr>
+  <tr>
+  <td>
+  <a class="userModal" href="#" id="add">add &gt;&gt;</a>  
+  </td><td> <a class="userModal" href="#" id="remove">&lt;&lt; remove</a></td></tr></table>
+   
+ <!-- <div class="userModal">   -->
+    
+   
+ <!-- </div>   -->
+          
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-default" >Save Changes</button>
+        </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style="background-color:#97765F;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="color:white;">Create Project</h4>
+        </div>
+        <form action="/add_project" method="post">
+        <div class="modal-body">
+        <table>
+          <tr>
+            <td>
+          <p style="color:black;">Name </p></td>
+          <td><input type="text" id="projectName" size="35"/>
+            </td>
+            </tr>
+            <tr>
+            <td>
+          <p style="color:black;">Description </p></td><td><input type="text" id="projectDescription" size="35"/></td>
+          </tr>
+          </table>
+          
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-default" >Save Changes</button>
+        </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+<!-- Modal End-->
+
+<div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            
+            <div class="container-fluid">
+                <div id="stage" style="background:#00008B">
+                        <h3 id="spinner" style="background: #4d4dff; text-align: center; color: #fff;">PAWN</h3>
+                    </div>
+                
+                <div class="collapse navbar-collapse">
+                    
+                    <ul class="nav navbar-nav navbar-left" style="position:absolute;right:20px;top:10px;">
+                        <li>
+                           <a href="index.ejs">
+                               Home
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret"></b>
+                                    <span class="notification">5</span>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Notification 1</a></li>
+                                <li><a href="#">Notification 2</a></li>
+                                <li><a href="#">Notification 3</a></li>
+                                <li><a href="#">Notification 4</a></li>
+                                <li><a href="#">Another notification</a></li>
+                              </ul>
+                        </li>
+                        <li>
+                           <a href="">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+              
+            </div>
+            
+        </nav>
+        
+<!-- List of all the projects and add/delete projects-->
+    <div style="width:100%;height: 70%;background-color:#FFFFFF;">
+         
+     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="color:green">
+         Project 1 <i class="fa fa-lightbulb-o" style="font-size:20px;position:relative;float:left;"></i>
+         
+    
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+       <table border="1" style="width:300px">
+           <thead>
+               <tr>
+           <th> <strong>Users</strong></th>
+           <th> <strong>Project 1 Stats </strong></th>
+               </tr></thead>
+            <tr><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Workspace diagram</button><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;" data-toggle="modal" data-target="#userModal">Add Members</button><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Delete Project</button></tr>
+                  <tr>
+                        <td>Roy</td>
+                        <td>CPU</td>
+                  </tr>
+                  <tr>
+                        <td>Hanks</td>
+                        <td>Memory</td>
+                  </tr>
+                  <tr>
+                        <td>Lily</td>
+                        <td>Network</td>
+                  </tr>
+                  <tr>
+                        <td>Evanks</td>
+                        <td>I/O</td>
+                  </tr>
+           </table> 
+     
+      </div>
+    </div>
+  </div>
+ 
+          <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFive">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" href="#" data-toggle="modal" data-target="#myModal" aria-expanded="false" aria-controls="collapseFive" style="color:green">Add a new project   <span class="glyphicon glyphicon-plus-sign"></span>
+          
+     
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+      <div class="panel-body">
+      </div>
+    </div>
+  </div>
+</div>
+    
+ 
+    </div>
+    
+  
+
+    </div>
+  
+     <div class="sidebar" data-color="azure" data-image="/images/sidebar-5.jpg">
+         <div class="sidebar-wrapper">
+    
+            <ul class="nav">
+                <li>
+                    <a href="dashboard">
+                        <i class="pe-7s-graph"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="user">
+                        <i class="pe-7s-user"></i>
+                        <p>User Settings</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="projects">
+                        <i class="pe-7s-news-paper"></i>
+                        <p>Projects</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="index">
+                        <i class="pe-7s-bell"></i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+      </div>
+    </div>
+    
+
+     <% include dashboard_basic/jsdefaults.ejs %>
+    
+</body>
+
+<script>
+
+</script>
+   
+</html>

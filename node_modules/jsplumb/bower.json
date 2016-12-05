@@ -1,0 +1,19 @@
+{
+  "name": "jsplumb",
+  "version":"2.2.6",
+  "ignore": [
+    "node_modules",
+    "Gruntfile.js",
+    "README.md",
+    "package.json"
+  ],
+  "main": [
+    "jsplumb.js"
+  ],
+  "homepage": "https://jsplumbtoolkit.com",
+  "authors": [
+    "jsPlumb <hello@jsplumbtoolkit.com>"
+  ],
+  "description": "Visual connectivity for webapps",
+  "license": "/jsPlumb-LICENSE.txt"
+}
