@@ -158,8 +158,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 		//Routes
 		app.use('/', require('./routes/index.js'));
 		app.use('/users', stormpath.loginRequired, require('./routes/users/users.js'));
-		app.use('/dashboard', stormpath.loginRequired, require('./routes/dashboard/dashboard.js'));
-		app.use('/workspace', stormpath.loginRequired, require('./routes/workspace/dragdrop.js'));
+		app.use('/dashboard',  require('./routes/dashboard/dashboard.js'));
+		app.use('/workspace',  require('./routes/workspace/dragdrop.js'));
 		app.use('/projects', require('./routes/projects/projects.js'));
 
 

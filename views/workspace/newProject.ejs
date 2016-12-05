@@ -41,87 +41,80 @@
 </head>
 <body>
 
-<div id="modalService" class="modal">
+
+<div id="modalService" class="modal" >
 
   <!-- Service Modal content -->
-  <div class="modal-content">
+  <div class="modal-content" style="background-color:#BBBF88;">
     <span class="closeServiceModal">x</span>
     <!-- <form name="containerOptions" id="containerOptions"> -->
-    <label>Service ID:  </label><label id="service-id"></label><br/>
-    Service Name*:  <input id="service-name" type="text" size=10 maxlength=10 required="required"/>
+    <label>Service ID:  </label><label id="box-id"></label><br/>
     <div style="position:absolute;left:25px;">
 
     <form id="modalServiceForm" enctype="application/json" action="javascript:test()">
-        <input type="hidden" name="service[apiVersion]" value="v1"/>
-        <input type="hidden" name="service[kind]" value="Service"/>
-        <div style="width:100%;display:table;">
+        <input type="hidden" id="service[apiVersion]" value="v1"/>
+        <input type="hidden" id="service[kind]" value="Service"/>
+        <div style="width:80%;height:180%;display:table;">
           <div style="display:table-row;"> 
             <div style="display:table-cell;width:50%">Metadata:<br/>
               <ul>
-                <li>Name     :<input type="text" name="service[metadata][name]"/><br/><br/></li>   
+                <li>&nbsp;&nbsp;Name     :<input type="text" id="service[metadata][name]" style="margin-left:115px;" size=20/><br/><br/></li>   
               </ul>
             </div></div>
-            <div style="display:table-row;text-align: center;"> 
-            Specs:
+            <div style="display:table-row;text-align: left;"> 
+            <strong>Specs</strong>
             </div>
             
-           <div style="display:table-row;"> 
+           <div style="display:table-row;position:absolute;left:30px;"> 
                 <div style="display:table-cell;">
                   <ul>
-                      <li>Ports:<br/>
+                      <li><strong>Ports:</strong><br/>
                         <ul>
-                          <li>
+                          <li><p></p>
                             <ul>
-                              <li>Port:<input type="text" name="service[spec][ports][0][port]"/><br/></li>
-                              <li>TargetPort:<input type="text" name="service[spec][ports][0][targetPort]"/><br/><br/></li>
+                              <li>Port:<input type="text" id="service[spec][ports][0][port]" style="margin-left:113px;" size=20/><br/></li>
+                              <li>TargetPort:<input type="text" id="service[spec][ports][0][targetPort]" style="margin-left:75px;" size=20/></li>
                             </ul>
                           </li>
-                          <li>
+                          <li><p></p>
                             <ul>
-                              <li>Port:<input type="text" name="service[spec][ports][1][port]"/><br/></li>
-                              <li>TargetPort:<input type="text" name="service[spec][ports][1][targetPort]"/><br/><br/></li>
+                              <li>Port:<input type="text" id="service[spec][ports][0][port]" style="margin-left:113px;" size=20/><br/></li>
+                              <li>TargetPort:<input type="text" id="service[spec][ports][0][targetPort]" style="margin-left:75px;" size=20/></li>
                             </ul>
                           </li>
-                          <li>
+                          <li><p></p>
                             <ul>
-                              <li>Port:<input type="text" name="service[spec][ports][2][port]"/><br/></li>
-                              <li>TargetPort:<input type="text" name="service[spec][ports][2][targetPort]"/><br/><br/></li>
+                              <li>Port:<input type="text" id="service[spec][ports][0][port]" style="margin-left:113px;" size=20/><br/></li>
+                              <li>TargetPort:<input type="text" id="service[spec][ports][0][targetPort]" style="margin-left:75px;" size=20/></li>
                             </ul>
                           </li>
-                          <li>
+                          <li><p></p>
                             <ul>
-                              <li>Port:<input type="text" name="service[spec][ports][3][port]"/><br/></li>
-                              <li>TargetPort:<input type="text" name="service[spec][ports][3][targetPort]"/><br/><br/></li>
+                              <li>Port:<input type="text" id="service[spec][ports][0][port]" style="margin-left:113px;" size=20/><br/></li>
+                              <li>TargetPort:<input type="text" id="service[spec][ports][0][targetPort]" style="margin-left:75px;" size=20/></li>
                             </ul>
                           </li>
-                          <li>
+                          <li><p></p>
                             <ul>
-                              <li>Port:<input type="text" name="service[spec][ports][4][port]"/><br/></li>
-                              <li>TargetPort:<input type="text" name="service[spec][ports][4][targetPort]"/><br/><br/></li>
+                             <li>Port:<input type="text" id="service[spec][ports][0][port]" style="margin-left:113px;" size=20/><br/></li>
+                              <li>TargetPort:<input type="text" id="service[spec][ports][0][targetPort]" style="margin-left:75px;" size=20/></li>
                             </ul>
                           </li>
                         </ul>
-                      </li>
-                </div>
-                <divstyle="display:table-cell;>
-                        <!-- This needs to be changed!!! THINK!! -->
-                      <li>Selector:<br/><input type="text" name="service[spec][selector][key]"/>:<input type="text" name="service[spec][selector][value]"/><br/></li>
-                      <li>Type:<input type="text" name="service[spec][selector][type]"/><br/></li>
-                      <li>Load Balancer Source Ranges:<br/>
-                        <ul>
-                          <li><input type="text" name="service[spec][loadBalancerSourceRanges][0]"/><br/></li>
-                          <li><input type="text" name="service[spec][loadBalancerSourceRanges][1]"/><br/></li>
-                          <li><input type="text" name="service[spec][loadBalancerSourceRanges][2]"/><br/></li>
-                          <li><input type="text" name="service[spec][loadBalancerSourceRanges][3]"/><br/></li>
-                          <li><input type="text" name="service[spec][loadBalancerSourceRanges][4]"/><br/></li>
-                        </ul>
-                      </li>
-                      <li>
-                        <br/><br/><br/>
-                        <button type="submit" id="modalService-create" onclick="modalService_create()"  > Create </button>
-                        <button type="submit" id="modalService-save" onclick="modalService_save()" style="visibility:hidden;" > Save </button>
                       </li>
                     </ul>
+                </div>
+                <div style="display:table-cell;position:relative;left:80px;"><p></p>
+                        <!-- This needs to be changed!!! THINK!! -->
+                      <li>Selector:<br/><input type="text" id="service[spec][selector][key]" style="position:absolute;left:80px;"/><input type="text" id="service[spec][selector][value]" style="position:relative;left:240px;"/>:<br/></li><p></p>
+                      <li>Type:<input type="text" id="service[spec][type]" style="position:relative;left:45px;"/><br/></li><p></p>
+                      
+                      <li>
+                        <br/><br/><br/>
+                        <button type="submit" id="modalService-create" onclick="modalService_create()" style="position:relative;left:285px;background-color: #e7e7e7;font-size: 16px;border-radius: 8px;" > Create </button>
+                        <button type="submit" id="modalService-save" onclick="modalService_save()" style="visibility:hidden;" > Save </button>
+                      </li>
+
                 </div>
             </div>
           <!-- </li> -->
@@ -135,34 +128,32 @@
   </div>
   </div>
 
-<div id="modalContainer" class="modal">
+<div id="modalContainer" class="modal" style="height:999px;">
 
 
 
   <!-- Container Modal content -->
-  <div class="modal-content">
+  <div class="modal-content" style="background-color:#BBBF88;">
     <span class="closeContainerModal">x</span>
     <!-- <form name="containerOptions" id="containerOptions"> -->
-    <label>Container ID:  </label><label id="container-id"></label><br/>
-    Container Name*:  <input id="container-name" type="text" size=10 maxlength=10 required="required"/>
+    <label>Container ID  :  </label><label id="box-id"></label><br/>
     <div style="position:absolute;left:25px;">
 
     <form id="modalContainerForm" enctype="application/json" action="javascript:modalContainer_create()">
         <input type="hidden" id="config[apiVersion]" value="v1"/>
         <input type="hidden" id="config[kind]" value="ReplicationController"/>
-        <div style="width:100%;display:table;">
+        <div style="width:100%;height:100%;display:table;">
           <div style="display:table-row;"> 
-            <div style="display:table-cell;width:50%">Metadata:<br/>
-              <ul>
-                <li>Name*     :<input type="text" id="config[metadata][name]" value ="" required="" /><br/></li>
-                <li>Labels   :<input type="text" id="config[metadata][labels]" value ="{'':''}"/><br/></li>
-                <li>Namespace:<input type="text" id="config[metadata][namespace]" value =""/><br/></li>    
+            <div style="display:table-cell;width:30%">Metadata:<br/>
+              <ul style="margin-left:12px;">
+                <li>Name*     :<input type="text" id="config[metadata][name]" value ="" required="" style="margin-left:100px;"/><br/></li>
+                <li>Namespace:<input type="text" id="config[metadata][namespace]" value ="" style="margin-left:72px;"/><br/></li>    
               </ul>
             </div>
-            <div style="display:table-cell;width:50%"> Spec:<br/>
+            <div style="display:table-cell;width:50%;margin-left:62px;"> <strong>Spec:</strong><br/>
               <ul>
-                <li>Spec: Replicas     :<input type="text" id="config[spec][replicas]"/><br/></li>
-                <li>Spec: Selector     :<input type="text" id="config[spec][selector]"/><br/></li>
+                <li>Spec: Replicas     :<input type="text" id="config[spec][replicas]" style="margin-left:112px;"/><br/></li>
+                <li>Spec: Selector:<br/><input type="text" id="config[spec][selector][key]" style="margin-left:114px;"/>:<input type="text" id="config[spec][selector][value]" /><br/></li>
                 <li>Spec: Template     :<br/>
                   <ul>
                     <li>Spec: Template: Metadata: Labels:<input type="text" id="config[spec][template][metadata][labels]"/></li>
@@ -171,16 +162,16 @@
               </ul>
             </div>
           </div>
-          <div style="display:table-row;width:100%;text-align: center;">
-                Pod Specification:
+          <div style="display:table-row;width:100%;text-align: left;">
+              <strong> Pod Specification:</strong> 
           </div>
           <div style="display:table-row;">
                 <div style="display:table-cell;width:50%">
                     <ul>
-                      <li>Name*:<input type="text" id="config[spec][template][spec][containers][name]" required/><br/></li>
-                      <li>Image*: <input type="text" id="config[spec][template][spec][containers][image]" required/><br/></li>
+                      
+                      <li>Image*: <input type="text" id="config[spec][template][spec][containers][image]" required/ style="margin-left:114px;"><br/></li>
                       <li>Command:<br/>
-                        <ul>
+                        <ul style="margin-left:164px;">
                           <li><input type="text" id="config[spec][template][spec][containers][command][0]"/><br/></li>
                           <li><input type="text" id="config[spec][template][spec][containers][command][1]"/><br/></li>
                           <li><input type="text" id="config[spec][template][spec][containers][command][2]"/><br/></li>
@@ -189,7 +180,7 @@
                         </ul>
                       </li>
                       <li>Arguments:<br/>
-                        <ul>
+                        <ul style="margin-left:164px;">
                           <li><input type="text" id="config[spec][template][spec][containers][args][0]"/><br/></li>
                           <li><input type="text" id="config[spec][template][spec][containers][args][1]"/><br/></li>
                           <li><input type="text" id="config[spec][template][spec][containers][args][2]"/><br/></li>
@@ -197,8 +188,8 @@
                           <li><input type="text" id="config[spec][template][spec][containers][args][4]"/><br/></li>
                         </ul>
                       </li>
-                      <li>Environment (Name:Value):<br/>
-                        <ul>
+                      <li><br/>Environment (Name:Value):
+                        <ul style="margin-left:170px;position:relative;top:60%px;">
                           <li><input type="text" id="config[spec][template][spec][containers][env][0][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][0][value]"/><br/></li>
                           <li><input type="text" id="config[spec][template][spec][containers][env][1][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][1][value]"/><br/></li>
                           <li><input type="text" id="config[spec][template][spec][containers][env][2][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][2][value]"/><br/></li>
@@ -209,48 +200,48 @@
                 </div>
                 <div style="display:table-cell;">
                   <ul>
-                      <li>Ports:<br/>
+                      <li><strong>Ports:</strong><br/>
                         <ul>
                           <li>
+                      <ul>
+                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][0][containerPort]" style="margin-left:34px;"/></li>&nbsp;&nbsp;
+                              <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][0][name]"/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][0][protocol]" size:'5' style="margin-left:2px;"/></li>
+                     </ul>
+                          </li>
+                          <li>
                             <ul>
-                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][0][containerPort]"/><br/></li>
-                              <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][0][name]"/><br/></li>
-                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][0][protocol]"/><br/></li>
+                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][1][containerPort]" style="margin-left:34px;"/></li>&nbsp;&nbsp;
+                              <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][1][name]"/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][1][protocol]" style="margin-left:2px;"/></li>
                             </ul>
                           </li>
                           <li>
                             <ul>
-                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][1][containerPort]"/><br/></li>
-                              <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][1][name]"/><br/></li>
-                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][1][protocol]"/><br/></li>
+                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][2][containerPort]" style="margin-left:34px;"/></li>&nbsp;&nbsp;
+                              <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][2][name]"/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][2][protocol]" style="margin-left:2px;"/></li>
                             </ul>
                           </li>
                           <li>
                             <ul>
-                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][2][containerPort]"/><br/></li>
-                              <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][2][name]"/><br/></li>
-                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][2][protocol]"/><br/></li>
-                            </ul>
-                          </li>
-                          <li>
-                            <ul>
-                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][3][containerPort]"/></li>
+                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][3][containerPort]" style="margin-left:34px;"/></li>&nbsp;&nbsp;
                               <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][3][name]"/></li>
-                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][3][protocol]"/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][3][protocol]" style="margin-left:2px;"/></li>
                             </ul>
                           </li>
                           <li>
                             <ul>
-                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][4][containerPort]"/><br/></li>
-                              <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][4][name]"/><br/></li>
-                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][4][protocol]"/><br/></li>
+                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][4][containerPort]" style="margin-left:34px;"/></li>&nbsp;&nbsp;
+                              <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][4][name]"/></li>
+                              <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][4][protocol]" style="margin-left:2px;"/></li>
                             </ul>
                           </li>
                         </ul>
                       </li>
                       <li>
                         <br/><br/><br/>
-                        <button type="submit" id="modalContainer-create"   > Create </button>
+                        <button type="submit" id="modalContainer-create" style="position:relative;left:285px;background-color: #e7e7e7;font-size: 16px;border-radius: 8px;top:60px;"  > Create </button>
                         <button type="submit" id="modalContainer-save" onclick="modalContainer_save()" style="visibility:hidden;" > Save </button>
                       </li>
                     </ul>
@@ -265,7 +256,7 @@
             
             
   </div>
-</div>
+  </div>
 
 
 <div class="main-panel">
@@ -443,6 +434,7 @@
 
   var numberOfElements = 4;
   var containerID;
+  var hostIP='192.168.1.5';
   var configFiles={};
    var anchors = [
                     [0.5, 1, 0.5, 0.5]//,
@@ -469,14 +461,14 @@
     {
       containerID="service_"+ Math.floor(Math.random((Math.random() * 10000) + 1)*10000);
       
-      document.getElementById("service-id").innerHTML=containerID;
+      document.getElementById("box-id").innerHTML=containerID;
       document.getElementById("modalService-create").style.visibility='visible';
       document.getElementById("modalService-save").style.visibility='hidden';
       modalService.style.display = "block";
     }
     else if(dropped_element==="container_nodejs"){
       containerID="nodeJS_"+ Math.floor(Math.random((Math.random() * 10000) + 1)*10000);
-      document.getElementById("container-id").innerHTML=containerID;
+      document.getElementById("box-id").innerHTML=containerID;
       document.getElementById("modalContainer-create").style.visibility='visible';
       document.getElementById("modalContainer-save").style.visibility='hidden';
       modalContainer.style.display = "block";
@@ -484,7 +476,7 @@
     else if(dropped_element==="container_mongodb")
     {
       containerID="mongoDB_"+ Math.floor(Math.random((Math.random() * 10000) + 1)*10000);
-      document.getElementById("container-id").innerHTML=containerID;
+      document.getElementById("box-id").innerHTML=containerID;
       document.getElementById("modalContainer-create").style.visibility='visible';
       document.getElementById("modalContainer-save").style.visibility='hidden';
       modalContainer.style.display = "block";
@@ -528,28 +520,61 @@
   var modalContainer_create = function() {
 //Get all the values from the modal box and save it in the sessionStorage of the browser
 //***********
-    var containername = document.getElementById("container-name").value;
     
+    var op = containerID.split("_");
 ///////////////Get json and store/////////////////////
+
+  if(op[0]==='service'){
+  service={
+    apiVersion: document.getElementById('service[apiVersion]').value,
+    kind: document.getElementById('service[kind]').value,
+    metadata:{
+      name:document.getElementById('service[metadata][name]').value
+    },
+    spec:{
+      ports:[{
+        port:document.getElementById('service[spec][ports][0][port]').value,
+        targetPort:document.getElementById('service[spec][ports][0][targetPort]').value
+      },{
+        port:document.getElementById('service[spec][ports][1][port]').value,
+        targetPort:document.getElementById('service[spec][ports][1][targetPort]').value
+      },
+      {
+        port:document.getElementById('service[spec][ports][2][port]').value,
+        targetPort:document.getElementById('service[spec][ports][2][targetPort]').value
+      },{
+        port:document.getElementById('service[spec][ports][3][port]').value,
+        targetPort:document.getElementById('service[spec][ports][3][targetPort]').value
+      }],
+      selector:{},
+      type:document.getElementById('service[spec][type]').value
+    }
+  }
+
+  service.spec.selector[document.getElementById('service[spec][selector][key]').value]=document.getElementById('service[spec][selector][value]').value;
+
+  configFiles[containerID]=service;
+  cloneStandalone(service.metadata.name);
+  }else{
+
   config={
     apiVersion:document.getElementById('config[apiVersion]').value,
     kind:document.getElementById('config[kind]').value,
     metadata:{
-      labels:document.getElementById('config[kind]').value,
       name:document.getElementById('config[metadata][name]').value,
       namespace:document.getElementById('config[metadata][namespace]').value
     },
     spec:{
       replicas:parseInt(document.getElementById('config[spec][replicas]').value),
-      selector:document.getElementById('config[spec][selector]').value,
+      selector:{},
       template:{
         metadata:{
           labels:{
-            name:document.getElementById('config[spec][template][metadata][labels]').value}
+            name:document.getElementById('config[metadata][name]').value}
         },
         spec:{
           containers:[{
-            name:document.getElementById('config[spec][template][spec][containers][name]').value,
+            name:document.getElementById('config[metadata][name]').value,
             image:document.getElementById('config[spec][template][spec][containers][image]').value,
             args:[document.getElementById('config[spec][template][spec][containers][args][0]').value,document.getElementById('config[spec][template][spec][containers][args][1]').value,document.getElementById('config[spec][template][spec][containers][args][2]').value,document.getElementById('config[spec][template][spec][containers][args][3]').value,document.getElementById('config[spec][template][spec][containers][args][4]').value],
             command:[document.getElementById('config[spec][template][spec][containers][command][0]').value,document.getElementById('config[spec][template][spec][containers][command][1]').value,document.getElementById('config[spec][template][spec][containers][command][2]').value,document.getElementById('config[spec][template][spec][containers][command][3]').value,document.getElementById('config[spec][template][spec][containers][command][4]').value],
@@ -595,24 +620,28 @@
       }
     }
   }
+  config.spec.selector[document.getElementById('config[spec][selector][key]').value]=document.getElementById('config[spec][selector][value]').value
+  configFiles[containerID]=config;
+  cloneStandalone(config.metadata.name);
+  }
 ///////////////End////////////////////
 
 //console.log(config);
 
 //End - values from modal box
-    cloneStandalone(containername);
+    
     modalContainer.style.display = "none";
-    updateSessionValues(containerID,config);
-    configFiles[containerID]=config;
+    //updateSessionValues(containerID,config);
+    
 //var obj = JSON.parse(sessionStorage.user);
 
   }
   var modalContainer_save = function(){
 //***************
     var name = document.getElementById("container-name").value;
-    var id = document.getElementById("container-id").value;
+    var id = document.getElementById("box-id").value;
     document.getElementById(id).innerHTML=name+'<br/>'+id;
-    updateSessionValues(id,name);
+    //updateSessionValues(id,name);
     configFiles[id]=config;
     modalContainer.style.display = "none";
   }
@@ -644,7 +673,7 @@
       config:configFiles
     }
 
-      var url = 'http://192.168.1.3:3000/workspace/fireUpContainers';
+      var url = 'http://'+hostIP+':3000/workspace/fireUpContainers';
       var xhr = new XMLHttpRequest();
       xhr.open("POST",url,true);
       xhr.setRequestHeader('Content-Type' , 'application/json;charset=UTF-8');
@@ -653,17 +682,84 @@
   }
 
   var openConfig=function(cont){
-    var obj = JSON.parse(sessionStorage.getItem(cont.id));
-    updateModalValues(obj.id,obj.name);
-    containerID=cont.id;
-    document.getElementById("modalContainer-create").style.visibility='hidden';
-    document.getElementById("modalContainer-save").style.visibility='visible';
-    modalContainer.style.display = "block";
+    op = (cont.id).split("_");
+    if(op[0] !== 'service'){
+    configFiles[cont.id]
+    document.getElementById('config[apiVersion]').value=configFiles[cont.id].apiVersion;
+    document.getElementById('config[kind]').value=configFiles[cont.id].value;
+    document.getElementById('config[metadata][name]').value=configFiles[cont.id].metadata.name;
+    document.getElementById('config[metadata][namespace]').value=configFiles[cont.id].metadata.namespace;
+    document.getElementById('config[spec][replicas]').value=configFiles[cont.id].spec.replicas;
+    document.getElementById('config[spec][selector][key]').value=Object.Keys(configFiles[cont.id].spec.selector)[0];
+    document.getElementById('config[spec][selector][value]').value=configFiles[cont.id].spec.selector[Object.Keys(configFiles[cont.id].spec.selector)[0]];
+    document.getElementById('config[metadata][name]').value=configFiles[cont.id].metadata.namespace;
+
+    document.getElementById('config[spec][template][spec][containers][image]').value=configFiles[cont.id].spec.template.spec.containers.image;
+    document.getElementById('config[spec][template][spec][containers][args][0]').value=configFiles[cont.id].spec.template.spec.containers.args[0];
+    document.getElementById('config[spec][template][spec][containers][args][1]').value=configFiles[cont.id].spec.template.spec.containers.args[1];
+    document.getElementById('config[spec][template][spec][containers][args][2]').value=configFiles[cont.id].spec.template.spec.containers.args[2];
+    document.getElementById('config[spec][template][spec][containers][args][3]').value=configFiles[cont.id].spec.template.spec.containers.args[3];
+
+
+    document.getElementById('config[spec][template][spec][containers][command][0]').value=configFiles[cont.id].spec.template.spec.containers.command[0];
+    document.getElementById('config[spec][template][spec][containers][command][1]').value=configFiles[cont.id].spec.template.spec.containers.command[1];
+    document.getElementById('config[spec][template][spec][containers][command][2]').value=configFiles[cont.id].spec.template.spec.containers.command[2];
+    document.getElementById('config[spec][template][spec][containers][command][3]').value=configFiles[cont.id].spec.template.spec.containers.command[3];
+
+    document.getElementById('config[spec][template][spec][containers][env][0][name]').value=configFiles[cont.id].spec.template.spec.containers.env[0].name;
+    document.getElementById('config[spec][template][spec][containers][env][0][value]').value=configFiles[cont.id].spec.template.spec.containers.env[0].value;
+    document.getElementById('config[spec][template][spec][containers][env][1][name]').value=configFiles[cont.id].spec.template.spec.containers.env[1].name;
+    document.getElementById('config[spec][template][spec][containers][env][1][value]').value=configFiles[cont.id].spec.template.spec.containers.env[1].value;
+    document.getElementById('config[spec][template][spec][containers][env][2][name]').value=configFiles[cont.id].spec.template.spec.containers.env[2].name;
+    document.getElementById('config[spec][template][spec][containers][env][2][value]').value=configFiles[cont.id].spec.template.spec.containers.env[2].value;
+    document.getElementById('config[spec][template][spec][containers][env][3][name]').value=configFiles[cont.id].spec.template.spec.containers.env[3].name;
+    document.getElementById('config[spec][template][spec][containers][env][3][value]').value=configFiles[cont.id].spec.template.spec.containers.env[3].value;
+
+    document.getElementById('config[spec][template][spec][containers][ports][0][containerPort]').value=configFiles[cont.id].spec.template.spec.containers.ports[0].containerPort;
+    document.getElementById('config[spec][template][spec][containers][ports][0][name]').value=configFiles[cont.id].spec.template.spec.containers.ports[0].name;
+    document.getElementById('config[spec][template][spec][containers][ports][0][protocol]').value=configFiles[cont.id].spec.template.spec.containers.ports[0].protocol;
+    document.getElementById('config[spec][template][spec][containers][ports][1][containerPort]').value=configFiles[cont.id].spec.template.spec.containers.ports[1].containerPort;
+    document.getElementById('config[spec][template][spec][containers][ports][1][name]').value=configFiles[cont.id].spec.template.spec.containers.ports[1].name;
+    document.getElementById('config[spec][template][spec][containers][ports][1][protocol]').value=configFiles[cont.id].spec.template.spec.containers.ports[1].protocol;
+    document.getElementById('config[spec][template][spec][containers][ports][2][containerPort]').value=configFiles[cont.id].spec.template.spec.containers.ports[2].containerPort;
+    document.getElementById('config[spec][template][spec][containers][ports][2][name]').value=configFiles[cont.id].spec.template.spec.containers.ports[2].name;
+    document.getElementById('config[spec][template][spec][containers][ports][2][protocol]').value=configFiles[cont.id].spec.template.spec.containers.ports[2].protocol;
+    document.getElementById('config[spec][template][spec][containers][ports][3][containerPort]').value=configFiles[cont.id].spec.template.spec.containers.ports[3].containerPort;
+    document.getElementById('config[spec][template][spec][containers][ports][3][name]').value=configFiles[cont.id].spec.template.spec.containers.ports[3].name;
+    document.getElementById('config[spec][template][spec][containers][ports][3][protocol]').value=configFiles[cont.id].spec.template.spec.containers.ports[3].protocol;
+  }
+  else{
+    document.getElementById('service[apiVersion]').value=configFiles[cont.id].apiVersion;
+    document.getElementById('service[kind]').value=configFiles[cont.id].kind;
+    document.getElementById('service[metadata][name]').value=configFiles[cont.id].metadata.name;
+
+    document.getElementById('service[spec][ports][0][port]').value=configFiles[cont.id].spec.ports[0].port;
+    document.getElementById('service[spec][ports][0][targetPort]').value=configFiles[cont.id].spec.ports[0].targetPort;
+    document.getElementById('service[spec][ports][1][port]').value=configFiles[cont.id].spec.ports[1].port;
+    document.getElementById('service[spec][ports][1][targetPort]').value=configFiles[cont.id].spec.ports[1].targetPort;
+    document.getElementById('service[spec][ports][2][port]').value=configFiles[cont.id].spec.ports[2].port;
+    document.getElementById('service[spec][ports][2][targetPort]').value=configFiles[cont.id].spec.ports[2].targetPort;
+    document.getElementById('service[spec][ports][3][port]').value=configFiles[cont.id].spec.ports[3].port;
+    document.getElementById('service[spec][ports][3][targetPort]').value=configFiles[cont.id].spec.ports[3].targetPort;
+
+    document.getElementById('service[spec][selector][type]').value=configFiles[cont.id].spec.type;
+    document.getElementById('service[spec][selector][key]').value=configFiles[cont.id].spec.selector.key;
+    document.getElementById('service[spec][selector][value]').value=configFiles[cont.id].spec.selector.value;
+
+  }
+
+
+    // var obj = JSON.parse(sessionStorage.getItem(cont.id));
+    // updateModalValues(obj.id,obj.name);
+    // containerID=cont.id;
+    // document.getElementById("modalContainer-create").style.visibility='hidden';
+    // document.getElementById("modalContainer-save").style.visibility='visible';
+    // modalContainer.style.display = "block";
   }
 
 //Update the values of the modal with the passed values!! This avoids a lot of repeatition!
   var updateModalValues=function(id,name){
-    document.getElementById("container-id").value=id;
+    document.getElementById("box-id").value=id;
     document.getElementById("container-name").value=name;
   }
 //Update the values of the modal with the passed values!! This avoids a lot of repeatition!
@@ -824,22 +920,7 @@
   }
 
 
-//MODAL JQUERY COMMANDS!!!
-      // $('#build').click(function(){
-        
-      // });
-      // $('#image').click(function(){
-        
-      // });
-    function test(){
 
-      //alert(document.getElementById('modalContainerForm').config);
-      // var form = $("#modalContainerForm");
-      // console.log(JSON.stringify(new JSONFormData(form).config))
-
-       
-
-  }
 
 </script>
 </html>
