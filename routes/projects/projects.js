@@ -6,14 +6,29 @@ router.get('/',function(req,res,next){
 	console.log(req.user.groups.href)
 	var client=req.app.get('stormpathClient')
 	var href = req.user.href
+ var dir_href=req.user.directory.href
+	client.getDirectory(dir_href,function (err, directory) {
+  console.log(directory);
+	directory.getGroups(function(err, groupsCollection) {
+  groupsCollection.each(function(group, next) {
+		if(group.name!='user'||group.name!='admin'){
+		console.log('^^^^^^^^^^^^^^')
+    console.log(group.name);
+		console.log(group.href)
+		console.log('^^^^^^^^^^^^^^^^^^^^^^^^^')}
+    next();
+	})
+  });
+
+});
 
 client.getAccount(href, function (err, account) {
   account.getGroups(function(err,collection){
 		if (!err) {
     collection.each(function(group, next){
 			if(group.name!='user'||group.name!='admin'){
-				console.log(group.name+"--------------------------")
-				console.log(group.href+"--------------------------------")
+			//	console.log(group.name+"--------------------------")
+			//	console.log(group.href+"--------------------------------")
 				group.getAccounts(function (err, collection) {
        collection.each(function (account, next) {
      console.log('Found account for ' + account.givenName + ' (' + account.email + ')');
