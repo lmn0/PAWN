@@ -11,10 +11,11 @@ router.get('/',function(req,res,next){
   console.log(directory);
 	directory.getGroups(function(err, groupsCollection) {
   groupsCollection.each(function(group, next) {
+		if(group.name!='user'||group.name!='admin'){
 		console.log('^^^^^^^^^^^^^^')
     console.log(group.name);
 		console.log(group.href)
-		console.log('^^^^^^^^^^^^^^^^^^^^^^^^^')
+		console.log('^^^^^^^^^^^^^^^^^^^^^^^^^')}
     next();
 	})
   });
