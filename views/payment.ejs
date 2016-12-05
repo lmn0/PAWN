@@ -7,15 +7,36 @@
     <text style="color:grey;font-size:38px;position:absolute;left:540px;top:290px;">Upgarde to Pro</text>
 <form action="/payment" method="POST" style="position:absolute;left:590px;top:350px;">
 
-  <script
-    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="pk_test_oIrA7qYeky3E70KpkFtky8Dl"
-    // data-amount="999" 
-    data-name="Pawn Payment"
-    data-description="Widget"
-    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-    data-locale="auto">
-  </script>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+
+<button id="customButton">Purchase</button>
+
+<script>
+var handler = StripeCheckout.configure({
+  key: 'pk_test_oIrA7qYeky3E70KpkFtky8Dl',
+  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+  locale: 'auto',
+  token: function(token) {
+    // You can access the token ID with `token.id`.
+    // Get the token ID to your server-side code for use.
+  }
+});
+
+document.getElementById('customButton').addEventListener('click', function(e) {
+  // Open Checkout with further options:
+  handler.open({
+    name: 'Demo Site',
+    description: '2 widgets',
+    amount: 2000
+  });
+  e.preventDefault();
+});
+
+// Close Checkout on page navigation:
+window.addEventListener('popstate', function() {
+  handler.close();
+});
+</script>
 </form>
 </body>
 </html>

@@ -72,8 +72,8 @@ router.get('/add_project',function(req,res,next){
 newGroup={
  //name:req.body.projectName
 	//description:req.body.projectDesc
-	name:'created_project_2',
-	description:'created_project_description_2'
+	name:'created_project_5',
+	description:'created_project_description_5'
 }
 var app_href = 'https://api.stormpath.com/v1/applications/5XOc1tMvhE3zTs4hHH0BFb';
 var client=req.app.get('stormpathClient')
@@ -83,6 +83,8 @@ var client=req.app.get('stormpathClient')
 		console.log(directory)
 		directory.createGroup(newGroup,function(err,group){
 			console.log(group.name)
+			console.log(req.user)
+			group.customData.createdBy=req.user.email
 			var groupStoreMapping={
 				accountStore:{
 					href:group.href
@@ -90,6 +92,7 @@ var client=req.app.get('stormpathClient')
 			}
 //though group is created ,it should be mapped to the application
      client.getApplication(app_href,function(err,application){
+			 console.log(group)
 			 console.log(application.name)
 			 application.createAccountStoreMapping(groupStoreMapping, function (err) {
 			  if (err) {

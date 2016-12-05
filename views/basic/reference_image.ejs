@@ -21,28 +21,52 @@
 <h1>Plans available</h1>
     <div class="row">
 <div class="col-md-6" data-animate="fadeInUp">
-<h3 class="heading"><input type="radio" name="plan" value="individual">  Individual</h3>
+<h3 class="heading"><input id='sel_1' type="radio" name="plan" value="individual">  Individual</h3>
 <p>&nbsp; &nbsp; &nbsp; Work on a project individually</p>
 <p>&nbsp; &nbsp; &nbsp; keep track of the project and stats</p>
 
 </div>
 
 <div class="col-md-6" data-animate="fadeInUp">
-<h3 class="heading"><input type="radio" name="plan" value="Organisation">  Organisation</h3>
+<h3 class="heading"><input id='sel_2' type="radio" name="plan" value="Organisation">  Organisation</h3>
 <p>&nbsp; &nbsp; &nbsp;  Add multiple people</p>
 <p>&nbsp; &nbsp; &nbsp;  Work on multiple projects simaltaneously</p>
 <p>&nbsp; &nbsp; &nbsp;  Keep track of individual work, stats, progress</p>
 
 
 </div>
-<script
-  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-  data-key="pk_test_oIrA7qYeky3E70KpkFtky8Dl"
-  data-amount="999"
-  data-name="Pawn Payment"
-  data-description="Widget"
-  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-  data-locale="auto">
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+<button id="customButton">Purchase</button>
+
+<script>
+var handler = StripeCheckout.configure({
+  key: 'pk_test_oIrA7qYeky3E70KpkFtky8Dl',
+  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+  locale: 'auto',
+  token: function(token) {
+    // You can access the token ID with `token.id`.
+    // Get the token ID to your server-side code for use.
+  }
+});
+var x=document.getElementById('sel_1').value()
+x.textContent=id
+
+document.getElementById('customButton').addEventListener('click', function(e) {
+  // Open Checkout with further options:
+
+  handler.open({
+    name: 'Pawn Payment',
+    description: 'Affordable Plans',
+    amount: 2000
+  });
+  e.preventDefault();
+});
+
+// Close Checkout on page navigation:
+window.addEventListener('popstate', function() {
+  handler.close();
+});
 </script>
 </div>
 </form>
