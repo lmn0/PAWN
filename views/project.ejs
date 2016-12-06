@@ -32,15 +32,21 @@
 </style>
  <script type="text/javascript">  
   $().ready(function() {  
-   $('#add').click(function() {  
-    return !$('#select1 option:selected').remove().appendTo('#select2');  
-   });  
-   $('#remove').click(function() {  
-    return !$('#select2 option:selected').remove().appendTo('#select1');  
-   });  
-   $('#btn_adduser').click(function(){
-   })
-  });  
+    console.log( <%- JSON.stringify(userProjects) %> );
+    
+      for ( let t =0; t < <%-userProjects.length%>; t++){ 
+        
+    $('#'+t+'_add').click(function() {  console.log(t);
+      return !$('#'+t+'_select1 option:selected').remove().appendTo('#'+t+'_select2');  
+    });  
+    $('#'+t+'_remove').click(function() {  
+      return !$('#'+t+'_select2 option:selected').remove().appendTo('#'+t+'_select1');  
+    });  
+    $('#btn_adduser').click(function(){
+    })
+   // });  
+    } 
+  });
 
 
 
@@ -67,8 +73,10 @@
  </style> 
 </head>
 <body>
+
+<% for( i=0; i<userProjects.length;i++ ){ %>
  <!-- Modal -->
-  <div class="modal fade" id="userModal" role="dialog" >
+  <div class="modal fade" id="<%=userProjects[i].t_ph%>" role="dialog" >
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -78,30 +86,70 @@
           <h4 class="modal-title" style="color:white;">Add Users</h4>
         </div>
         <form action="/add_users" method="post">
-
-        <hidden name="project_name" id="userModal_proj_name" value=""/> 
-        <hideen name="project_href" id="userModal_proj_href" value=""/>
+        <h4>&nbsp;&nbsp;<%=userProjects[i].project_name%></h4>
+        <hidden name="project_name" id="<%=i%>_proj_name" value="<%=userProjects[i].project_name%>"/> 
+        <hidden name="project_href" id="<%=userProjects[i].t_ph%>_proj_href" value="<%=userProjects[i].t_ph%>"/>
 
         <div class="modal-body" style="left:30%">
         <table ><tr><td>
-       <!-- <div class="userModal">   -->
-  <select multiple id="select1" class="userModal">  
-   <option value="{name:,href:}">Option 1</option>  
-   <option value="{name:,href:}">Option 2</option>  
-   <option value="{name:,href:}">Option 3</option>  
-   <option value="{name:,href:}">Option 4</option>  
-  </select></td><td><select class="userModal" multiple id="select2"></select></td></tr>
+
+
+
+
+  <select multiple id="<%=i%>_select1" class="userModal">
+
+    
+    <% var ppresent =-1 %>
+    <% for ( m =0 ; m < projectUsers.length; m++){ %>
+      <% if(userProjects[i].t_ph == projectUsers[m].t_ph) {%>
+        <% ppresent=m%>
+      <% } %>
+    <%} %>
+    <% if(ppresent == -1){ %>
+      <% for ( l=0 ; l< allUsers.length; l++){ %>
+        <option value="{name:<%=allUsers[l].fullName%>,href:<%=allUsers[l].href%>}"><%=allUsers[l].fullName%></option>
+      <% } %>
+    <% }else{ %>
+      <% for( k=0; k < allUsers.length; k++ ){ %>
+        <% var upresent = -1 %>
+        <% for( j=0; j<projectUsers[ppresent].users.length; j++ ){ %>
+          <%if(allUsers[k].href == projectUsers[ppresent].users[j].href){%>
+            <% upresent = 1%>
+          <% } %>
+        <% } %>
+        <% if(upresent == -1){ %>
+          <option value="{name:<%=allUsers[k].fullName%>,href:<%=allUsers[k].href%>}"><%=allUsers[k].fullName%></option> 
+        <% } %>
+      <% } %>
+    <% } %>
+  
+
+  </select></td>
+ 
+
+  <td>
+
+  <select class="userModal" multiple id="<%=i%>_select2">
+    
+      <% var ppresent =-1 %>
+      <% for ( m =0 ; m < projectUsers.length; m++){ %>
+        <% if(userProjects[i].t_ph == projectUsers[m].t_ph) {%>
+          <% ppresent=m%>
+        <% } %>
+      <%} %>
+      <% if( ppresent != -1){ %>
+        <% for( j=0; j<projectUsers[ppresent].users.length; j++ ){ %>
+          <option value="{name:<%=projectUsers[ppresent].users[j].fullName%>,href:<%=projectUsers[ppresent].users[j].href%>}"><%=projectUsers[ppresent].users[j].fullName%></option>
+        <% } %>
+      <% } %>
+    
+
+  </select></td></tr>
   <tr>
   <td>
-  <a class="userModal" href="#" id="add">add &gt;&gt;</a>  
-  </td><td> <a class="userModal" href="#" id="remove">&lt;&lt; remove</a></td></tr></table>
-   
- <!-- <div class="userModal">   -->
-    
-   
- <!-- </div>   -->
-          
-          
+  <a class="userModal" href="#" id="<%=i%>_add">add &gt;&gt;</a>  
+  </td><td> <a class="userModal" href="#" id="<%=i%>_remove">&lt;&lt; remove</a></td></tr></table>
+ 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -112,6 +160,8 @@
       
     </div>
   </div>
+<!-- Modal End -->
+<% } %>
 
  <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog" >
@@ -199,7 +249,12 @@
     <div style="width:100%;height: 70%;background-color:#FFFFFF;">
          
      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-     <% for( i=0; i<userProjects.length;i++ ){ %>
+
+
+     <% for( var i=0; i<userProjects.length;i++ ){ %>
+
+
+
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="<%=userProjects[i].project_href%>">
       <h4 class="panel-title">
@@ -216,13 +271,32 @@
            <thead>
                <tr>
            <th> <strong>Users</strong></th>
-           <th> <strong>Project 1 Stats </strong></th>
                </tr></thead>
             <tr>
-            <form><hidden name="project_name" value="<%=userProjects[i].project_name%>"/> <hidden name="project_href" value="<%=userProjects[i].project_href%>"/><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Workspace diagram</button></form><button type="button" id="btn_adduser" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;" data-toggle="modal" data-target="#userModal">Add Members</button><form><hidden name="project_name" value="<%=userProjects[i].project_name%>"/> <hidden name="project_href" value="<%=userProjects[i].project_href%>"/><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Delete Project</button></form></tr>
+            <form id="<%=i%>_form" method="post" action="/workspace">
+              <input type="hidden" id="<%=i%>_project_name" name="project_name" value="<%=userProjects[i].project_name%>"/> 
+              <input type="hidden" id="<%=i%>_project_id" name="project_id" value="<%=userProjects[i].t_ph%>"/>
+              <input type="hidden" id="<%=i%>_project_href" name="project_href" value="<%=userProjects[i].project_href%>"/>
+              <button id="<%=i%>_wksp" name="<%=i%>_wksp" type="submit" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Workspace diagram</button>
+            </form>
+
+            <button type="button" id="btn_adduser" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;" data-toggle="modal" data-target="#<%=userProjects[i].t_ph%>">Add Members</button><form><hidden name="project_name" value="<%=userProjects[i].project_name%>"/> <hidden name="project_href" value="<%=userProjects[i].project_href%>"/><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Delete Project</button></form></tr>
                   <tr>
-                        <td>Roy</td>
-                        <td>CPU</td>
+                  <% var ppresent =-1 %>
+      <% for ( m =0 ; m < projectUsers.length; m++){ %>
+        <% if(userProjects[i].t_ph == projectUsers[m].t_ph) {%>
+          <% ppresent=m%>
+        <% } %>
+      <%} %>
+      <% if( ppresent != -1){ %>
+        <% for( j=0; j<projectUsers[ppresent].users.length; j++ ){ %>
+        <td>
+          <%=projectUsers[ppresent].users[j].fullName%><br/>
+        </td>
+        <% } %>
+      <% } %>
+                        
+                        
                   </tr>
            </table> 
      

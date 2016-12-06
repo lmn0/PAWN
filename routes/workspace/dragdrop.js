@@ -7,6 +7,7 @@ var url = 'mongodb://tjs:password@ds039684.mlab.com:39684/mongo';
 
 //GET Req
 router.get('/',function(req,res,next){
+	
 	// mongoClient.connect ( url, function(err, db){
 	// 	if(err)
 	// 	{
@@ -20,7 +21,53 @@ router.get('/',function(req,res,next){
 	// 	}
 	// })
 
+	//Basically search for the project using href and display it in the front end if found, else open a new project.
+
+	console.log(req.body);
+
 	res.render('workspace/newProject.ejs')
+})
+
+router.post('/',function(req,res,next){
+	
+	mongoClient.connect ( url, function(err, db){
+		if(err)
+		{
+			res.status(500).send({error:"Server error. Please try again later."})				
+		}
+		else{
+			console.log(req.body);
+			
+			var collection = db.collection('projects');
+			collection.find({id: req.body.project_id}).toArray(function (err, result) {
+      			if (err) {
+        			res.status(500).send({error:"Server error. Please try again later."})
+      			} else if (result.length) {
+      				console.log(result.length);
+        			res.render('workspace/newProject.ejs',{projName:req.body.project_name,projId:req.body.project_id})
+      			} else {
+      				res.render('workspace/newProject.ejs',{projName:req.body.project_name,projId:req.body.project_id})
+        			//console.log('No document(s) found with defined "find" criteria!');
+      			}
+      //Close connection
+      			db.close();
+    		});
+			
+			
+		}
+	})
+
+	//Basically search for the project using href and display it in the front end if found, else open a new project.
+
+	// var body ='';
+	// req.on('data',function(chunk){
+	// 	body+=chunk.toString('utf8');
+	// });
+	// req.on('end',function(){
+		//console.log(req.body);
+
+		
+	// });
 })
 
 

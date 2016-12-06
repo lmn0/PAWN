@@ -13,7 +13,7 @@ router.get('/',function(req,res,next){
 	var allusers=[];
 	var dir_href=req.user.directory.href
  //getting directory to get groups specific to organisation
- 
+ /////////////////////////////////////////////////////////////////////
 	client.getDirectory(dir_href,function (err, directory) {
   //console.log(directory);
 	//through directory every group present are returned
@@ -23,8 +23,8 @@ router.get('/',function(req,res,next){
 				if(group.name!='user' && group.name!='admin'){
 		//console.log('^^^^^^^^^^^^^^')
     				//console.log(group.name);
-		//console.log(group.href)
-		 			user_projects.push({project_name:group.name,project_href:group.href});
+		//console.log(group.href.split('/')[5]);
+		 			user_projects.push({project_name:group.name,project_href:group.href,t_ph:group.href.split('/')[5]});
 		//console.log('^^^^^^^^^^^^^^^^^^^^^^^^^')
 				}
     		next();
@@ -34,15 +34,16 @@ router.get('/',function(req,res,next){
   		});
 
 	});
- 	
+ /////////////////////////////////////////////////////////////////////////////	
 	
 //this flow is to get account to get groups its related to
 	client.getAccount(href, function (err, account) {
 	//then its associated groups are returned
   		account.getGroups(function(err,collection){
-  			var users=[];
+  			
 			if (!err) {
     			collection.each(function(group, next){
+    				var users=[];
 			//accounts present in each group are iteratively returned except admin and user groups (we need only project groups)
 					if(group.name!='user' && group.name!='admin'){
 			//	console.log(group.name+"--------------------------")
@@ -55,16 +56,16 @@ router.get('/',function(req,res,next){
 		 						users.push(account);
           						next();
   							});
-       						project_users.push({project_name:group.name,project_href:group.href,users:users})
+       						project_users.push({project_name:group.name,project_href:group.href,users:users,t_ph:group.href.split('/')[5]})
        						
 						});
 					}
-					next();
+					//next();
 				});
 				count++;
        			//ex_end();
   			}
-  
+ ///////////////////////////////////////////////////////////////////////// 
 	//this flow is to get all accounts in the organisation i.e directory
 			var href_dir=req.user.directory.href
 			client.getDirectory(href_dir,function(err,directory){
@@ -73,7 +74,7 @@ router.get('/',function(req,res,next){
 			//console.log(collection)
 	  				collection.each(function(account, next) {
 	    //console.log('Found account for ' + account.givenName + ' (' + account.email + ')');
-				    	allusers.push(account.givenName);
+				    	allusers.push(account);
 	    				next();
 	  				});
 	  				count++;
@@ -86,32 +87,19 @@ router.get('/',function(req,res,next){
  
  setTimeout(function(){
 		//if(count==3){
-				console.log("-----------------------------------------------------");
-				console.log(user_projects);
-				console.log("------------------------------------------------------");
-				console.log(project_users);
-				console.log("------------------------------------------------------");
-				console.log(allusers);
-				console.log("------------------------------------------------------");
-				res.render('project.ejs',{userProjects:user_projects,project_users:project_users,allusers:allusers});
+				//console.log("-----------------------------------------------------");
+				// console.log(user_projects);
+				// console.log("------------------------------------------------------");
+				// console.log(project_users);
+				// console.log("------------------------------------------------------");
+				// console.log(allusers);
+				// console.log("------------------------------------------------------");
+				res.render('project.ejs',{userProjects:user_projects,projectUsers:project_users,allUsers:allusers});
 		//	}
 
-	}, 10000);
+	}, 2000);
  
-	// var ex_end=function(){
-	// 	//if(count==3){
-	// 			console.log("-----------------------------------------------------");
-	// 			console.log(user_projects);
-	// 			console.log("------------------------------------------------------");
-	// 			console.log(project_access);
-	// 			console.log("------------------------------------------------------");
-	// 			console.log(allusers);
-	// 			console.log("------------------------------------------------------");
-	// 			res.render('project.ejs')
-	// 	//	}
 
-	// }
-	
 //send list of users in the user group,existing users
 	
 })
@@ -170,10 +158,10 @@ router.get('/add_users',function(req,res,next){
 var client=req.app.get('stormpathClient')
 //to add user group is obtained
 client.getGroup(projectHref,function(err,group){
-	var group_href=group.href
+	var group_href=rq.body.group_href
 	for(account in req.body.user){
 		var href = account.href
-		var name=account.userName
+		var name= account.userName
 		//users are iterated to add to the group i.e project obtained
 client.getAccount(href, function (err, account) {
   console.log(account.name);

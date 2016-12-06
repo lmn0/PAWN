@@ -353,8 +353,8 @@
     </div>
         <div style="position:absolute;top:10px;left:30px;">
           <ul>
-            <li><h3><b><label id="project-name"></label></b></h3></li>
-            <li><h7>ID:<label id="project-id"></label></h7></li>
+            <li><h3><b><label id="project-name"><%=projName%></label></b></h3></li>
+            <li><h7>ID:<label id="project-id"><%=projId%></label></h7></li>
           </ul>
         </div>
         <div style="position:absolute;top:10px;right:10px;">
@@ -676,10 +676,14 @@
     //Save the entire diagram !!!
     saveFlowchart();
     //send flowChartJson and config to nodejs
-    
+    //console.log(projName);
+    //console.log(<%=projName%>);
+    //console.log("<%projName%>");
     var data ={
       chart:JSON.parse(flowChartJson),
-      config:configFiles
+      config:configFiles,
+      projName:JSON.stringify(projName),
+      projId:JSON.stringify(projId)
     }
 
       var url = 'http://'+hostIP+':3000/workspace/fireUpContainers';
