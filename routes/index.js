@@ -110,7 +110,7 @@ console.log('----------\n');
   }
 }); */
 
-var href = 'https://api.stormpath.com/v1/applications/5XOc1tMvhE3zTs4hHH0BFb';
+var href = 'https://api.stormpath.com/v1/applications/1xLxnUnZSfnFMesw7whSnZ';
 
 client.getApplication(href, function (err, application) {
   console.log(application);

@@ -88,7 +88,7 @@
         <form action="/add_users" method="post">
         <h4>&nbsp;&nbsp;<%=userProjects[i].project_name%></h4>
         <hidden name="project_name" id="<%=i%>_proj_name" value="<%=userProjects[i].project_name%>"/> 
-        <hidden name="project_href" id="<%=userProjects[i].t_ph%>_proj_href" value="<%=userProjects[i].t_ph%>"/>
+        <hidden name="project_href" id="<%=i%>_proj_href" value="<%=userProjects[i].t_ph%>"/>
 
         <div class="modal-body" style="left:30%">
         <table ><tr><td>
@@ -173,18 +173,18 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" style="color:white;">Create Project</h4>
         </div>
-        <form action="/add_project" method="post">
+        <form action="/projects/add_project" method="post">
         <div class="modal-body">
         <table>
           <tr>
             <td>
           <p style="color:black;">Name </p></td>
-          <td><input type="text" id="projectName" size="35"/>
+          <td><input name="newProjName" type="text" id="projectName" size="35"/>
             </td>
             </tr>
             <tr>
             <td>
-          <p style="color:black;">Description </p></td><td><input type="text" id="projectDescription" size="35"/></td>
+          <p style="color:black;">Description </p></td><td><input name="newProjDesc" type="text" id="projectDescription" size="35"/></td>
           </tr>
           </table>
           

@@ -39,7 +39,7 @@ router.post('/',function(req,res,next){
 			console.log(req.body);
 			
 			var collection = db.collection('projects');
-			collection.find({id: req.body.project_id}).toArray(function (err, result) {
+			collection.find({projId: req.body.project_id}).toArray(function (err, result) {
       			if (err) {
         			res.status(500).send({error:"Server error. Please try again later."})
       			} else if (result.length) {
@@ -79,24 +79,29 @@ router.post('/fireUpContainers',function(req,res){
 	// 	body+=chunk.toString('utf8');
 	// });
 	// req.on('end',function(){
+
+		console.log(req.body);
+		res.redirect('/');
+		
 		var createsystem = require('../../lib/msgqueue/rabbit.js');
-		options = JSON.parse(req.body);
+		options = req.body;
 		createsystem.sendData(options,'k8s');
 
 		
 	mongoClient.connect ( url, function(err, db){
 		if(err)
 		{
+			console.log(err);
 			res.status(500).send({error:"Server error. Please try again later."})				
 		}
 		else{
 			var projects = db.collection('projects');
-			projects.update({href:options.project_href},{$set:options},{upsert:true});
+			projects.update({projId:options.projId},{$set:options},{upsert:true});
 			db.close;
-			res.redirect('/dashboard');
+			//res.redirect('/workspace');
 		}
 	})
-
+	
 		
 	// })
 

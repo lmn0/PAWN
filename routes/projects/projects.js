@@ -1,10 +1,16 @@
 var express = require('express');
 var router = express.Router();
+var mongodb = require('mongodb');
+var mongoClient = mongodb.MongoClient;
+
+var url = 'mongodb://tjs:password@ds039684.mlab.com:39684/mongo';
+
 // var promise = require('Promise')
 
 /* GET users listing. */
 router.get('/',function(req,res,next){
 	//console.log(req.user.groups.href)
+	console.log(req.user);
 	var client=req.app.get('stormpathClient')
 	var href = req.user.href
 	var count=0;
@@ -106,15 +112,15 @@ router.get('/',function(req,res,next){
 
 
 
-router.get('/add_project',function(req,res,next){
+router.post('/add_project',function(req,res,next){
 	//this flow is for project group creation
 newGroup={
  //name:req.body.projectName
 	//description:req.body.projectDesc
-	name:'created_project_2',
-	description:'created_project_description_2'
+	name:req.body.newProjName,
+	description:req.body.newProjDesc
 }
-var app_href = 'https://api.stormpath.com/v1/applications/5XOc1tMvhE3zTs4hHH0BFb';
+var app_href = 'https://api.stormpath.com/v1/applications/1xLxnUnZSfnFMesw7whSnZ';
 var client=req.app.get('stormpathClient')
   var href=req.user.directory.href
 	//directory is called to create group specific to organisation
@@ -134,7 +140,33 @@ var client=req.app.get('stormpathClient')
 			  if (err) {
 			    return console.error(err);
 			  }
+			  else{
+			  	mongoClient.connect(url, function (err, db) {
+  					if (err) {
+    					console.log('Unable to connect to the mongoDB server. Error:', err);
+  					} else {
+    				//HURRAY!! We are connected. :)
+    					console.log('Connection established to', url);
 
+					    // Get the documents collection
+    					var collection = db.collection('projects');
+
+    					collection.insert([{projId:group.href.split('/')[5],projName:req.body.newProjName,projDesc:req.body.newProjDesc
+}], function (err, result) {
+      					if (err) {
+        					console.log(err);
+      					} else {
+      						res.redirect('/projects');
+        					console.log('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
+      					}
+      				//Close connection
+      					db.close();
+    					});
+  					}
+				});
+			  }
+
+			  
 			  console.log('Project  is mapped!');
 
 			 })
@@ -144,7 +176,7 @@ var client=req.app.get('stormpathClient')
 	})
 
 
-res.redirect('/')
+
 
 
 })
