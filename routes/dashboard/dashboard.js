@@ -26,53 +26,87 @@ next();
 // res.render('create_user.ejs')
 // });
 
-router.get('/create_user',stormpath.groupsRequired(['admin']),function(req,res,next){
+router.get('/create_user',stormpath.loginRequired,function(req,res,next){
+  res.render("create_user.ejs")
+})
+
+
+
+router.post('/create_user',stormpath.groupsRequired(['admin']),function(req,res,next){
 //console.log('User:',req.user,'jsut accessed the /create user');
   var client = req.app.get('stormpathClient');
   //console.log(req.user.directory)
   var href_dir=req.user.directory.href
-  client.getDirectory(href_dir,function(err,directory){
-       //console.log(directory)
-       var account = {
-         givenName: 'Test',
-         surname: 'Krish',
-         username: 'teshkrish',
-         email: 'teshkris@example.com',
-         password: 'Changeme1!',
-         customData:{
-           role:'user',
-           stripe_id:"goo_free"
-         }
-       };
-       directory.getGroups(function (err, groupsCollection) {
-         console.log(groupsCollection)
-   groupsCollection.each(function(group, next) {
-     if(account.customData.role==group.name){
-       console.log("Hi>>>>>>>>>>>."+group)
-     directory.createAccount(account, function (err,createdAccount) {
-       console.log('yo------------'+createdAccount);
+
+console.log(account)
+client.getDirectory(href_dir,function(err,directory){
+  directory.createAccount({
+    givenName: req.body.firstName,
+    surname: req.body.lastName,
+    username: req.body.userName,
+    email: req.body.email,
+    password: req.body.password,
+  }, function (err, createdAccount) {
+    console.log(err);
+    directory.getGroups(function(err,groupsCollection){
+      groupsCollection.each(function(group,next){
+     if(req.body.role==group.name){
        createdAccount.addToGroup(group,function(err){
-         if(err){
-           return console.error(err);
-         }
-         console.log("account added to "+ group.name + "group")
+         console.log("account added to"+group.name+' group')
        })
-     });}
+     }
 
+      })
+    })
 
-
-          next();   })
-
-               });
-
-
-
-
-
-
-     })
+});
 })
 
+
+})
+
+router.get('/remove_user',function(req,res){
+
+remove_user_list=['https://api.stormpath.com/v1/accounts/1AU80rErxTb7aMnhpQdcTe']
+  var client = req.app.get('stormpathClient');
+  var href_group='https://api.stormpath.com/v1/groups/5IMtsRrMLTOs4RqIZ080ye'
+  client.getGroup(href_group,function(err,group)
+    {
+    //  console.log(group)
+      for (i=0;i<remove_user_list.length; i++){
+    //    console.log(remove_user_list[i])
+      client.getAccount(remove_user_list[i],function (err, account) {
+    //    console.log(account)
+      account.getGroupMemberships(function(err,CollectionResource){
+       CollectionResource.each(function(membership,next){
+         console.log(membership)
+         if(membership.group.href==href_group){
+           membership.delete(function(err){
+             if(err){
+               console.log(err)
+             } else{
+               console.log(account.email +' account got removed from '+ group.name)
+             }
+           })
+         }
+       })
+
+      /*  CollectionResource.delete(function(err){
+          if(err){
+            console.log(err)
+          } else {
+            console.log('Resource deleted')
+          }
+        }) */
+
+      })
+
+    //console.log('Found account for ' + account.givenName + ' (' + account.email + ')');
+
+  });
+}
+})
+})
 
 
 router.post('/hi', function(req, res) {

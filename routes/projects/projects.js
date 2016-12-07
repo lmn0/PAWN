@@ -3,66 +3,119 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/',function(req,res,next){
-	console.log(req.user.groups.href)
+	//console.log(req.user.groups.href)
+	individual_group_href="https://api.stormpath.com/v1/groups/5XQApHcYAzYyY4ZxeNW13A"
+	//if(individual_group_href==req.user.group)
 	var client=req.app.get('stormpathClient')
 	var href = req.user.href
- var dir_href=req.user.directory.href
+	var count=0;
+	var user_projects=[];
+	var project_users=[];
+	var allusers=[];
+	var dir_href=req.user.directory.href
+	console.log(dir_href)
  //getting directory to get groups specific to organisation
+ console.log(req.user)
 	client.getDirectory(dir_href,function (err, directory) {
-  console.log(directory);
+  //console.log(directory);
 	//through directory every group present are returned
-	directory.getGroups(function(err, groupsCollection) {
+		directory.getGroups(function(err, groupsCollection) {
 	//groups collection is iterated to print each group and its href
-  groupsCollection.each(function(group, next) {
-		if(group.name!='user'||group.name!='admin'){
-		console.log('^^^^^^^^^^^^^^')
-    console.log(group.name);
-		console.log(group.href)
-		console.log('^^^^^^^^^^^^^^^^^^^^^^^^^')}
-    next();
-	})
-  });
+  			groupsCollection.each(function(group, next) {
+				if(group.name!='user' && group.name!='admin'){
+		//console.log('^^^^^^^^^^^^^^')
+    				//console.log(group.name);
+		//console.log(group.href)
+		 			user_projects.push({project_name:group.name,project_href:group.href});
+		//console.log('^^^^^^^^^^^^^^^^^^^^^^^^^')
+				}
+    		//next();
+			})
+			count++;
+			//ex_end();
+  		});
 
-});
+	});
+
+
 //this flow is to get account to get groups its related to
-client.getAccount(href, function (err, account) {
+	client.getAccount(href, function (err, account) {
 	//then its associated groups are returned
-  account.getGroups(function(err,collection){
-		if (!err) {
-    collection.each(function(group, next){
+  		account.getGroups(function(err,collection){
+  			var users=[];
+			if (!err) {
+    			collection.each(function(group, next){
 			//accounts present in each group are iteratively returned except admin and user groups (we need only project groups)
-			if(group.name!='user'||group.name!='admin'){
+					if(group.name!='user' && group.name!='admin'){
 			//	console.log(group.name+"--------------------------")
 			//	console.log(group.href+"--------------------------------")
-				group.getAccounts(function (err, collection) {
-       collection.each(function (account, next) {
-     console.log('Found account for ' + account.givenName + ' (' + account.email + ')');
-		 console.log('*******************')
-          next();
-  });
-});
-			}
+						group.getAccounts(function (err, collection) {
+	 	      				collection.each(function (account, next) {
+     //console.log('Found account for ' + account.givenName + ' (' + account.email + ')');
+		 //console.log('*******************')
 
-		});
-  }
+		 						users.push(account);
+          						next();
+  							});
+       						project_users.push({project_name:group.name,project_href:group.href,users:users})
+
+						});
+					}
+				//	next();
+				});
+				count++;
+       			//ex_end();
+  			}
+
 	//this flow is to get all accounts in the organisation i.e directory
-	var href_dir=req.user.directory.href
-	client.getDirectory(href_dir,function(err,directory){
-		directory.getAccounts(function(err, collection) {
-			console.log('Getting all Accounts')
-			console.log(collection)
-	  collection.each(function(account, next) {
-	    console.log('Found account for ' + account.givenName + ' (' + account.email + ')');
-	    next();
-	  });
-	});
-	})
-	})
-});
+			var href_dir=req.user.directory.href
+			client.getDirectory(href_dir,function(err,directory){
+				directory.getAccounts(function(err, collection) {
+			//console.log('Getting all Accounts')
+			//console.log(collection)
+	  				collection.each(function(account, next) {
+	    //console.log('Found account for ' + account.givenName + ' (' + account.email + ')');
+				    	allusers.push(account.givenName);
+	    	//			next();
+	  				});
+	  				count++;
+	  				//ex_end();
+				});
 
+			})
+		})
+	});
+
+ setTimeout(function(){
+		//if(count==3){
+				console.log("-----------------------------------------------------");
+				console.log(user_projects);
+				console.log("------------------------------------------------------");
+				console.log(project_users);
+				console.log("------------------------------------------------------");
+				console.log(allusers);
+				console.log("------------------------------------------------------");
+				res.render('project.ejs',{userProjects:user_projects,project_users:project_users,allusers:allusers});
+		//	}
+
+	}, 3000);
+
+	// var ex_end=function(){
+	// 	//if(count==3){
+	// 			console.log("-----------------------------------------------------");
+	// 			console.log(user_projects);
+	// 			console.log("------------------------------------------------------");
+	// 			console.log(project_access);
+	// 			console.log("------------------------------------------------------");
+	// 			console.log(allusers);
+	// 			console.log("------------------------------------------------------");
+	// 			res.render('project.ejs')
+	// 	//	}
+
+	// }
 
 //send list of users in the user group,existing users
-	res.render('project.ejs')
+
 })
 
 
@@ -72,10 +125,10 @@ router.get('/add_project',function(req,res,next){
 newGroup={
  //name:req.body.projectName
 	//description:req.body.projectDesc
-	name:'created_project_6',
-	description:'created_project_description_6'
+	name:'created_project_7',
+	description:'created_project_description_7'
 }
-var app_href = 'https://api.stormpath.com/v1/applications/5XOc1tMvhE3zTs4hHH0BFb';
+var app_href = 'https://api.stormpath.com/v1/applications/1xLxnUnZSfnFMesw7whSnZ';
 var client=req.app.get('stormpathClient')
   var href=req.user.directory.href
 	//directory is called to create group specific to organisation
@@ -92,6 +145,17 @@ var client=req.app.get('stormpathClient')
 					}
 				})
 			})
+      client.getAccount(req.user.href,function(err,accessToken){
+				accessToken.addToGroup(group.href,function(err,GroupMembership){
+					if(err){
+						console.log('error to add')
+					}
+					else {
+						console.log(GroupMembership)
+					}
+				})
+			})
+
 			var groupStoreMapping={
 				accountStore:{
 					href:group.href
@@ -108,6 +172,9 @@ var client=req.app.get('stormpathClient')
 
 			  console.log('Project  is mapped!');
 
+
+
+
 			 })
 		 })
 
@@ -116,6 +183,19 @@ var client=req.app.get('stormpathClient')
 
 
 res.redirect('/')
+
+
+})
+
+router.get('/fake_route_individual',function(req,res,next){
+	var client=req.app.get('stormpathClient')
+	var href = req.user.href
+	var count=0;
+	var user_projects=[];
+	var project_users=[];
+	var allusers=[];
+	var dir_href=req.user.directory.href
+
 
 
 })
