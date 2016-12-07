@@ -51,7 +51,7 @@
     <label>Service ID:  </label><label id="box-id"></label><br/>
     <div style="position:absolute;left:25px;">
 
-    <form id="modalServiceForm" enctype="application/json" action="javascript:test()">
+    <form id="modalServiceForm" enctype="application/json" action="javascript:modalContainer_create()">
         <input type="hidden" id="service[apiVersion]" value="v1"/>
         <input type="hidden" id="service[kind]" value="Service"/>
         <div style="width:80%;height:180%;display:table;">
@@ -78,26 +78,26 @@
                           </li>
                           <li><p></p>
                             <ul>
-                              <li>Port:<input type="text" id="service[spec][ports][0][port]" style="margin-left:113px;" size=20/><br/></li>
-                              <li>TargetPort:<input type="text" id="service[spec][ports][0][targetPort]" style="margin-left:75px;" size=20/></li>
+                              <li>Port:<input type="text" id="service[spec][ports][1][port]" style="margin-left:113px;" size=20/><br/></li>
+                              <li>TargetPort:<input type="text" id="service[spec][ports][1][targetPort]" style="margin-left:75px;" size=20/></li>
                             </ul>
                           </li>
                           <li><p></p>
                             <ul>
-                              <li>Port:<input type="text" id="service[spec][ports][0][port]" style="margin-left:113px;" size=20/><br/></li>
-                              <li>TargetPort:<input type="text" id="service[spec][ports][0][targetPort]" style="margin-left:75px;" size=20/></li>
+                              <li>Port:<input type="text" id="service[spec][ports][2][port]" style="margin-left:113px;" size=20/><br/></li>
+                              <li>TargetPort:<input type="text" id="service[spec][ports][2][targetPort]" style="margin-left:75px;" size=20/></li>
                             </ul>
                           </li>
                           <li><p></p>
                             <ul>
-                              <li>Port:<input type="text" id="service[spec][ports][0][port]" style="margin-left:113px;" size=20/><br/></li>
-                              <li>TargetPort:<input type="text" id="service[spec][ports][0][targetPort]" style="margin-left:75px;" size=20/></li>
+                              <li>Port:<input type="text" id="service[spec][ports][3][port]" style="margin-left:113px;" size=20/><br/></li>
+                              <li>TargetPort:<input type="text" id="service[spec][ports][3][targetPort]" style="margin-left:75px;" size=20/></li>
                             </ul>
                           </li>
                           <li><p></p>
                             <ul>
-                             <li>Port:<input type="text" id="service[spec][ports][0][port]" style="margin-left:113px;" size=20/><br/></li>
-                              <li>TargetPort:<input type="text" id="service[spec][ports][0][targetPort]" style="margin-left:75px;" size=20/></li>
+                             <li>Port:<input type="text" id="service[spec][ports][4][port]" style="margin-left:113px;" size=20/><br/></li>
+                              <li>TargetPort:<input type="text" id="service[spec][ports][4][targetPort]" style="margin-left:75px;" size=20/></li>
                             </ul>
                           </li>
                         </ul>
@@ -111,7 +111,7 @@
                       
                       <li>
                         <br/><br/><br/>
-                        <button type="submit" id="modalService-create" onclick="modalService_create()" style="position:relative;left:285px;background-color: #e7e7e7;font-size: 16px;border-radius: 8px;" > Create </button>
+                        <button type="submit" id="modalService-create" style="position:relative;left:285px;background-color: #e7e7e7;font-size: 16px;border-radius: 8px;" > Create </button>
                         <button type="submit" id="modalService-save" onclick="modalService_save()" style="visibility:hidden;" > Save </button>
                       </li>
 
@@ -557,18 +557,18 @@ window.onload = loadPage;
     },
     spec:{
       ports:[{
-        port:document.getElementById('service[spec][ports][0][port]').value,
-        targetPort:document.getElementById('service[spec][ports][0][targetPort]').value
+        port:parseInt(document.getElementById('service[spec][ports][0][port]').value),
+        targetPort:parseInt(document.getElementById('service[spec][ports][0][targetPort]').value)
       },{
-        port:document.getElementById('service[spec][ports][1][port]').value,
-        targetPort:document.getElementById('service[spec][ports][1][targetPort]').value
+        port:parseInt(document.getElementById('service[spec][ports][1][port]').value),
+        targetPort:parseInt(document.getElementById('service[spec][ports][1][targetPort]').value)
       },
       {
-        port:document.getElementById('service[spec][ports][2][port]').value,
-        targetPort:document.getElementById('service[spec][ports][2][targetPort]').value
+        port:parseInt(document.getElementById('service[spec][ports][2][port]').value),
+        targetPort:parseInt(document.getElementById('service[spec][ports][2][targetPort]').value)
       },{
-        port:document.getElementById('service[spec][ports][3][port]').value,
-        targetPort:document.getElementById('service[spec][ports][3][targetPort]').value
+        port:parseInt(document.getElementById('service[spec][ports][3][port]').value),
+        targetPort:parseInt(document.getElementById('service[spec][ports][3][targetPort]').value)
       }],
       selector:{},
       type:document.getElementById('service[spec][type]').value
@@ -579,6 +579,7 @@ window.onload = loadPage;
 
   configFiles[containerID]=service;
   cloneStandalone(service.metadata.name);
+  modalService.style.display = "none";
   }else{
 
   config={
@@ -647,6 +648,7 @@ window.onload = loadPage;
   config.spec.selector[document.getElementById('config[spec][selector][key]').value]=document.getElementById('config[spec][selector][value]').value
   configFiles[containerID]=config;
   cloneStandalone(config.metadata.name);
+  modalContainer.style.display = "none";
   }
 ///////////////End////////////////////
 
@@ -654,11 +656,11 @@ window.onload = loadPage;
 
 //End - values from modal box
     
-    modalContainer.style.display = "none";
+    
     //updateSessionValues(containerID,config);
     
 //var obj = JSON.parse(sessionStorage.user);
-
+console.log("Reaching here");
   }
   var modalContainer_save = function(){
 //***************
@@ -738,8 +740,8 @@ window.onload = loadPage;
     document.getElementById('config[metadata][name]').value=configFiles[cont.id].metadata.name;
     document.getElementById('config[metadata][namespace]').value=configFiles[cont.id].metadata.namespace;
     document.getElementById('config[spec][replicas]').value=configFiles[cont.id].spec.replicas;
-    document.getElementById('config[spec][selector][key]').value=Object.Keys(configFiles[cont.id].spec.selector)[0];
-    document.getElementById('config[spec][selector][value]').value=configFiles[cont.id].spec.selector[Object.Keys(configFiles[cont.id].spec.selector)[0]];
+    document.getElementById('config[spec][selector][key]').value=Object.keys(configFiles[cont.id].spec.selector)[0];
+    document.getElementById('config[spec][selector][value]').value=configFiles[cont.id].spec.selector[Object.keys(configFiles[cont.id].spec.selector)[0]];
     document.getElementById('config[metadata][name]').value=configFiles[cont.id].metadata.namespace;
 
     document.getElementById('config[spec][template][spec][containers][image]').value=configFiles[cont.id].spec.template.spec.containers.image;

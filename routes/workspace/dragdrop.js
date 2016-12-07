@@ -83,7 +83,7 @@ router.post('/fireUpContainers',function(req,res){
 		
 		var createsystem = require('../../lib/msgqueue/rabbit.js');
 		options = req.body;
-		createsystem.sendData(options,'k8s');
+		createsystem.sendData(options,'createProject');
 
 		
 	mongoClient.connect ( url, function(err, db){

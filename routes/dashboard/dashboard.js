@@ -19,16 +19,18 @@ console.log('User:',req.user.email,'jsut accessed the /home page');
 
  var dir_href=req.user.directory.href
 	client.getDirectory(dir_href,function (err, directory) {
-  console.log(directory);
+  //console.log(directory);
 	directory.getGroups(function(err, groupsCollection) {
   groupsCollection.each(function(group, next) {
 		if(group.name!='user'||group.name!='admin'){
-		console.log('^^^^^^^^^^^^^^')
-    console.log(group.name);
-		console.log(group.href)
-		console.log('^^^^^^^^^^^^^^^^^^^^^^^^^')}
+		//console.log('^^^^^^^^^^^^^^')
+    //console.log(group.name);
+		//console.log(group.href)
+		//console.log('^^^^^^^^^^^^^^^^^^^^^^^^^')
+		projects.push(group);
+	}
 
-			projects.push(group);
+			
 
 	})
   });
@@ -88,16 +90,9 @@ router.get('/create_user',stormpath.groupsRequired(['admin']),function(req,res,n
        })
      });}
 
-
-
           next();   })
 
                });
-
-
-
-
-
 
      })
 })
