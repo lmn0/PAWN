@@ -288,12 +288,6 @@
                         Projects
                     </a>
                 </li>
-                <li>
-                    <a href="index">
-                        <i class="pe-7s-bell"></i>
-                        Logout
-                    </a>
-                </li>
                     </ul>
                 </div>
             </div>
@@ -603,22 +597,6 @@ window.onload = loadPage;
             image:document.getElementById('config[spec][template][spec][containers][image]').value,
             args:[document.getElementById('config[spec][template][spec][containers][args][0]').value,document.getElementById('config[spec][template][spec][containers][args][1]').value,document.getElementById('config[spec][template][spec][containers][args][2]').value,document.getElementById('config[spec][template][spec][containers][args][3]').value,document.getElementById('config[spec][template][spec][containers][args][4]').value],
             command:[document.getElementById('config[spec][template][spec][containers][command][0]').value,document.getElementById('config[spec][template][spec][containers][command][1]').value,document.getElementById('config[spec][template][spec][containers][command][2]').value,document.getElementById('config[spec][template][spec][containers][command][3]').value,document.getElementById('config[spec][template][spec][containers][command][4]').value],
-            env:[{
-                name:document.getElementById('config[spec][template][spec][containers][env][0][name]').value,
-                value:document.getElementById('config[spec][template][spec][containers][env][0][value]').value
-              },{
-                name:document.getElementById('config[spec][template][spec][containers][env][1][name]').value,
-                value:document.getElementById('config[spec][template][spec][containers][env][1][value]').value
-              },{
-                name:document.getElementById('config[spec][template][spec][containers][env][2][name]').value,
-                value:document.getElementById('config[spec][template][spec][containers][env][2][value]').value
-              },{
-                name:document.getElementById('config[spec][template][spec][containers][env][3][name]').value,
-                value:document.getElementById('config[spec][template][spec][containers][env][3][value]').value
-              },{
-                name:document.getElementById('config[spec][template][spec][containers][env][4][name]').value,
-                value:document.getElementById('config[spec][template][spec][containers][env][4][value]').value
-            }],
             ports:[{
               containerPort:parseInt(document.getElementById('config[spec][template][spec][containers][ports][0][containerPort]').value),
               name:document.getElementById('config[spec][template][spec][containers][ports][0][name]').value,

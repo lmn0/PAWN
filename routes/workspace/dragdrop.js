@@ -93,8 +93,16 @@ router.post('/fireUpContainers',function(req,res){
 			res.status(500).send({error:"Server error. Please try again later."})				
 		}
 		else{
+			var svcnames=[];
 			var projects = db.collection('projects');
 			projects.update({projId:options.projId},{$set:options},{upsert:true});
+			var projStatus = db.collection('projectStatus');
+			for(key in options.config){
+				if(key.split('_')[0]==="service")
+					svcnames.push(options.config[key].metadata.name)
+					}
+			projStatus.update({projId:options.projId},{$set:{status:"notstarted",svcnames:svcnames}},{upsert:true})
+			
 			db.close;
 			res.redirect('/projects');
 		}

@@ -6,8 +6,12 @@ var fs = require('fs');
 var jsonfile = require('jsonfile');
 var json2yaml = require('json2yaml');
 var y = require('yamljs');
+var mongodb = require('mongodb');
+var mongoClient = mongodb.MongoClient;
 //var k8s = require('k8s');
 //var jy = require('node-yaml');
+
+var url = 'mongodb://tjs:password@ds039684.mlab.com:39684/mongo';
 
 amqp.connect(amqpURL,function(err,conn){
   conn.createChannel(function(err,ch){
@@ -69,21 +73,33 @@ amqp.connect(amqpURL,function(err,conn){
     //yaml.write(dir+'/'+key+'.yaml',yaml,'utf8',function(err){
     //  console.error(err);
     //});
+    console.log(key);
     fs.writeFile(dir+'/'+key+'.yaml',yaml,'utf8' ,function (err) {
           if (err) return console.log(err);
           var exec = require('child_process').exec;
           var cmd = 'sudo kubectl create -f ./tmp/'+jsondata.projId;
 
           exec(cmd,function(err,stdout,stderr){
-            // console.log(err);
+            console.log(key);
             // console.log("-------------------------------");
             // console.log(stdout);
             // console.log("-------------------------------");
             // console.log(stderr);
             // console.log("-------------------------------");
-            if(err ==null){
+            if(err !=null || stderr!= null){
+              mongoClient.connect(url, function (err, db) {
+                  if (err) {
+                    console.log('Unable to connect to the mongoDB server. Error:', err);
+                  } else {
+                    var collection = db.collection('projectStatus');
+                    collection.update({projId:jsondata.projId},{$set:{status:"error"}},{upsert:true});
+                    db.close();
 
+                  }
+                  
+              });
             }
+            
           });
 
       });

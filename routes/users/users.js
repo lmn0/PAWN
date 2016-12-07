@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var stormpath=require('express-stormpath');
 /* GET users listing. */
 router.get('/',function(req,res,next){
 	var client=req.app.get('stormpathClient')
@@ -58,6 +58,51 @@ router.post('/data',function(req,res,next){
 })
 })
 
+router.get('/log-me-out',function(req,res,next){
+  res.render('logout.ejs');
+})
+
+
+router.get('/create_user',function(req,res,next){
+  res.render("create_user.ejs")
+})
+
+
+router.post('/create_user',stormpath.groupsRequired(['admin']),function(req,res,next){
+//console.log('User:',req.user,'jsut accessed the /create user');
+  var client = req.app.get('stormpathClient');
+  //console.log(req.user.directory)
+  var href_dir=req.user.directory.href
+
+console.log(account)
+client.getDirectory(href_dir,function(err,directory){
+  directory.createAccount({
+    givenName: req.body.firstName,
+    surname: req.body.lastName,
+    username: req.body.userName,
+    email: req.body.email,
+    password: req.body.password,
+		customData:{
+			role:req.body.role
+		}
+  }, function (err, createdAccount) {
+    console.log(err);
+    directory.getGroups(function(err,groupsCollection){
+      groupsCollection.each(function(group,next){
+     if(req.body.role==group.name){
+       createdAccount.addToGroup(group,function(err){
+         console.log("account added to"+group.name+' group')
+       })
+     }
+
+      })
+    })
+
+});
+})
+
+
+})
 
 
 module.exports = router;

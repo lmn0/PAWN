@@ -193,6 +193,9 @@ var client=req.app.get('stormpathClient')
 
 router.post('/get_status',function(req,res,next){
 	console.log(req.body.projId);
+	
+	var createsystem = require('../../lib/msgqueue/rabbit.js');
+	createsystem.sendData({projId:req.body.projId},'svcStatus');
 
 	mongoClient.connect(url, function (err, db) {
   					if (err) {
@@ -209,7 +212,6 @@ router.post('/get_status',function(req,res,next){
       							res.status(204);
         						console.log(err);
       						} else if (result.length) {
-
         						res.status(200).send({status:result[0].status,ip:result[0].ip})
       						} else {
       							res.status(200).send({status:"notstarted"});

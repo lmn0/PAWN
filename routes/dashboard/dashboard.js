@@ -57,45 +57,6 @@ next();
 // res.render('create_user.ejs')
 // });
 
-router.get('/create_user',stormpath.groupsRequired(['admin']),function(req,res,next){
-//console.log('User:',req.user,'jsut accessed the /create user');
-  var client = req.app.get('stormpathClient');
-  //console.log(req.user.directory)
-  var href_dir=req.user.directory.href
-  client.getDirectory(href_dir,function(err,directory){
-       //console.log(directory)
-       var account = {
-         givenName: 'Test',
-         surname: 'Krish',
-         username: 'teshkrish',
-         email: 'teshkris@example.com',
-         password: 'Changeme1!',
-         customData:{
-           role:'user',
-           stripe_id:"goo_free"
-         }
-       };
-       directory.getGroups(function (err, groupsCollection) {
-         console.log(groupsCollection)
-   groupsCollection.each(function(group, next) {
-     if(account.customData.role==group.name){
-       console.log("Hi>>>>>>>>>>>."+group)
-     directory.createAccount(account, function (err,createdAccount) {
-       console.log('yo------------'+createdAccount);
-       createdAccount.addToGroup(group,function(err){
-         if(err){
-           return console.error(err);
-         }
-         console.log("account added to "+ group.name + "group")
-       })
-     });}
-
-          next();   })
-
-               });
-
-     })
-})
 
 
 

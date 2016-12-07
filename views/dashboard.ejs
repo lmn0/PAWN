@@ -7,8 +7,15 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
     <script type="text/javascript">
-    
-      </script>
+    $(function() {
+  $("#logout").on("click",function(e) {
+    e.preventDefault(); // cancel the link itself
+    $.post(this.href,function(data) {
+      window.location.href="http://localhost:3000/";
+    });
+  });
+});
+//       </script>
 	
 </head>
 
@@ -21,15 +28,21 @@
     
             <ul class="nav">
                 <li>
-                    <a href="dashboard">
+                    <a href="/dashboard">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li>
-                    <a href="users">
+                    <a href="/users">
                         <i class="pe-7s-user"></i>
                         <p>User Profile</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/users/create_user">
+                        <i class="pe-7s-user"></i>
+                        <p>Create User</p>
                     </a>
                 </li>
                 <li>
@@ -39,9 +52,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="index">
+                    <a id="logout" href="users/log-me-out">
                         <i class="pe-7s-bell"></i>
-                        <p>Logout</p>
+                                <p>Logout</p>
                     </a>
                 </li>
             </ul>
@@ -61,23 +74,9 @@
                     
                     <ul class="nav navbar-nav navbar-left" style="position:absolute;right:20px;top:10px;">
                         <li>
-                           <a href="index.ejs">
+                           <a href="/dashboard">
                                Home
                             </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret"></b>
-                                    <span class="notification">5</span>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
                         </li>
                         <li>
                            <a href="">
