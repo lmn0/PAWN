@@ -229,7 +229,7 @@ client.getAccount(href, function (err, account) {
 
 })
 
-router.get('/delete_users',function(req,res,next){
+router.get('/delete_project',function(req,res,next){
 	//delHref=req.body.delete_href
 	var client=req.app.get('stormpathClient')
 	//similar to add user function
