@@ -16,23 +16,54 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/payment',function(req,res,next){
-  res.render('payment.ejs')
+  console.log(req.query.plan)
+//  res.locals.plan=req.query.plan
+  if(req.query.plan=='Organisation'){
+res.render('payment.ejs')}
+ else if (req.query.plan=='individual'){
+res.render('payment_2.ejs')
+ }
 })
 router.post('/payment', function(req, res, next) {
     console.log("check-1")
+    console.log(req.body)
+    console.log(res.locals.plan)
     var client = req.app.get('stormpathClient');
     stripe.customers.create({
         source: req.body.stripeToken,
-        plan: 'pro',
+        plan: 'Organisation',
         email:req.body.email
           }, function(err, customer) {
         if (err) return next(err);
-        req.somevariable=customer.id
-        res.redirect('/signup_2/?valid=' + customer.id);
+        res.redirect('/signup_1/?valid=' + customer.id);
 
           });
 
           });
+
+router.post('/payment_2', function(req, res, next) {
+      console.log("check-1")
+      console.log(req.body)
+      console.log(res.locals.plan)
+      var client = req.app.get('stormpathClient');
+              stripe.customers.create({
+                  source: req.body.stripeToken,
+                  plan: 'individual',
+                  email:req.body.email
+                    }, function(err, customer) {
+                  if (err) return next(err);
+                  //req.somevariable=customer.id
+                  res.redirect('/signup_2/?valid=' + customer.id);
+
+                    });
+
+                    });
+
+router.get('/signup_1',function(req,res,next){
+  res.render('signup_1.ejs',{
+    stripe_tran_id:req.query.valid
+  })
+})
 
 router.get('/signup_2',function(req,res,next){
   console.log(req.query.valid)
@@ -41,7 +72,7 @@ router.get('/signup_2',function(req,res,next){
   })
 })
 
-router.post('/signup_2',function(req,res,next){
+router.post('/signup_1',function(req,res,next){
 //  var nameValue = document.getElementById("63211428158149").value;
 console.log(req.somevariable)
   console.log(req.body.q36_organisation)
@@ -110,7 +141,7 @@ console.log('----------\n');
   }
 }); */
 
-var href = 'https://api.stormpath.com/v1/applications/1xLxnUnZSfnFMesw7whSnZ';
+var href = 'https://api.stormpath.com/v1/applications/1xLxnUnZSfnFMesw7whSnZ'
 
 client.getApplication(href, function (err, application) {
   console.log(application);
@@ -164,5 +195,38 @@ res.redirect('/')
 
 
 })
+
+router.post('/signup_2',function(req,res,next){
+  console.log(req.body)
+  var client = req.app.get('stormpathClient');
+  var href="https://api.stormpath.com/v1/applications/1xLxnUnZSfnFMesw7whSnZ"
+  var accountData = {
+    givenName: req.body.q1_firstName,
+    surname: req.body.q17_lastName,
+    username: req.body.q1_firstName,
+    email: req.body.q35_email,
+    password: 'Vatvatvat1',
+    customData:{stripeID:'rtyereees'}
+  };
+  var group_href="https://api.stormpath.com/v1/groups/1YQYaUkJbO4BGmyuP0mEBs"
+  var dir_href='https://api.stormpath.com/v1/directories/1xMs0Ew1y6DwgHSY8k0ZlB'
+client.getDirectory(dir_href,function(err,directory){
+   //application.createAccount
+   directory.createAccount(accountData, function(err, createdAccount) {
+  console.log(createdAccount);
+  createdAccount.addToGroup(group_href,function(err,membership){
+    console.log(membership)
+    if(err)
+    console.log(err)
+  })
+
+});
+})
+res.redirect('/')
+
+})
+
+
+
 
 module.exports = router;
