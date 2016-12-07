@@ -452,7 +452,7 @@ window.onload = loadPage;
   var numberOfElements = 4;
   var containerID;
   //var hostIP='192.168.1.8';
-  var hostIP='localhost';
+  var hostIP='35.160.36.30';
   var configFiles={};
    var anchors = [
                     [0.5, 1, 0.5, 0.5]//,
@@ -697,7 +697,7 @@ console.log("Reaching here");
     return "";
     }
 
-      var url = 'http://'+hostIP+':3000/workspace/fireUpContainers';
+      var url = 'http://'+hostIP+'/workspace/fireUpContainers';
       var xhr = new XMLHttpRequest();
       xhr.open("POST",url,true);
       xhr.setRequestHeader('Content-Type' , 'application/json; charset=utf-8');

@@ -39,7 +39,7 @@
 
         var pref=$('#'+t+'_project_id').val();
         function checkStatus(){
-        $.post("http://localhost:3000/projects/get_status",{projId:pref}, 
+        $.post("http://35.160.36.30/projects/get_status",{projId:pref}, 
           function(result,status,jqXHR){
             if(result.status==="notstarted")
             {
