@@ -133,6 +133,16 @@ var client=req.app.get('stormpathClient')
 					href:group.href
 				}
 			}
+			client.getAccount(req.user.href,function(err,accessToken){
+				accessToken.addToGroup(group.href,function(err,GroupMembership){
+					if(err){
+						console.log('error to add')
+					}
+					else {
+						console.log(GroupMembership)
+					}
+				})
+			})
 //though group is created ,it should be mapped to the application
      client.getApplication(app_href,function(err,application){
 			 console.log(application.name)

@@ -20,7 +20,7 @@ amqp.connect(amqpURL,function(err,conn){
         console.log("<- Recieved %s ",msg.content.toString());
         jsondata = JSON.parse(msg.content.toString());
 
-      var dir = "./tmp/"+"test";//jsondata.projectID;
+      var dir = "./tmp/"+jsondata.projId;
       if(!fs.existsSync(dir)){
           fs.mkdirSync(dir);
       }
@@ -68,7 +68,7 @@ amqp.connect(amqpURL,function(err,conn){
     fs.writeFile(dir+'/'+key+'.yaml',yaml,'utf8' ,function (err) {
           if (err) return console.log(err);
           var exec = require('child_process').exec;
-          var cmd = 'sudo kubectl create -f ./tmp/vo';
+          var cmd = 'sudo kubectl create -f ./tmp/'+jsondata.projId;
 
           exec(cmd,function(err,stdout,stderr){
             // console.log(err);

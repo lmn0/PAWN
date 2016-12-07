@@ -351,9 +351,10 @@
         </div>
         
     </div>
-        <div style="position:absolute;top:10px;left:30px;">
+        <div style="position:absolute;top:-13px;left:5%;">
           <ul>
             <li><h3><b><label id="project-name"><%=projName%></label></b></h3></li>
+            <li><h6><label id="project-desc"><%=projDesc%></label></h6></li>
             <li><h7>ID:<label id="project-id"><%=projId%></label></h7></li>
           </ul>
         </div>
@@ -440,10 +441,20 @@
 <script src="/javascripts/workspace/json-formdata.js"></script>
 
 <script type="text/javascript">
+function loadPage() {
+  //console.log(typeof chart);
+  loadFlowchart(<%-JSON.stringify(chart)%>)
+  if(typeof chart==="object" && typeof config==="object"){
+    configFiles=config;
+    loadFlowchart(chart)
+  }
+}
 
+window.onload = loadPage;
   var numberOfElements = 4;
   var containerID;
-  var hostIP='192.168.1.8';
+  //var hostIP='192.168.1.8';
+  var hostIP='localhost';
   var configFiles={};
    var anchors = [
                     [0.5, 1, 0.5, 0.5]//,
@@ -687,11 +698,28 @@
       projName:projName,
       projId:projId
     }
+    function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+    }
 
       var url = 'http://'+hostIP+':3000/workspace/fireUpContainers';
       var xhr = new XMLHttpRequest();
       xhr.open("POST",url,true);
       xhr.setRequestHeader('Content-Type' , 'application/json; charset=utf-8');
+      xhr.setRequestHeader('access_token',getCookie('access_token'));
+      xhr.setRequestHeader('refresh_token',getCookie('refresh_token'));
+      xhr.setRequestHeader('connect.sid',getCookie('connect.sid'));
       //xhr.setRequestHeader('X-XSRF-Token',);
       xhr.send(JSON.stringify(data));
 
@@ -832,11 +860,12 @@
   var flowChartJson;
   var savedObj
   //var jsPlumbInst = window.j;
-  function loadFlowchart(){
+  function loadFlowchart(chartJson){
 
     var jsPlumb = window.j;
     //var flowChartJson = $('#jsonOutput').val();
-    var flowChart = JSON.parse(flowChartJson);
+    var flowChart = chartJson;
+    //var flowChart = JSON.parse(chartJson);
     var nodes = flowChart.nodes;
     function repositionElement(id, posX, posY, eindex){
       var dragMe = document.getElementById('standalone');

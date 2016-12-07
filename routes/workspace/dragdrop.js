@@ -43,8 +43,8 @@ router.post('/',function(req,res,next){
       			if (err) {
         			res.status(500).send({error:"Server error. Please try again later."})
       			} else if (result.length) {
-      				console.log(result.length);
-        			res.render('workspace/newProject.ejs',{projName:req.body.project_name,projId:req.body.project_id})
+      				console.log(result);
+        			res.render('workspace/newProject.ejs',{projName:req.body.project_name,projId:req.body.project_id,projDesc:result[0].projDesc,chart:result[0].chart,config:result[0].config})
       			} else {
       				res.render('workspace/newProject.ejs',{projName:req.body.project_name,projId:req.body.project_id})
         			//console.log('No document(s) found with defined "find" criteria!');
@@ -80,8 +80,6 @@ router.post('/fireUpContainers',function(req,res){
 	// });
 	// req.on('end',function(){
 
-		console.log(req.body);
-		res.redirect('/');
 		
 		var createsystem = require('../../lib/msgqueue/rabbit.js');
 		options = req.body;
@@ -98,7 +96,7 @@ router.post('/fireUpContainers',function(req,res){
 			var projects = db.collection('projects');
 			projects.update({projId:options.projId},{$set:options},{upsert:true});
 			db.close;
-			//res.redirect('/workspace');
+			res.redirect('/projects');
 		}
 	})
 	
