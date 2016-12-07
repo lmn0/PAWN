@@ -103,7 +103,7 @@ router.get('/',function(req,res,next){
 				res.render('project.ejs',{userProjects:user_projects,projectUsers:project_users,allUsers:allusers});
 		//	}
 
-	}, 2000);
+	}, 3000);
  
 
 //send list of users in the user group,existing users
@@ -190,6 +190,39 @@ var client=req.app.get('stormpathClient')
 
 
 })
+
+router.post('/get_status',function(req,res,next){
+	console.log(req.body.projId);
+
+	mongoClient.connect(url, function (err, db) {
+  					if (err) {
+    					console.log('Unable to connect to the mongoDB server. Error:', err);
+  					} else {
+    				//HURRAY!! We are connected. :)
+    					console.log('Connection established to', url);
+
+					    // Get the documents collection
+    					var collection = db.collection('projectStatus');
+
+    					collection.find({projId:req.body.projId}).toArray(function (err, result) {
+      						if (err) {
+      							res.status(204);
+        						console.log(err);
+      						} else if (result.length) {
+
+        						res.status(200).send({status:result[0].status,ip:result[0].ip})
+      						} else {
+      							res.status(200).send({status:"notstarted"});
+        						console.log('No document(s) found with defined "find" criteria!');
+      						}
+      					//Close connection
+      						db.close();
+    					});
+
+  					}
+				});
+
+});
 
 
 router.get('/add_users',function(req,res,next){

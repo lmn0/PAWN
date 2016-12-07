@@ -443,11 +443,15 @@
 <script type="text/javascript">
 function loadPage() {
   //console.log(typeof chart);
-  loadFlowchart(<%-JSON.stringify(chart)%>)
-  if(typeof chart==="object" && typeof config==="object"){
-    configFiles=config;
-    loadFlowchart(chart)
+  try{
+    loadFlowchart(<%-JSON.stringify(chart)%>)
   }
+  catch(e){}
+  // if(typeof chart==="object" && typeof config==="object"){
+
+  //   configFiles=config;
+  //   loadFlowchart(chart)
+  // }
 }
 
 window.onload = loadPage;
