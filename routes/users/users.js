@@ -41,8 +41,7 @@ router.post('/data',function(req,res,next){
  if (err) {
 	 res.status(400).end('Oops!  There was an error: ' + err.userMessage);
  }
- redirect('/users')
- next()
+ res.redirect('/users')
 });
 
 /*  client.getAccount(href,function(err,account){
@@ -74,7 +73,7 @@ router.post('/create_user',stormpath.groupsRequired(['admin']),function(req,res,
   //console.log(req.user.directory)
   var href_dir=req.user.directory.href
 
-console.log(account)
+//console.log(account)
 client.getDirectory(href_dir,function(err,directory){
   directory.createAccount({
     givenName: req.body.firstName,
@@ -100,7 +99,7 @@ client.getDirectory(href_dir,function(err,directory){
 
 });
 })
-
+res.redirect('/dashboard');
 
 })
 

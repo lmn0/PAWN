@@ -83,7 +83,7 @@ router.post('/fireUpContainers',function(req,res){
 		
 		var createsystem = require('../../lib/msgqueue/rabbit.js');
 		options = req.body;
-		createsystem.sendData(options,'createProject');
+		
 
 		
 	mongoClient.connect ( url, function(err, db){
@@ -95,12 +95,16 @@ router.post('/fireUpContainers',function(req,res){
 		else{
 			var svcnames=[];
 			var projects = db.collection('projects');
-			projects.update({projId:options.projId},{$set:options},{upsert:true});
+			
 			var projStatus = db.collection('projectStatus');
 			for(key in options.config){
+				options.config[key].metadata.namespace=options.projId;
 				if(key.split('_')[0]==="service")
 					svcnames.push(options.config[key].metadata.name)
+					
 					}
+			createsystem.sendData(options,'createProject');
+			projects.update({projId:options.projId},{$set:options},{upsert:true});
 			projStatus.update({projId:options.projId},{$set:{status:"notstarted",svcnames:svcnames}},{upsert:true})
 			
 			db.close;

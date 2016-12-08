@@ -24,12 +24,16 @@ amqp.connect(amqpURL,function(err,conn){
       var jsondata={};
         console.log("<- Recieved %s ",msg.content.toString());
         jsondata = JSON.parse(msg.content.toString());
+        var namesp_yaml = json2yaml.stringify({apiVersion:"v1",kind:"Namespace",metadata:{name:jsondata.projId}});
+        
 
       var dir = "./tmp/"+jsondata.projId;
       if(!fs.existsSync(dir)){
           fs.mkdirSync(dir);
       }
-
+      fs.writeFile(dir+'/'+jsondata.projId+'.yaml',namesp_yaml,'utf8' ,function (err) {
+          
+        });
       for(key in jsondata.config){
 //console.log(jsondata.config[key]);
     delete_null(jsondata.config[key]);

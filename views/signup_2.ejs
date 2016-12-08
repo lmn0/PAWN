@@ -56,7 +56,7 @@
 </head>
 <body>
 <form class="jotform-form" action="/signup_2" method="post" name="form_63211428158149" id="63211428158149" accept-charset="utf-8">
-  <input type="hidden" name="formID" value="63211428158149" />
+  <input type="hidden" name="stripeID" value="<%= stripe_tran_id %>" />
   <div class="form-all">
     <ul class="form-section page-section">
       <li id="cid_10" class="form-input-wide" data-type="control_head">
@@ -117,8 +117,6 @@
       </li>
 
 
-
-
       <li class="form-line jf-required" data-type="control_textbox" id="id_35">
         <label class="form-label form-label-left form-label-auto" id="label_35" for="input_35">
           E-mail:
@@ -130,6 +128,18 @@
           <input type="text" class=" form-textbox validate[required]" data-type="input-textbox" id="input_35" name="q35_email" size="20" value="" />
         </div>
       </li>
+      <li class="form-line jf-required" data-type="control_textbox" id="id_18">
+        <label class="form-label form-label-left form-label-auto" id="label_18" for="input_18">
+          Password
+          <span class="form-required">
+            *
+          </span>
+        </label>
+        <div id="cid_18" class="form-input jf-required">
+          <input type="password" class=" form-textbox validate[required]" data-type="input-text" id="input_18" name="q18_password" size="20" value="" />
+        </div>
+      </li>
+
       <li class="form-line" data-type="control_phone" id="id_11">
         <label class="form-label form-label-left form-label-auto" id="label_11" for="input_11"> Phone </label>
         <div id="cid_11" class="form-input jf-required">
