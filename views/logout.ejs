@@ -22,8 +22,8 @@
 
 <script>
 window.onload=function(){
-	hostIP='localhost';
-	 var url = 'http://'+hostIP+':3000/log-me-out';
+	hostIP='pub-lb-497872815.us-west-2.elb.amazonaws.com';
+	 var url = 'http://'+hostIP+'/log-me-out';
       var xhr = new XMLHttpRequest();
       xhr.open("POST",url,true);
       xhr.setRequestHeader('Content-Type' , 'application/json; charset=utf-8');

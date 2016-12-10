@@ -28,7 +28,7 @@
   $("#logout").on("click",function(e) {
     e.preventDefault(); // cancel the link itself
     $.post(this.href,function(data) {
-      window.location.href="http://localhost:3000/";
+      window.location.href="http://pub-lb-497872815.us-west-2.elb.amazonaws.com/";
     });
   });
 });
