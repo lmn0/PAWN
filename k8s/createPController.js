@@ -6,70 +6,90 @@ var fs = require('fs');
 var jsonfile = require('jsonfile');
 var json2yaml = require('json2yaml');
 var y = require('yamljs');
-var k8s = require('k8s');
+var mongodb = require('mongodb');
+var mongoClient = mongodb.MongoClient;
+//var k8s = require('k8s');
 //var jy = require('node-yaml');
-
+var url = 'mongodb://tjs:password@ds039684.mlab.com:39684/mongo';
 amqp.connect(amqpURL,function(err,conn){
   conn.createChannel(function(err,ch){
-    var q ='k8scontroller'
+    var q ='createProject'
     ch.assertQueue(q,{durable:false})
     console.log("<- wAiting for messages in %s",q)
+    //ch.prefetch(1);
     ch.consume(q,function(msg){
-    
+
       var jsondata={};
         console.log("<- Recieved %s ",msg.content.toString());
         jsondata = JSON.parse(msg.content.toString());
-
+	ch.ack(msg);
       var dir = "./tmp/"+jsondata.projId;
       if(!fs.existsSync(dir)){
           fs.mkdirSync(dir);
       }
 
-      for(key in jsondata.config){
-    delete_null(jsondata.config);
-    delete_empty(jsondata.config);
+	var namesp_yaml = json2yaml.stringify({apiVersion:"v1",kind:"Namespace",metadata:{name:(jsondata.projId).toLowerCase()}});
+        
+	fs.writeFile(dir+'/'+jsondata.projId+'.yaml',namesp_yaml,'utf8' ,function (err) {
+          
+        });
 
-    function delete_null( obj ){
-      for ( var i in obj ){
-        if( obj[i] === null || obj[i] ==="" || obj[i] === "null")
-          delete obj[i];  
-        else if( typeof obj[i] === 'object')
-          delete_null(obj[i])
-      }
-    }
-    function delete_empty( obj ,parent, idx){
-      if(obj=={})
-        delete parent[idx];
-      for ( var i in obj ){
-        if( obj[i] == {} || obj[i] == []){
-          try{  
-            console.log(">>>>"+obj[i]);
+      for(key in jsondata.config){
+       //console.log(jsondata.config[key]);
+	delete_null(jsondata.config[key]);
+	delete_empty(jsondata.config[key],jsondata.config,key);
+
+    	function delete_null( obj ){
+      		for ( var i in obj ){
+        		if( obj[i] === null || obj[i] ==="" )
+          			delete obj[i];
+        		else if( typeof obj[i] === 'object')
+          			delete_null(obj[i])
+      		}
+    	}
+    	function delete_empty( obj ,parent, idx){
+        //console.log(obj.length);
+      		if(Object.keys(obj).length===0)
+        	delete parent[idx];
+        //if(parent.length===0)
+	//delete parent;
+      		for ( var i in obj ){
+        		if( obj[i] == {} || obj[i] == []){
+          			try{
+            				console.log(">>>>"+obj[i]);
             //delete(obj[i]);
-            obj=obj.splice(i,1);  
-          }
-          catch(err){
-            delete obj[i];
-          }
-        }
-        else if( typeof obj[i] === 'object')
-          delete_empty(obj[i],obj,i)
-        }               
-    }
-  
-    var yaml = json2yaml.stringify(jsondata.config[key]);
-    var ym = y.stringify(yaml);
-    console.log("\n\n" + yaml);
+                			console.log("<2>"+obj[i]);
+            				obj=obj.splice(i,1);
+          			}
+          			catch(err){
+            				delete obj[i];
+          		   	}
+        		}
+        		else if( typeof obj[i] === 'object')
+          		{delete_empty(obj[i],obj,i)
+				console.log("++"+parent)
+				if(obj==[]){console.log("yes");
+					delete obj;}
+			}
+      		}
+    	}
+
+    	var yaml = json2yaml.stringify(jsondata.config[key]);
+    	var ym = y.stringify(yaml);
+    	console.log("\n\n" + yaml);
+	console.log(key);
           //jsonfile.writeFile(dir+'/'+key+'.yaml',yaml,function(){
           //  console.error(err);
           //})
     //yaml.write(dir+'/'+key+'.yaml',yaml,'utf8',function(err){
     //  console.error(err);
     //});
-    fs.writeFile(dir+'/'+key+'.yaml',yaml,'utf8' ,function (err) {
+	
+    	fs.writeFile(dir+'/'+key+'.yaml',yaml,'utf8' ,function (err) {
           if (err) return console.log(err);
           var exec = require('child_process').exec;
           var cmd = 'sudo kubectl create -f ./tmp/'+jsondata.projId;
-
+	  //console.log(t);
           exec(cmd,function(err,stdout,stderr){
             // console.log(err);
             // console.log("-------------------------------");
@@ -77,9 +97,20 @@ amqp.connect(amqpURL,function(err,conn){
             // console.log("-------------------------------");
             // console.log(stderr);
             // console.log("-------------------------------");
-            if(err ==null){
+            if(err !=null || stderr!= null){
+              mongoClient.connect(url, function (err, db) {
+                  if (err) {
+                    console.log('Unable to connect to the mongoDB server. Error:', err);
+                  } else {
+                    var collection = db.collection('projectStatus');
+                    collection.update({projId:jsondata.projId},{$set:{status:"error"}},{upsert:true});
+                    db.close();
 
+                  }
+                  
+              });
             }
+            
           });
 
       });

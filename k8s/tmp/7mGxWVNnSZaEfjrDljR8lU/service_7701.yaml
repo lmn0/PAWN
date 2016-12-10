@@ -1,0 +1,14 @@
+---
+  apiVersion: "v1"
+  kind: "Service"
+  metadata: 
+    name: "sw"
+    namespace: "7mgxwvnnszaefjrdljr8lu"
+  spec: 
+    ports: 
+      - 
+        port: 3000
+        targetPort: 3000
+    selector: 
+      name: "blah"
+    type: "LoadBalancer"
