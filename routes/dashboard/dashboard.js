@@ -9,9 +9,15 @@ var bodyParser = require('body-parser');
 
 router.use(bodyParser.urlencoded({ extended: true }));
 
+var mongodb = require('mongodb');
+var mongoClient = mongodb.MongoClient;
+
+var url = 'mongodb://tjs:password@ds039684.mlab.com:39684/mongo';
 
 
 router.get('/',function(req,res,next){
+
+	console.log(req.user.customData.role);
 console.log('User:',req.user.email,'jsut accessed the /home page');
 
 	var client=req.app.get('stormpathClient')
@@ -19,15 +25,43 @@ console.log('User:',req.user.email,'jsut accessed the /home page');
 
  var dir_href=req.user.directory.href
 	client.getDirectory(dir_href,function (err, directory) {
-  //console.log(directory);
+  
 	directory.getGroups(function(err, groupsCollection) {
   groupsCollection.each(function(group, next) {
 		if(group.name!='user'||group.name!='admin'){
-		//console.log('^^^^^^^^^^^^^^')
-    //console.log(group.name);
-		//console.log(group.href)
-		//console.log('^^^^^^^^^^^^^^^^^^^^^^^^^')
-		projects.push(group);
+
+		var resourceMonitor = require('../../lib/msgqueue/rabbit.js');
+		options = {projId:(group.href).split('/')[5]};
+		resourceMonitor.sendData(options,'projectResource');
+
+			mongoClient.connect ( url, function(err, db){
+		if(err)
+		{
+			res.status(500).send({error:"Server error. Please try again later."})				
+		}
+		else{
+			
+			var collection = db.collection('projectResource');
+			collection.find({projId: (group.href).split('/')[5]}).toArray(function (err, result) {
+      			if (err) {
+        			res.status(500).send({error:"Server error. Please try again later."})
+      			} else if (result.length) {
+      				
+      				projects.push({category:group.name,cpu:result[0].cpu,memory:result[0].memory});
+      			
+        		} else {
+      				
+      				
+      			}
+     
+      			db.close();
+    		});
+			
+			
+		}
+	});
+
+		
 	}
 
 			
@@ -37,19 +71,22 @@ console.log('User:',req.user.email,'jsut accessed the /home page');
 
 });
 
+setTimeout(function(){
 	//Query the MongoDB and get the project details - 
 
-var resourceMonitor = require('../../lib/msgqueue/rabbit.js');
-		options = {uhref:req.user.href,projects:projects};
-		resourceMonitor.sendData(options,'resource');
+
+	console.log(projects);
+		res.render('dashboard',{
+    					user:req.user.username,
+    					userhred:req.user.href,
+    					projects:projects,
+    					notes123:req.user.customData.totalNotes,
+    					role:req.user.customData.role
+					})
 
 
-res.render('dashboard',{
-    user:req.user.username,
-    userhred:req.user.href,
-    email:req.user.email
-})
-next();
+},3000);
+
 });
 
 // router.get('/create_user',stormpath.groupsRequired(['admin']),function(req,res,next){
@@ -57,6 +94,18 @@ next();
 // res.render('create_user.ejs')
 // });
 
+router.post('/get_resource',function(req,res,next){
+	  
+
+
+})
+
+router.post('/write_note',function(req,res,next){
+	  console.log(req.body);
+		req.user.customData.totalNotes=req.body.data;
+		req.user.customData.save()
+		next()
+})
 
 
 

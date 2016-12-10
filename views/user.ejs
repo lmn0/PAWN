@@ -115,12 +115,14 @@
                         <p>User Profile</p>
                     </a>
                 </li>
+                <%if(role==='admin'){%>
                 <li>
                     <a href="/users/create_user">
                         <i class="pe-7s-user"></i>
                         <p>Create User</p>
                     </a>
                 </li>
+                <%}%>
                 <li>
                     <a href="/projects">
                         <i class="pe-7s-news-paper"></i>

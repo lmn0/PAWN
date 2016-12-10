@@ -98,7 +98,7 @@ router.post('/fireUpContainers',function(req,res){
 			
 			var projStatus = db.collection('projectStatus');
 			for(key in options.config){
-				options.config[key].metadata.namespace=options.projId;
+				options.config[key].metadata.namespace=(options.projId).toLowerCase();
 				if(key.split('_')[0]==="service")
 					svcnames.push(options.config[key].metadata.name)
 					

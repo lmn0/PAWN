@@ -166,7 +166,7 @@
               <strong> Pod Specification:</strong> 
           </div>
           <div style="display:table-row;">
-                <div style="display:table-cell;width:50%">
+                <div style="display:table-cell;width:30%">
                     <ul>
                       
                       <li>Image*: <input type="text" id="config[spec][template][spec][containers][image]" required/ style="margin-left:114px;"><br/></li>
@@ -187,15 +187,6 @@
                           <li><input type="text" id="config[spec][template][spec][containers][args][3]"/><br/></li>
                           <li><input type="text" id="config[spec][template][spec][containers][args][4]"/><br/></li>
                         </ul>
-                      </li>
-                      <li><br/>Environment (Name:Value):
-                        <ul style="margin-left:170px;position:relative;top:60%px;">
-                          <li><input type="text" id="config[spec][template][spec][containers][env][0][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][0][value]"/><br/></li>
-                          <li><input type="text" id="config[spec][template][spec][containers][env][1][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][1][value]"/><br/></li>
-                          <li><input type="text" id="config[spec][template][spec][containers][env][2][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][2][value]"/><br/></li>
-                          <li><input type="text" id="config[spec][template][spec][containers][env][3][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][3][value]"/><br/></li>
-                          <li><input type="text" id="config[spec][template][spec][containers][env][4][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][4][value]"/><br/></li>
-                        </ul>
                       </li></ul>
                 </div>
                 <div style="display:table-cell;">
@@ -204,7 +195,7 @@
                         <ul>
                           <li>
                       <ul>
-                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][0][containerPort]" style="margin-left:34px;"/></li>
+                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][0][containerPort]" style="margin-left:34px;"/></li>&nbsp;&nbsp;
                               <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][0][name]"/></li>
                               <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][0][protocol]" size:'5' style="margin-left:2px;"/></li>
                      </ul>
@@ -435,8 +426,11 @@
 <script src="/javascripts/workspace/json-formdata.js"></script>
 
 <script type="text/javascript">
-function loadPage() {
-  //console.log(typeof chart);
+
+
+window.onload = function() {
+  console.log(<%-JSON.stringify(chart)%>);
+  configFiles=config;
   try{
     loadFlowchart(<%-JSON.stringify(chart)%>)
   }
@@ -446,9 +440,8 @@ function loadPage() {
   //   configFiles=config;
   //   loadFlowchart(chart)
   // }
-}
+};
 
-window.onload = loadPage;
   var numberOfElements = 4;
   var containerID;
   //var hostIP='192.168.1.8';

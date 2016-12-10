@@ -26,7 +26,7 @@ router.get('/',function(req,res,next){
 		directory.getGroups(function(err, groupsCollection) {
 	//groups collection is iterated to print each group and its href
   			groupsCollection.each(function(group, next) {
-				if(group.name!='user' && group.name!='admin'){
+				if(group.name!='user' && group.name!='admin' && group.name!='individual'){
 		//console.log('^^^^^^^^^^^^^^')
     				//console.log(group.name);
 		//console.log(group.href.split('/')[5]);
@@ -100,7 +100,7 @@ router.get('/',function(req,res,next){
 				// console.log("------------------------------------------------------");
 				// console.log(allusers);
 				// console.log("------------------------------------------------------");
-				res.render('project.ejs',{userProjects:user_projects,projectUsers:project_users,allUsers:allusers});
+				res.render('project.ejs',{userProjects:user_projects,projectUsers:project_users,allUsers:allusers,role:req.user.customData.role});
 		//	}
 
 	}, 3000);
@@ -116,11 +116,11 @@ router.post('/add_project',function(req,res,next){
 	//this flow is for project group creation
 newGroup={
  //name:req.body.projectName
-	//description:req.body.projectDesc
+	//description:req.body.projres.renderectDesc
 	name:req.body.newProjName,
 	description:req.body.newProjDesc
 }
-var app_href = 'https://api.stormpath.com/v1/applications/1xLxnUnZSfnFMesw7whSnZ';
+var app_href = 'https://api.stormpath.com/v1/applications/68V3ozAJT0faoX9o3z6Ipi';
 var client=req.app.get('stormpathClient')
   var href=req.user.directory.href
 	//directory is called to create group specific to organisation
@@ -227,18 +227,20 @@ router.post('/get_status',function(req,res,next){
 });
 
 
-router.get('/add_users',function(req,res,next){
+router.post('/add_users',function(req,res,next){
 //req.body.projectName
 //req.body.projectHref
 //var href_dir=req.user.directory.href
 
+console.log(req.body);
+ var projectHref=req.body.projHref;
+try{
 var client=req.app.get('stormpathClient')
 //to add user group is obtained
 client.getGroup(projectHref,function(err,group){
-	var group_href=rq.body.group_href
-	for(account in req.body.user){
-		var href = account.href
-		var name= account.userName
+	// var group_href=rq.body.group_href
+	for(account in req.body.addedUsers){
+		var href = account.userHref
 		//users are iterated to add to the group i.e project obtained
 client.getAccount(href, function (err, account) {
   console.log(account.name);
@@ -246,12 +248,50 @@ client.getAccount(href, function (err, account) {
 		if(err){
 			return console.error(err)
 		}
-		console.log('added to'+group.name)
+		// console.log('added to'+group.name)
+		
 	})
 });
 
 	}
 })
+///////////////////////////////////////////////////////
+
+// remove_user_list=['https://api.stormpath.com/v1/accounts/1AU80rErxTb7aMnhpQdcTe']
+  // var href_group='https://api.stormpath.com/v1/groups/5IMtsRrMLTOs4RqIZ080ye'
+  var href_group=req.body.projHref;
+  var remove_user_list=req.body.removedUsers;
+  client.getGroup(href_group,function(err,group)
+    {
+    //  console.log(group)
+      for (i=0;i<remove_user_list.length; i++){
+    //    console.log(remove_user_list[i])
+      client.getAccount(remove_user_list[i],function (err, account) {
+    //    console.log(account)
+      account.getGroupMemberships(function(err,CollectionResource){
+       CollectionResource.each(function(membership,next){
+         console.log(membership)
+         if(membership.group.href==href_group){
+           membership.delete(function(err){
+             if(err){
+               console.log(err)
+             } else{
+               
+             }
+           })
+         }
+       })
+
+      })
+  });
+}
+})
+/////////////////////////////////////////////////////////
+}catch(err){}
+
+setTimeout(function(){
+	res.redirect("/projects");
+},2000)
 
 })
 

@@ -17,62 +17,72 @@ var mongoClient = mongodb.MongoClient;
 
 amqp.connect(amqpURL,function(err,conn){
   conn.createChannel(function(err,ch){
-   	var q ='svcStatus'
-   	ch.assertQueue(q,{durable:false})
+    var q ='svcStatus'
+    ch.assertQueue(q,{durable:false})
     console.log("<- wAiting for messages in %s",q)
     //ch.prefetch(1);
     ch.consume(q,function(msg){
 
-    	var jsondata={};
+      var jsondata={};
         console.log("<- Recieved %s ",msg.content.toString());
         jsondata = JSON.parse(msg.content.toString());
         var runstatus=[];
         mongoClient.connect ( url, function(err, db){
-		if(err)
-		{
-			console.log(err);
-			res.status(500).send({error:"Server error. Please try again later."})				
-		}
-		else{
-			var svcnames=[];
-			var projStatus = db.collection('projectStatus');
-          	
+    if(err)
+    {
+      console.log(err);
+    }
+    else{
+      var svcnames=[];
+      var projStatus = db.collection('projectStatus');
+            
 
-			projStatus.find({projId:jsondata.projId}).toArray(function (err, result) {
-      			if (err) {
-        			console.log(err);
-      			} else if (result.length) {
-      				var status=0;
-        			for(i=0; i<result[0].svcnames.length;i++)
-        			{
-        				var exec = require('child_process').exec;
-        				var cmd = 'sudo kubectl get -o json svc '+result[0].svcnames[i];
-        				exec(cmd,function(err,stdout,stderr){
-        					if(err ==null && stderr == null){
-        						var data = JSON.parse(stdout);
-        						runstatus.push(data.status.loadBalancer.ingress.ip+":"+data.spec.ports.port);
-        					}
-        					else
-        						status=1;
-        				});
-        			}
-        			if(status==0)
-        				projStatus.update({projId:jsondata.projId},{$set:{status:"notstarted",ip:runstatus.join()}},{upsert:true})
-      			} else {
-        			console.log('No document(s) found with defined "find" criteria!');
-      			}
-     
-    		});
+      projStatus.find({projId:jsondata.projId}).toArray(function (err, result) {
+      console.log(err);
+      console.log(result);
+            if (err) {
+              console.log(err);
+            } else 
+      {
+        try{
+        if (result.length !=0) {
+              //var status=0;
+              for(i=0; i<result[0].svcnames.length;i++)
+              {
+                var exec = require('child_process').exec;
+                var cmd = "sudo kubectl get -o json --namespace='"+(jsondata.projId).toLowerCase()+"' svc "+result[0].svcnames[i];
+                exec(cmd,function(err,stdout,stderr){
+            //console.log("=="+err);console.log("!!"+stdout);console.log("--"+stderr);
+            console.log(stdout);
+                  //if(err !=null && stderr != null){
+              try{  
+                    var data = JSON.parse(stdout);
+              console.log("--"+data.kind);
+                    runstatus.push(data.status.loadBalancer.ingress[0].ip+":"+data.spec.ports[0].port);
+              console.log(data.status.loadBalancer.ingress[0].ip+":"+data.spec.ports[0].port);
+              //console.log(runstatus[0]);
+              projStatus.update({projId:jsondata.projId},{$set:{status:"running",ip:runstatus.join()}},{upsert:true});
+              }catch(err){}
+                  //}
+                  //else
+                  //  status=1;
+                });
+              }
+              //if(status==0)
+        
+                //projStatus.update({projId:jsondata.projId},{$set:{status:"notstarted",ip:runstatus.join()}},{upsert:true});
+        }}catch(e){}
+        console.log(jsondata.projId+"--"+runstatus.join());
+          }
 
-			
-			
-			db.close;
-			res.redirect('/projects');
-		}
-		})
+      
+      
+      
+      db.close;
+    });
+    }});
 
 
-    	},{noAck:false})
+      },{noAck:false})
    });
 });
-

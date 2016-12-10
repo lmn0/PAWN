@@ -15,8 +15,8 @@ router.get('/',function(req,res,next){
 		city:req.user.customData.city,
 	  country:req.user.customData.country,
 		postal:req.user.customData.postal,
-		address:req.user.customData.address
-
+		address:req.user.customData.address,
+		role:req.user.customData.role
 	})
 })
 
@@ -70,7 +70,7 @@ router.get('/create_user',function(req,res,next){
 router.post('/create_user',stormpath.groupsRequired(['admin']),function(req,res,next){
 //console.log('User:',req.user,'jsut accessed the /create user');
   var client = req.app.get('stormpathClient');
-  //console.log(req.user.directory)
+  console.log(req.body);
   var href_dir=req.user.directory.href
 
 //console.log(account)

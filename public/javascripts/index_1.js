@@ -61,11 +61,11 @@
 })(jQuery);
 
 
-var noteTemp =  '<div class="note">'
+var noteTemp =  '<div class="note" >'
 				+	'<a href="javascript:;" class="button remove">X</a>'
 				+ 	'<div class="note_cnt">'
-				+		'<textarea class="title" placeholder="Enter note title"></textarea>'
-				+ 		'<textarea class="cnt" placeholder="Enter note description here"></textarea>'
+				+		'<textarea class="title" placeholder="Enter note title" onchange="funSaveToServer(event)">ttt</textarea>'
+				+ 		'<textarea class="cnt" placeholder="Enter note description here" onchange="funSaveToServer(event)">ddd</textarea>'
 				+	'</div> '
 				+'</div>';
 
@@ -75,28 +75,57 @@ function deleteNote(){
 };
 
 function newNote() {
-  $(noteTemp).hide().appendTo("#board").show("fade", 300).draggable().on('dragstart',
+  noteTemp=noteTemp.replace("ttt", '').replace("ddd", '');
+  $(noteTemp).appendTo("#board").show("fade", 300).draggable().on('dragstart',
     function(){
        $(this).zIndex(++noteZindex);
     });
- 
+
 	$('.remove').click(deleteNote);
 	$('textarea').autogrow();
-	
+
   $('.note')
-	return false; 
+	return false;
 };
 
 
 
 $(document).ready(function() {
-    
     $("#board").height($(document).height());
-    
     $("#add_new").click(newNote);
-    
     $('.remove').click(deleteNote);
-    newNote();
-	  
+    var obj=JSON.parse($("#noteData")[0].textContent);
+    if(obj.length>0){
+      var temp=noteTemp;
+      var temp1="";
+      for(var ind=0;ind<obj.length;ind++){
+        temp1+=temp;
+        temp1=temp1.replace("ttt", obj[ind]["noteTitle"]);
+        temp1=temp1.replace("ddd", obj[ind]["notes"]);
+      }
+      $(temp1).appendTo("#board").show("fade", 300).draggable().on('dragstart',
+        function(){
+           $(this).zIndex(++noteZindex);
+        });
+    	$('.remove').click(deleteNote);
+    	$('textarea').autogrow();
+    }
+      newNote();
     return false;
 });
+
+function funSaveToServer(event){
+
+  var tgt=$("#board .note_cnt");
+  var obj={data:[]};
+  $(tgt).each(function(ind,itm){
+    var tmpObj={
+      "noteTitle": $(itm).find('.title')[0].value,
+      "notes": $(itm).find('.cnt')[0].value
+    }
+    obj.data.push(tmpObj);
+  })
+   $.post('/dashboard/write_note', obj, function(result){
+    alert("done");
+  });
+}

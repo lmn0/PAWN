@@ -10,7 +10,9 @@ router.get('/', function(req, res, next) {
  res.render('index.ejs');
 });
 
-
+router.get('/health',function(req,res,next){
+  res.send(200);
+})
 
 
 
@@ -141,7 +143,7 @@ console.log('----------\n');
  }
 }); */
 
-var href = 'https://api.stormpath.com/v1/applications/1xLxnUnZSfnFMesw7whSnZ'
+var href = 'https://api.stormpath.com/v1/applications/68V3ozAJT0faoX9o3z6Ipi'
 
 client.getApplication(href, function (err, application) {
  console.log(application);
@@ -223,17 +225,18 @@ res.redirect('/')
 router.post('/signup_2',function(req,res,next){
  console.log(req.body)
  var client = req.app.get('stormpathClient');
- var href="https://api.stormpath.com/v1/applications/1xLxnUnZSfnFMesw7whSnZ"
+ var href="https://api.stormpath.com/v1/applications/68V3ozAJT0faoX9o3z6Ipi"
  var accountData = {
    givenName: req.body.q1_firstName,
    surname: req.body.q17_lastName,
    username: req.body.q1_firstName,
    email: req.body.q35_email,
    password: req.body.q18_password,
-   customData:{stripeID:req.body.stripeID}
+   customData:{stripeID:req.body.stripeID},
+   role:'individual'
  };
- var group_href="https://api.stormpath.com/v1/groups/1YQYaUkJbO4BGmyuP0mEBs"
- var dir_href='https://api.stormpath.com/v1/directories/1xMs0Ew1y6DwgHSY8k0ZlB'
+ var group_href="https://api.stormpath.com/v1/groups/2N7BzZt3h3zbOiQoz6LBwb"
+ var dir_href='https://api.stormpath.com/v1/directories/696e9fZ5rWuNbDSQu9CC0k'
 client.getDirectory(dir_href,function(err,directory){
   //application.createAccount
   directory.createAccount(accountData, function(err, createdAccount) {
