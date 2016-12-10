@@ -426,12 +426,11 @@
 <script src="/javascripts/workspace/json-formdata.js"></script>
 
 <script type="text/javascript">
+function loadPage() {
+  //console.log(typeof chart);
 
-
-window.onload = function() {
-  console.log(<%-JSON.stringify(chart)%>);
-  configFiles=config;
   try{
+    loadConfig(<%-JSON.stringify(config)%>);
     loadFlowchart(<%-JSON.stringify(chart)%>)
   }
   catch(e){}
@@ -440,8 +439,14 @@ window.onload = function() {
   //   configFiles=config;
   //   loadFlowchart(chart)
   // }
-};
+}
 
+loadConfig=function(config){
+  for( var key in config)
+    configFiles[key]=config[key]
+}
+
+window.onload = loadPage;
   var numberOfElements = 4;
   var containerID;
   //var hostIP='192.168.1.8';
@@ -499,7 +504,7 @@ window.onload = function() {
     var newbox = dragMe.cloneNode(true);
     newbox.id=containerID
     newbox.style.display = "block";
-    newbox.innerHTML=name+'<br/>'+containerID;
+    newbox.innerHTML=containerID;
     newbox.style=document.getElementById("standalone").style;
     document.getElementById('canvas').appendChild(newbox);
     var j = window.j;
@@ -710,50 +715,62 @@ console.log("Reaching here");
     document.getElementById('config[kind]').value=configFiles[cont.id].value;
     document.getElementById('config[metadata][name]').value=configFiles[cont.id].metadata.name;
     document.getElementById('config[metadata][namespace]').value=configFiles[cont.id].metadata.namespace;
-    document.getElementById('config[spec][replicas]').value=configFiles[cont.id].spec.replicas;
+    try{
+      document.getElementById('config[spec][replicas]').value=configFiles[cont.id].spec.replicas;
+    }catch(err){}
+    try{
     document.getElementById('config[spec][selector][key]').value=Object.keys(configFiles[cont.id].spec.selector)[0];
     document.getElementById('config[spec][selector][value]').value=configFiles[cont.id].spec.selector[Object.keys(configFiles[cont.id].spec.selector)[0]];
-    document.getElementById('config[metadata][name]').value=configFiles[cont.id].metadata.namespace;
+    
+    }catch(err){}
+    document.getElementById('config[spec][template][spec][containers][image]').value=configFiles[cont.id].spec.template.spec.containers[0].image;
+    try{
+    document.getElementById('config[spec][template][spec][containers][args][0]').value=configFiles[cont.id].spec.template.spec.containers[0].args[0];
+    document.getElementById('config[spec][template][spec][containers][args][1]').value=configFiles[cont.id].spec.template.spec.containers[0].args[1];
+    document.getElementById('config[spec][template][spec][containers][args][2]').value=configFiles[cont.id].spec.template.spec.containers[0].args[2];
+    document.getElementById('config[spec][template][spec][containers][args][3]').value=configFiles[cont.id].spec.template.spec.containers[0].args[3];
+    }catch(err){}
 
-    document.getElementById('config[spec][template][spec][containers][image]').value=configFiles[cont.id].spec.template.spec.containers.image;
-    document.getElementById('config[spec][template][spec][containers][args][0]').value=configFiles[cont.id].spec.template.spec.containers.args[0];
-    document.getElementById('config[spec][template][spec][containers][args][1]').value=configFiles[cont.id].spec.template.spec.containers.args[1];
-    document.getElementById('config[spec][template][spec][containers][args][2]').value=configFiles[cont.id].spec.template.spec.containers.args[2];
-    document.getElementById('config[spec][template][spec][containers][args][3]').value=configFiles[cont.id].spec.template.spec.containers.args[3];
+    try{
+    document.getElementById('config[spec][template][spec][containers][command][0]').value=configFiles[cont.id].spec.template.spec.containers[0].command[0];
+    document.getElementById('config[spec][template][spec][containers][command][1]').value=configFiles[cont.id].spec.template.spec.containers[0].command[1];
+    document.getElementById('config[spec][template][spec][containers][command][2]').value=configFiles[cont.id].spec.template.spec.containers[0].command[2];
+    document.getElementById('config[spec][template][spec][containers][command][3]').value=configFiles[cont.id].spec.template.spec.containers[0].command[3];
+    }catch(err){}
 
+    try{
+    document.getElementById('config[spec][template][spec][containers][env][0][name]').value=configFiles[cont.id].spec.template.spec.containers[0].env[0].name;
+    document.getElementById('config[spec][template][spec][containers][env][0][value]').value=configFiles[cont.id].spec.template.spec.containers[0].env[0].value;
+    document.getElementById('config[spec][template][spec][containers][env][1][name]').value=configFiles[cont.id].spec.template.spec.containers[0].env[1].name;
+    document.getElementById('config[spec][template][spec][containers][env][1][value]').value=configFiles[cont.id].spec.template.spec.containers[0].env[1].value;
+    document.getElementById('config[spec][template][spec][containers][env][2][name]').value=configFiles[cont.id].spec.template.spec.containers[0].env[2].name;
+    document.getElementById('config[spec][template][spec][containers][env][2][value]').value=configFiles[cont.id].spec.template.spec.containers[0].env[2].value;
+    document.getElementById('config[spec][template][spec][containers][env][3][name]').value=configFiles[cont.id].spec.template.spec.containers[0].env[3].name;
+    document.getElementById('config[spec][template][spec][containers][env][3][value]').value=configFiles[cont.id].spec.template.spec.containers[0].env[3].value;
+    }catch(err){}
 
-    document.getElementById('config[spec][template][spec][containers][command][0]').value=configFiles[cont.id].spec.template.spec.containers.command[0];
-    document.getElementById('config[spec][template][spec][containers][command][1]').value=configFiles[cont.id].spec.template.spec.containers.command[1];
-    document.getElementById('config[spec][template][spec][containers][command][2]').value=configFiles[cont.id].spec.template.spec.containers.command[2];
-    document.getElementById('config[spec][template][spec][containers][command][3]').value=configFiles[cont.id].spec.template.spec.containers.command[3];
-
-    document.getElementById('config[spec][template][spec][containers][env][0][name]').value=configFiles[cont.id].spec.template.spec.containers.env[0].name;
-    document.getElementById('config[spec][template][spec][containers][env][0][value]').value=configFiles[cont.id].spec.template.spec.containers.env[0].value;
-    document.getElementById('config[spec][template][spec][containers][env][1][name]').value=configFiles[cont.id].spec.template.spec.containers.env[1].name;
-    document.getElementById('config[spec][template][spec][containers][env][1][value]').value=configFiles[cont.id].spec.template.spec.containers.env[1].value;
-    document.getElementById('config[spec][template][spec][containers][env][2][name]').value=configFiles[cont.id].spec.template.spec.containers.env[2].name;
-    document.getElementById('config[spec][template][spec][containers][env][2][value]').value=configFiles[cont.id].spec.template.spec.containers.env[2].value;
-    document.getElementById('config[spec][template][spec][containers][env][3][name]').value=configFiles[cont.id].spec.template.spec.containers.env[3].name;
-    document.getElementById('config[spec][template][spec][containers][env][3][value]').value=configFiles[cont.id].spec.template.spec.containers.env[3].value;
-
-    document.getElementById('config[spec][template][spec][containers][ports][0][containerPort]').value=configFiles[cont.id].spec.template.spec.containers.ports[0].containerPort;
-    document.getElementById('config[spec][template][spec][containers][ports][0][name]').value=configFiles[cont.id].spec.template.spec.containers.ports[0].name;
-    document.getElementById('config[spec][template][spec][containers][ports][0][protocol]').value=configFiles[cont.id].spec.template.spec.containers.ports[0].protocol;
-    document.getElementById('config[spec][template][spec][containers][ports][1][containerPort]').value=configFiles[cont.id].spec.template.spec.containers.ports[1].containerPort;
-    document.getElementById('config[spec][template][spec][containers][ports][1][name]').value=configFiles[cont.id].spec.template.spec.containers.ports[1].name;
-    document.getElementById('config[spec][template][spec][containers][ports][1][protocol]').value=configFiles[cont.id].spec.template.spec.containers.ports[1].protocol;
-    document.getElementById('config[spec][template][spec][containers][ports][2][containerPort]').value=configFiles[cont.id].spec.template.spec.containers.ports[2].containerPort;
-    document.getElementById('config[spec][template][spec][containers][ports][2][name]').value=configFiles[cont.id].spec.template.spec.containers.ports[2].name;
-    document.getElementById('config[spec][template][spec][containers][ports][2][protocol]').value=configFiles[cont.id].spec.template.spec.containers.ports[2].protocol;
-    document.getElementById('config[spec][template][spec][containers][ports][3][containerPort]').value=configFiles[cont.id].spec.template.spec.containers.ports[3].containerPort;
-    document.getElementById('config[spec][template][spec][containers][ports][3][name]').value=configFiles[cont.id].spec.template.spec.containers.ports[3].name;
-    document.getElementById('config[spec][template][spec][containers][ports][3][protocol]').value=configFiles[cont.id].spec.template.spec.containers.ports[3].protocol;
+    try{
+    document.getElementById('config[spec][template][spec][containers][ports][0][containerPort]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[0].containerPort;
+    document.getElementById('config[spec][template][spec][containers][ports][0][name]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[0].name;
+    document.getElementById('config[spec][template][spec][containers][ports][0][protocol]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[0].protocol;
+    document.getElementById('config[spec][template][spec][containers][ports][1][containerPort]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[1].containerPort;
+    document.getElementById('config[spec][template][spec][containers][ports][1][name]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[1].name;
+    document.getElementById('config[spec][template][spec][containers][ports][1][protocol]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[1].protocol;
+    document.getElementById('config[spec][template][spec][containers][ports][2][containerPort]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[2].containerPort;
+    document.getElementById('config[spec][template][spec][containers][ports][2][name]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[2].name;
+    document.getElementById('config[spec][template][spec][containers][ports][2][protocol]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[2].protocol;
+    document.getElementById('config[spec][template][spec][containers][ports][3][containerPort]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[3].containerPort;
+    document.getElementById('config[spec][template][spec][containers][ports][3][name]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[3].name;
+    document.getElementById('config[spec][template][spec][containers][ports][3][protocol]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[3].protocol;
+    }catch(err){}
+    var modalContainer = document.getElementById('modalContainer');
+    modalContainer.style.display = "block";
   }
   else{
     document.getElementById('service[apiVersion]').value=configFiles[cont.id].apiVersion;
     document.getElementById('service[kind]').value=configFiles[cont.id].kind;
     document.getElementById('service[metadata][name]').value=configFiles[cont.id].metadata.name;
-
+    try{
     document.getElementById('service[spec][ports][0][port]').value=configFiles[cont.id].spec.ports[0].port;
     document.getElementById('service[spec][ports][0][targetPort]').value=configFiles[cont.id].spec.ports[0].targetPort;
     document.getElementById('service[spec][ports][1][port]').value=configFiles[cont.id].spec.ports[1].port;
@@ -762,11 +779,14 @@ console.log("Reaching here");
     document.getElementById('service[spec][ports][2][targetPort]').value=configFiles[cont.id].spec.ports[2].targetPort;
     document.getElementById('service[spec][ports][3][port]').value=configFiles[cont.id].spec.ports[3].port;
     document.getElementById('service[spec][ports][3][targetPort]').value=configFiles[cont.id].spec.ports[3].targetPort;
-
-    document.getElementById('service[spec][selector][type]').value=configFiles[cont.id].spec.type;
-    document.getElementById('service[spec][selector][key]').value=configFiles[cont.id].spec.selector.key;
-    document.getElementById('service[spec][selector][value]').value=configFiles[cont.id].spec.selector.value;
-
+    }catch(err){}
+    try{
+    document.getElementById('service[spec][type]').value=configFiles[cont.id].spec.type;
+    document.getElementById('service[spec][selector][key]').value=Object.keys(configFiles[cont.id].spec.selector)[0];
+    document.getElementById('service[spec][selector][value]').value=configFiles[cont.id].spec.selector[Object.keys(configFiles[cont.id].spec.selector)[0]];
+    }catch(err){}
+    var modalService = document.getElementById('modalService');
+    modalService.style.display = "block";
   }
 
 

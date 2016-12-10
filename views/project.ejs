@@ -298,10 +298,10 @@
     <div id="<%=i%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="<%=userProjects[i].project_href%>">
       <div class="panel-body">
        <table border="1" style="width:300px">
-           <thead>
+           <thead >
                <tr>
-           <th> <strong>Users</strong></th>
-           <th><strong>Access your App at:  <span id="<%=i%>_ip">N/A</span></strong></th>
+           <th style="width:100px"> <strong>Users</strong></th>
+           <th><strong>Access your App at: </strong> <span id="<%=i%>_ip">N/A</span></th>
                </tr></thead>
             <tr>
             <form id="<%=i%>_form" method="post" action="/workspace">
@@ -311,13 +311,15 @@
               <button id="<%=i%>_wksp" name="<%=i%>_wksp" type="submit" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Workspace diagram</button>
             </form>
             <%if(role==='admin'){%>
-            <button type="button" id="btn_adduser" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;" data-toggle="modal" data-target="#<%=userProjects[i].t_ph%>">Add Members</button><form>
+            <button type="button" id="btn_adduser" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;" data-toggle="modal" data-target="#<%=userProjects[i].t_ph%>">Add Members</button>
             <%}%>
+            <form>
+            
             <hidden name="project_name" value="<%=userProjects[i].project_name%>"/> <hidden name="project_href" value="<%=userProjects[i].project_href%>"/><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Delete Project</button></form></tr>
                   <tr>
                   <% var ppresent =-1 %>
-      <% for ( m =0 ; m < projectUsers.length; m++){ %>
-        <% if(userProjects[i].t_ph == projectUsers[m].t_ph) {%>
+      <% for ( var m =0 ; m < projectUsers.length; m++){ %>
+        <% if(userProjects[i].t_ph === projectUsers[m].t_ph) {%>
           <% ppresent=m%>
         <% } %>
       <%} %>

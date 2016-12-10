@@ -100,6 +100,7 @@ router.get('/',function(req,res,next){
 				// console.log("------------------------------------------------------");
 				// console.log(allusers);
 				// console.log("------------------------------------------------------");
+				console.log(project_users);
 				res.render('project.ejs',{userProjects:user_projects,projectUsers:project_users,allUsers:allusers,role:req.user.customData.role});
 		//	}
 
