@@ -96,7 +96,12 @@ app.use(stormpath.init(app, {
   },
       login:{
           nextUri:'/dashboard'
-      }
+      },
+      logout: {
+    enabled: true,
+    uri: '/users/log-me-out',
+    nextUri: '/'
+  }
   },
   preRegistrationHandler: function (formData, req, res, next) {
     console.log(req.query.valid)

@@ -32,13 +32,60 @@
 </style>
  <script type="text/javascript">  
   $().ready(function() {  
-   $('#add').click(function() {  
-    return !$('#select1 option:selected').remove().appendTo('#select2');  
-   });  
-   $('#remove').click(function() {  
-    return !$('#select2 option:selected').remove().appendTo('#select1');  
-   });  
-  });  
+  $("#logout").on("click",function(e) {
+    e.preventDefault(); // cancel the link itself
+    $.post(this.href,function(data) {
+      window.location.href="http://pub-lb-497872815.us-west-2.elb.amazonaws.com/";
+    });
+  });
+
+    
+    //console.log( <%- JSON.stringify(userProjects) %> );
+    
+      for ( let t =0; t < <%-userProjects.length%>; t++){ 
+
+        var pref=$('#'+t+'_project_id').val();
+        function checkStatus(){
+        $.post("http://pub-lb-497872815.us-west-2.elb.amazonaws.com/projects/get_status",{projId:pref}, 
+          function(result,status,jqXHR){
+            if(result.status==="notstarted")
+            {
+              $('#'+t+'_working').show();
+              $('#'+t+'_error').hide();
+              $('#'+t+'_green').hide();
+              // setTimeout(checkStatus(),35000000);
+            }
+            else if(result.status==="error")
+            {
+              $('#'+t+'_working').hide();
+              $('#'+t+'_error').show();
+              $('#'+t+'_green').hide();
+            }
+            else if(result.status==="running"){
+              $('#'+t+'_working').hide();
+              $('#'+t+'_error').hide();
+              $('#'+t+'_green').show();
+              $('#'+t+'_ip').empty();
+              $('#'+t+'_ip').html(result.ip);
+            }
+          });
+      }
+      checkStatus();
+        
+    $('#'+t+'_add').click(function() {  console.log(t);
+      return !$('#'+t+'_select1 option:selected').remove().appendTo('#'+t+'_select2');  
+    });  
+    $('#'+t+'_remove').click(function() {  
+      return !$('#'+t+'_select2 option:selected').remove().appendTo('#'+t+'_select1');  
+    });  
+    $('#btn_adduser').click(function(){
+    })
+   // });  
+    } 
+  });
+
+
+
  </script>  
    
  <style type="text/css">  
@@ -62,8 +109,10 @@
  </style> 
 </head>
 <body>
+
+<% for( i=0; i<userProjects.length;i++ ){ %>
  <!-- Modal -->
-  <div class="modal fade" id="userModal" role="dialog" >
+  <div class="modal fade" id="<%=userProjects[i].t_ph%>" role="dialog" >
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -72,28 +121,71 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" style="color:white;">Add Users</h4>
         </div>
-        <form action="/add_users" method="post">
-        <hidden name="projectName"/>
+        <form action="projects/add_users" method="post">
+        <h4>&nbsp;&nbsp;<%=userProjects[i].project_name%></h4>
+        <hidden name="project_name" id="<%=i%>_proj_name" value="<%=userProjects[i].project_name%>"/> 
+        <hidden name="project_href" id="<%=i%>_proj_href" value="<%=userProjects[i].t_ph%>"/>
+
         <div class="modal-body" style="left:30%">
         <table ><tr><td>
-       <!-- <div class="userModal">   -->
-  <select multiple id="select1" class="userModal">  
-   <option value="{name:,href:}">Option 1</option>  
-   <option value="{name:,href:}">Option 2</option>  
-   <option value="{name:,href:}">Option 3</option>  
-   <option value="{name:,href:}">Option 4</option>  
-  </select></td><td><select class="userModal" multiple id="select2"></select></td></tr>
+
+
+        <input type="hidden" id="projHref" name="projHref" value="<%=userProjects[i].project_href%>"/>
+
+  <select multiple id="<%=i%>_select1" class="userModal" name="removedUsers">
+
+    
+    <% var ppresent =-1 %>
+    <% for ( m =0 ; m < projectUsers.length; m++){ %>
+      <% if(userProjects[i].t_ph == projectUsers[m].t_ph) {%>
+        <% ppresent=m%>
+      <% } %>
+    <%} %>
+    <% if(ppresent == -1){ %>
+      <% for ( l=0 ; l< allUsers.length; l++){ %>
+        <option value="{userHref:<%=allUsers[l].href%>}"><%=allUsers[l].fullName%></option>
+      <% } %>
+    <% }else{ %>
+      <% for( k=0; k < allUsers.length; k++ ){ %>
+        <% var upresent = -1 %>
+        <% for( j=0; j<projectUsers[ppresent].users.length; j++ ){ %>
+          <%if(allUsers[k].href == projectUsers[ppresent].users[j].href){%>
+            <% upresent = 1%>
+          <% } %>
+        <% } %>
+        <% if(upresent == -1){ %>
+          <option value="{userHref:<%=allUsers[k].href%>}"><%=allUsers[k].fullName%></option> 
+        <% } %>
+      <% } %>
+    <% } %>
+  
+
+  </select></td>
+ 
+
+  <td>
+
+  <select class="userModal" multiple id="<%=i%>_select2" name="addedUsers">
+    
+      <% var ppresent =-1 %>
+      <% for ( m =0 ; m < projectUsers.length; m++){ %>
+        <% if(userProjects[i].t_ph == projectUsers[m].t_ph) {%>
+          <% ppresent=m%>
+        <% } %>
+      <%} %>
+      <% if( ppresent != -1){ %>
+        <% for( j=0; j<projectUsers[ppresent].users.length; j++ ){ %>
+          <option value="{userHref:<%=projectUsers[ppresent].users[j].href%>}"><%=projectUsers[ppresent].users[j].fullName%></option>
+        <% } %>
+      <% } %>
+    
+
+  </select></td></tr>
   <tr>
   <td>
-  <a class="userModal" href="#" id="add">add &gt;&gt;</a>  
-  </td><td> <a class="userModal" href="#" id="remove">&lt;&lt; remove</a></td></tr></table>
-   
- <!-- <div class="userModal">   -->
-    
-   
- <!-- </div>   -->
-          
-          
+  <a class="userModal" href="#" id="<%=i%>_add">add &gt;&gt;</a>  
+  </td><td> <a class="userModal" href="#" id="<%=i%>_remove">&lt;&lt; remove</a></td></tr></table>
+ 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -104,6 +196,8 @@
       
     </div>
   </div>
+<!-- Modal End -->
+<% } %>
 
  <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog" >
@@ -115,18 +209,18 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" style="color:white;">Create Project</h4>
         </div>
-        <form action="/add_project" method="post">
+        <form action="/projects/add_project" method="post">
         <div class="modal-body">
         <table>
           <tr>
             <td>
           <p style="color:black;">Name </p></td>
-          <td><input type="text" id="projectName" size="35"/>
+          <td><input name="newProjName" type="text" id="projectName" size="35"/>
             </td>
             </tr>
             <tr>
             <td>
-          <p style="color:black;">Description </p></td><td><input type="text" id="projectDescription" size="35"/></td>
+          <p style="color:black;">Description </p></td><td><input name="newProjDesc" type="text" id="projectDescription" size="35"/></td>
           </tr>
           </table>
           
@@ -157,23 +251,9 @@
                     
                     <ul class="nav navbar-nav navbar-left" style="position:absolute;right:20px;top:10px;">
                         <li>
-                           <a href="index.ejs">
+                           <a href="/">
                                Home
                             </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret"></b>
-                                    <span class="notification">5</span>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
                         </li>
                         <li>
                            <a href="">
@@ -191,46 +271,74 @@
     <div style="width:100%;height: 70%;background-color:#FFFFFF;">
          
      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+
+     <% for( var i=0; i<userProjects.length;i++ ){ %>
+
+
+
+
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
+    <div class="panel-heading" role="tab" id="<%=userProjects[i].project_href%>">
       <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="color:green">
-         Project 1 <i class="fa fa-lightbulb-o" style="font-size:20px;position:relative;float:left;"></i>
-         
-    
-        </a>
+      <table>
+      <tr><td style="size:30px;">
+        <span id="<%=i%>_working" style="display:inline;"><i  class="fa fa-cog fa-spin fa-3x fa-fw" style="font-size:20px;position:relative;float:left;"></i></span>
+        <span id="<%=i%>_green" style="color:green;display:none;"><i class="fa fa-lightbulb-o" style="font-size:20px;position:relative;float:left;"></i></span>
+        <span id="<%=i%>_error" style="color:red;display:none;"><i class="fa fa-exclamation-triangle" style="font-size:20px;position:relative;float:left;"></i></span>
+        &nbsp;&nbsp;</td><td>
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#<%=i%>" aria-expanded="false" aria-controls="<%=i%>">
+        <span  style="color:blue">
+         <%=userProjects[i].project_name%>
+        </span>
+        </a></td></tr></table>
+        
       </h4>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+    <div id="<%=i%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="<%=userProjects[i].project_href%>">
       <div class="panel-body">
        <table border="1" style="width:300px">
-           <thead>
+           <thead >
                <tr>
-           <th> <strong>Users</strong></th>
-           <th> <strong>Project 1 Stats </strong></th>
+           <th style="width:100px"> <strong>Users</strong></th>
+           <th><strong>Access your App at: </strong> <span id="<%=i%>_ip">N/A</span></th>
                </tr></thead>
-            <tr><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Workspace diagram</button><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;" data-toggle="modal" data-target="#userModal">Add Members</button><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Delete Project</button></tr>
+            <tr>
+            <form id="<%=i%>_form" method="post" action="/workspace">
+              <input type="hidden" id="<%=i%>_project_name" name="project_name" value="<%=userProjects[i].project_name%>"/> 
+              <input type="hidden" id="<%=i%>_project_id" name="project_id" value="<%=userProjects[i].t_ph%>"/>
+              <input type="hidden" id="<%=i%>_project_href" name="project_href" value="<%=userProjects[i].project_href%>"/>
+              <button id="<%=i%>_wksp" name="<%=i%>_wksp" type="submit" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Workspace diagram</button>
+            </form>
+            <%if(role==='admin'){%>
+            <button type="button" id="btn_adduser" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;" data-toggle="modal" data-target="#<%=userProjects[i].t_ph%>">Add Members</button>
+            <%}%>
+            <form>
+            
+            <hidden name="project_name" value="<%=userProjects[i].project_name%>"/> <hidden name="project_href" value="<%=userProjects[i].project_href%>"/><button type="button" style="float:right;background-color: #008CBA;font-size: 15px;padding: 8px 12px;border-radius: 8px;">Delete Project</button></form></tr>
                   <tr>
-                        <td>Roy</td>
-                        <td>CPU</td>
-                  </tr>
-                  <tr>
-                        <td>Hanks</td>
-                        <td>Memory</td>
-                  </tr>
-                  <tr>
-                        <td>Lily</td>
-                        <td>Network</td>
-                  </tr>
-                  <tr>
-                        <td>Evanks</td>
-                        <td>I/O</td>
+                  <% var ppresent =-1 %>
+      <% for ( var m =0 ; m < projectUsers.length; m++){ %>
+        <% if(userProjects[i].t_ph === projectUsers[m].t_ph) {%>
+          <% ppresent=m%>
+        <% } %>
+      <%} %>
+      <% if( ppresent != -1){ %>
+        <% for( j=0; j<projectUsers[ppresent].users.length; j++ ){ %>
+        <td>
+          <%=projectUsers[ppresent].users[j].fullName%><br/>
+        </td>
+        <% } %>
+      <% } %>
+                        
+                        
                   </tr>
            </table> 
      
       </div>
     </div>
   </div>
+  <% } %>
  
           <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingFive">
@@ -260,27 +368,35 @@
     
             <ul class="nav">
                 <li>
-                    <a href="dashboard">
+                    <a href="/dashboard">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li>
-                    <a href="user">
+                    <a href="/users">
                         <i class="pe-7s-user"></i>
-                        <p>User Settings</p>
+                        <p>User Profile</p>
                     </a>
                 </li>
+                <%if(role==='admin'){%>
                 <li>
-                    <a href="projects">
+                    <a href="/users/create_user">
+                        <i class="pe-7s-user"></i>
+                        <p>Create User</p>
+                    </a>
+                </li>
+                <%}%>
+                <li>
+                    <a href="/projects">
                         <i class="pe-7s-news-paper"></i>
                         <p>Projects</p>
                     </a>
                 </li>
                 <li>
-                    <a href="index">
+                    <a id="logout" href="users/log-me-out">
                         <i class="pe-7s-bell"></i>
-                        <p>Logout</p>
+                                <p>Logout</p>
                     </a>
                 </li>
             </ul>

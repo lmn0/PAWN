@@ -9,16 +9,84 @@ var bodyParser = require('body-parser');
 
 router.use(bodyParser.urlencoded({ extended: true }));
 
+var mongodb = require('mongodb');
+var mongoClient = mongodb.MongoClient;
+
+var url = 'mongodb://tjs:password@ds039684.mlab.com:39684/mongo';
 
 
 router.get('/',function(req,res,next){
+
+	console.log(req.user.customData.role);
 console.log('User:',req.user.email,'jsut accessed the /home page');
 
-res.render('dashboard',{
-    user:req.user.username,
-    email:req.user.email
-})
-next();
+	var client=req.app.get('stormpathClient')
+	var projects=[];
+
+ var dir_href=req.user.directory.href
+	client.getDirectory(dir_href,function (err, directory) {
+  
+	directory.getGroups(function(err, groupsCollection) {
+  groupsCollection.each(function(group, next) {
+		if(group.name!='user'||group.name!='admin'){
+
+		var resourceMonitor = require('../../lib/msgqueue/rabbit.js');
+		options = {projId:(group.href).split('/')[5]};
+		resourceMonitor.sendData(options,'projectResource');
+
+			mongoClient.connect ( url, function(err, db){
+		if(err)
+		{
+			res.status(500).send({error:"Server error. Please try again later."})				
+		}
+		else{
+			
+			var collection = db.collection('projectResource');
+			collection.find({projId: (group.href).split('/')[5]}).toArray(function (err, result) {
+      			if (err) {
+        			res.status(500).send({error:"Server error. Please try again later."})
+      			} else if (result.length) {
+      				
+      				projects.push({category:group.name,cpu:result[0].cpu,memory:result[0].memory});
+      			
+        		} else {
+      				
+      				
+      			}
+     
+      			db.close();
+    		});
+			
+			
+		}
+	});
+
+		
+	}
+
+			
+
+	})
+  });
+
+});
+
+setTimeout(function(){
+	//Query the MongoDB and get the project details - 
+
+
+	console.log(projects);
+		res.render('dashboard',{
+    					user:req.user.username,
+    					userhred:req.user.href,
+    					projects:projects,
+    					notes123:req.user.customData.totalNotes,
+    					role:req.user.customData.role
+					})
+
+
+},3000);
+
 });
 
 // router.get('/create_user',stormpath.groupsRequired(['admin']),function(req,res,next){
@@ -26,51 +94,17 @@ next();
 // res.render('create_user.ejs')
 // });
 
-router.get('/create_user',stormpath.groupsRequired(['admin']),function(req,res,next){
-//console.log('User:',req.user,'jsut accessed the /create user');
-  var client = req.app.get('stormpathClient');
-  //console.log(req.user.directory)
-  var href_dir=req.user.directory.href
-  client.getDirectory(href_dir,function(err,directory){
-       //console.log(directory)
-       var account = {
-         givenName: 'Test',
-         surname: 'Krish',
-         username: 'teshkrish',
-         email: 'teshkris@example.com',
-         password: 'Changeme1!',
-         customData:{
-           role:'user',
-           stripe_id:"goo_free"
-         }
-       };
-       directory.getGroups(function (err, groupsCollection) {
-         console.log(groupsCollection)
-   groupsCollection.each(function(group, next) {
-     if(account.customData.role==group.name){
-       console.log("Hi>>>>>>>>>>>."+group)
-     directory.createAccount(account, function (err,createdAccount) {
-       console.log('yo------------'+createdAccount);
-       createdAccount.addToGroup(group,function(err){
-         if(err){
-           return console.error(err);
-         }
-         console.log("account added to "+ group.name + "group")
-       })
-     });}
+router.post('/get_resource',function(req,res,next){
+	  
 
 
+})
 
-          next();   })
-
-               });
-
-
-
-
-
-
-     })
+router.post('/write_note',function(req,res,next){
+	  console.log(req.body);
+		req.user.customData.totalNotes=req.body.data;
+		req.user.customData.save()
+		next()
 })
 
 

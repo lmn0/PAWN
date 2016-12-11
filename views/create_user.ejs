@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<% include dashboard_basic/head.ejs %>
+
+	<title>Dashboard</title>
+  <style type="text/css">
+          div.container {
+      width: 80%;
+              height:60%;
+      border: 1px solid gray;
+                margin:0px auto;
+          padding-top:0px;
+
+          color:burlywood!important;
+          font-family:'Verdana';
+          font-size:12px;
+          position: absolute;
+              left: 5%;
+
+  }
+           .container input {
+          width: 50%;
+          }
+         </style>
+         <script type="text/javascript">
+           $(function() {
+  $("#logout").on("click",function(e) {
+    e.preventDefault(); // cancel the link itself
+    $.post(this.href,function(data) {
+      window.location.href="http://pub-lb-497872815.us-west-2.elb.amazonaws.com/";
+    });
+  });
+});
+         </script>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div class="sidebar" data-color="azure" data-image="/images/sidebar-5.jpg">
+
+    	<div class="sidebar-wrapper">
+
+            <ul class="nav">
+                <li >
+                    <a href="/dashboard">
+                        <i class="pe-7s-graph"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/users">
+                        <i class="pe-7s-user"></i>
+                        <p>User Profile</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/users/create_user">
+                        <i class="pe-7s-user"></i>
+                        <p>Create User</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/projects">
+                        <i class="pe-7s-news-paper"></i>
+                        <p>Projects</p>
+                    </a>
+                </li>
+                <li>
+                    <a id="logout" href="users/log-me-out">
+                        <i class="pe-7s-bell"></i>
+                                <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+    </div>
+
+
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+
+            <div class="container-fluid">
+                <div id="stage" style="background:#00008B">
+                        <h3 id="spinner" style="background: #4d4dff; text-align: center; color: #fff;">PAWN</h3>
+                    </div>
+
+                <div class="collapse navbar-collapse">
+
+                    <ul class="nav navbar-nav navbar-left" style="position:absolute;right:20px;top:10px;">
+                        <li>
+                           <a href="index.ejs">
+                               Home
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret"></b>
+                                    <span class="notification">5</span>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Notification 1</a></li>
+                                <li><a href="#">Notification 2</a></li>
+                                <li><a href="#">Notification 3</a></li>
+                                <li><a href="#">Notification 4</a></li>
+                                <li><a href="#">Another notification</a></li>
+                              </ul>
+                        </li>
+                        <li>
+                           <a href="">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="content">
+          <div class="container">
+                    <h3 style="font-size:30px;color:brown;">Create Users</h3><br><br>
+
+
+    <form class="reg"   action="/users/create_user" method="post" onsubmit="return checkForm(this)" style="font-size:18px;position:relative;left:20%;">
+
+                    <p>  First Name <input type="text" name="firstName" style="margin-left:10%" ></p>
+         <p>  Last Name <input type="text" name="lastName" style="margin-left:10.2%;"></p>
+
+                    <p>  User Name <input type="text" name="userName" style="margin-left:9.8%;"></p>
+										<p>Password <span style="color:red;">*</span> <input type='password' name='password' style='margin-left:9.7%;' maxlength=24 ><br><br><br>
+                    <p>Email Id <input type="email" name="email" style="margin-left:12.5%;"></p>
+    				<br><br><br>
+              <select name="role">
+                <option value="" selected >Please Select</option>
+    <option role="user">user</option>
+    <option role="admin">admin</option>
+  </select>
+
+                <button id="submit" type="submit" style="font-size: 16px;border-radius: 8px;padding: 8px 18px;background-color: #008CBA;position:relative;left:30%;">
+                  Submit
+                </button>
+    </form></div>
+
+    </div>
+        </div>
+    </div></div>
+
+		<script type="text/javascript">
+
+		function checkForm(form)
+		{
+			if(form.userName.value == "") {
+				alert("Error: Username cannot be blank!");
+				form.username.focus();
+				return false;
+			}
+
+			if(form.password.value != "" && form.password.value == form.password.value) {
+				if(form.pwd1.value.length < 9) {
+					alert("Error: Password must contain at least 9 characters!");
+					form.pwd1.focus();
+					return false;
+				}
+				re = /[0-9]/;
+				if(!re.test(form.password.value)) {
+					alert("Error: password must contain at least one number (0-9)!");
+					form.pwd1.focus();
+					return false;
+				}
+				re = /[a-z]/;
+				if(!re.test(form.password.value)) {
+					alert("Error: password must contain at least one lowercase letter (a-z)!");
+					form.pwd1.focus();
+					return false;
+				}
+				re = /[A-Z]/;
+				if(!re.test(form.password.value)) {
+					alert("Error: password must contain at least one uppercase letter (A-Z)!");
+					form.pwd1.focus();
+					return false;
+				}
+			}
+
+			alert("You entered a valid password: " + form.pwd1.value);
+			return true;
+		}
+
+	</script>
+
+   <% include dashboard_basic/jsdefaults.ejs %>
+ </body>
+</html>

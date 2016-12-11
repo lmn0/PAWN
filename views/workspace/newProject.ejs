@@ -51,7 +51,7 @@
     <label>Service ID:  </label><label id="box-id"></label><br/>
     <div style="position:absolute;left:25px;">
 
-    <form id="modalServiceForm" enctype="application/json" action="javascript:test()">
+    <form id="modalServiceForm" enctype="application/json" action="javascript:modalContainer_create()">
         <input type="hidden" id="service[apiVersion]" value="v1"/>
         <input type="hidden" id="service[kind]" value="Service"/>
         <div style="width:80%;height:180%;display:table;">
@@ -78,26 +78,26 @@
                           </li>
                           <li><p></p>
                             <ul>
-                              <li>Port:<input type="text" id="service[spec][ports][0][port]" style="margin-left:113px;" size=20/><br/></li>
-                              <li>TargetPort:<input type="text" id="service[spec][ports][0][targetPort]" style="margin-left:75px;" size=20/></li>
+                              <li>Port:<input type="text" id="service[spec][ports][1][port]" style="margin-left:113px;" size=20/><br/></li>
+                              <li>TargetPort:<input type="text" id="service[spec][ports][1][targetPort]" style="margin-left:75px;" size=20/></li>
                             </ul>
                           </li>
                           <li><p></p>
                             <ul>
-                              <li>Port:<input type="text" id="service[spec][ports][0][port]" style="margin-left:113px;" size=20/><br/></li>
-                              <li>TargetPort:<input type="text" id="service[spec][ports][0][targetPort]" style="margin-left:75px;" size=20/></li>
+                              <li>Port:<input type="text" id="service[spec][ports][2][port]" style="margin-left:113px;" size=20/><br/></li>
+                              <li>TargetPort:<input type="text" id="service[spec][ports][2][targetPort]" style="margin-left:75px;" size=20/></li>
                             </ul>
                           </li>
                           <li><p></p>
                             <ul>
-                              <li>Port:<input type="text" id="service[spec][ports][0][port]" style="margin-left:113px;" size=20/><br/></li>
-                              <li>TargetPort:<input type="text" id="service[spec][ports][0][targetPort]" style="margin-left:75px;" size=20/></li>
+                              <li>Port:<input type="text" id="service[spec][ports][3][port]" style="margin-left:113px;" size=20/><br/></li>
+                              <li>TargetPort:<input type="text" id="service[spec][ports][3][targetPort]" style="margin-left:75px;" size=20/></li>
                             </ul>
                           </li>
                           <li><p></p>
                             <ul>
-                             <li>Port:<input type="text" id="service[spec][ports][0][port]" style="margin-left:113px;" size=20/><br/></li>
-                              <li>TargetPort:<input type="text" id="service[spec][ports][0][targetPort]" style="margin-left:75px;" size=20/></li>
+                             <li>Port:<input type="text" id="service[spec][ports][4][port]" style="margin-left:113px;" size=20/><br/></li>
+                              <li>TargetPort:<input type="text" id="service[spec][ports][4][targetPort]" style="margin-left:75px;" size=20/></li>
                             </ul>
                           </li>
                         </ul>
@@ -111,7 +111,7 @@
                       
                       <li>
                         <br/><br/><br/>
-                        <button type="submit" id="modalService-create" onclick="modalService_create()" style="position:relative;left:285px;background-color: #e7e7e7;font-size: 16px;border-radius: 8px;" > Create </button>
+                        <button type="submit" id="modalService-create" style="position:relative;left:285px;background-color: #e7e7e7;font-size: 16px;border-radius: 8px;" > Create </button>
                         <button type="submit" id="modalService-save" onclick="modalService_save()" style="visibility:hidden;" > Save </button>
                       </li>
 
@@ -147,7 +147,7 @@
             <div style="display:table-cell;width:30%">Metadata:<br/>
               <ul style="margin-left:12px;">
                 <li>Name*     :<input type="text" id="config[metadata][name]" value ="" required="" style="margin-left:100px;"/><br/></li>
-                <li>Namespace:<input type="text" id="config[metadata][namespace]" value ="" style="margin-left:72px;"/><br/></li>    
+                <li>Namespace:<input type="text" id="config[metadata][namespace]"  value ="" style="margin-left:72px;"/><br/></li>    
               </ul>
             </div>
             <div style="display:table-cell;width:50%;margin-left:62px;"> <strong>Spec:</strong><br/>
@@ -166,7 +166,7 @@
               <strong> Pod Specification:</strong> 
           </div>
           <div style="display:table-row;">
-                <div style="display:table-cell;width:50%">
+                <div style="display:table-cell;width:30%">
                     <ul>
                       
                       <li>Image*: <input type="text" id="config[spec][template][spec][containers][image]" required/ style="margin-left:114px;"><br/></li>
@@ -187,15 +187,6 @@
                           <li><input type="text" id="config[spec][template][spec][containers][args][3]"/><br/></li>
                           <li><input type="text" id="config[spec][template][spec][containers][args][4]"/><br/></li>
                         </ul>
-                      </li>
-                      <li><br/>Environment (Name:Value):
-                        <ul style="margin-left:170px;position:relative;top:60%px;">
-                          <li><input type="text" id="config[spec][template][spec][containers][env][0][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][0][value]"/><br/></li>
-                          <li><input type="text" id="config[spec][template][spec][containers][env][1][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][1][value]"/><br/></li>
-                          <li><input type="text" id="config[spec][template][spec][containers][env][2][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][2][value]"/><br/></li>
-                          <li><input type="text" id="config[spec][template][spec][containers][env][3][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][3][value]"/><br/></li>
-                          <li><input type="text" id="config[spec][template][spec][containers][env][4][name]"/>:<input type="text" id="config[spec][template][spec][containers][env][4][value]"/><br/></li>
-                        </ul>
                       </li></ul>
                 </div>
                 <div style="display:table-cell;">
@@ -204,7 +195,7 @@
                         <ul>
                           <li>
                       <ul>
-                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][0][containerPort]" style="margin-left:34px;"/></li>
+                              <li>Container Port:<input type="text" id="config[spec][template][spec][containers][ports][0][containerPort]" style="margin-left:34px;"/></li>&nbsp;&nbsp;
                               <li>Name:<input type="text" id="config[spec][template][spec][containers][ports][0][name]"/></li>
                               <li>Protocol(TCP/UDP):<input type="text" id="config[spec][template][spec][containers][ports][0][protocol]" size:'5' style="margin-left:2px;"/></li>
                      </ul>
@@ -271,20 +262,23 @@
                     
                     <ul class="nav navbar-nav navbar-left" style="position:absolute;right:20px;top:10px;">
                         <li>
-                           <a href="/">
-                               Home
-                            </a>
-                        </li>
-                        <li>
-                           <a href="/dashboard">
-                               Dashboard
-                            </a>
-                        </li>
-                        <li>
-                           <a href="/projects">
-                               Projects
-                            </a>
-                        </li>
+                    <a href="dashboard">
+                        <i class="pe-7s-graph"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="users">
+                        <i class="pe-7s-user"></i>
+                        User Profile
+                    </a>
+                </li>
+                <li>
+                    <a href="projects">
+                        <i class="pe-7s-news-paper"></i>
+                        Projects
+                    </a>
+                </li>
                     </ul>
                 </div>
             </div>
@@ -342,10 +336,11 @@
         </div>
         
     </div>
-        <div style="position:absolute;top:10px;left:30px;">
+        <div style="position:absolute;top:-13px;left:5%;">
           <ul>
-            <li><h3><b><label id="project-name"></label></b></h3></li>
-            <li><h7>ID:<label id="project-id"></label></h7></li>
+            <li><h3><b><label id="project-name"><%=projName%></label></b></h3></li>
+            <li><h6><label id="project-desc"><%=projDesc%></label></h6></li>
+            <li><h7>ID:<label id="project-id"><%=projId%></label></h7></li>
           </ul>
         </div>
         <div style="position:absolute;top:10px;right:10px;">
@@ -353,7 +348,7 @@
              <li><button type="submit" onclick="fireup()" style="height:40px;width:60px;"><a href="#save"><strong>Fire Up   </strong></a> </button></li>
              <li><button type="submit" onclick="clear_diagram()" style="height:40px;width:60px;"><a href="#clear"><strong>Clear </strong> </a></button></li>
              <!-- <li><button type="submit" onclick="loadFlowchart()" style="height:40px;width:60px;"><a href="#load"><strong>Load </strong></a></button></li> -->
-             <li><button type="submit" style="height:40px;width:60px;"><a href="dashboard.ejs"><strong>Exit</strong></a></button></li>
+             <li><button type="submit" style="height:40px;width:60px;"><a href="/projects"><strong>Exit</strong></a></button></li>
           </ul>
         </div>
             
@@ -431,10 +426,31 @@
 <script src="/javascripts/workspace/json-formdata.js"></script>
 
 <script type="text/javascript">
+function loadPage() {
+  //console.log(typeof chart);
 
+  try{
+    loadConfig(<%-JSON.stringify(config)%>);
+    loadFlowchart(<%-JSON.stringify(chart)%>)
+  }
+  catch(e){}
+  // if(typeof chart==="object" && typeof config==="object"){
+
+  //   configFiles=config;
+  //   loadFlowchart(chart)
+  // }
+}
+
+loadConfig=function(config){
+  for( var key in config)
+    configFiles[key]=config[key]
+}
+
+window.onload = loadPage;
   var numberOfElements = 4;
   var containerID;
-  var hostIP='192.168.1.5';
+  //var hostIP='192.168.1.8';
+  var hostIP='pub-lb-497872815.us-west-2.elb.amazonaws.com';
   var configFiles={};
    var anchors = [
                     [0.5, 1, 0.5, 0.5]//,
@@ -488,7 +504,7 @@
     var newbox = dragMe.cloneNode(true);
     newbox.id=containerID
     newbox.style.display = "block";
-    newbox.innerHTML=name+'<br/>'+containerID;
+    newbox.innerHTML=containerID;
     newbox.style=document.getElementById("standalone").style;
     document.getElementById('canvas').appendChild(newbox);
     var j = window.j;
@@ -533,18 +549,18 @@
     },
     spec:{
       ports:[{
-        port:document.getElementById('service[spec][ports][0][port]').value,
-        targetPort:document.getElementById('service[spec][ports][0][targetPort]').value
+        port:parseInt(document.getElementById('service[spec][ports][0][port]').value),
+        targetPort:parseInt(document.getElementById('service[spec][ports][0][targetPort]').value)
       },{
-        port:document.getElementById('service[spec][ports][1][port]').value,
-        targetPort:document.getElementById('service[spec][ports][1][targetPort]').value
+        port:parseInt(document.getElementById('service[spec][ports][1][port]').value),
+        targetPort:parseInt(document.getElementById('service[spec][ports][1][targetPort]').value)
       },
       {
-        port:document.getElementById('service[spec][ports][2][port]').value,
-        targetPort:document.getElementById('service[spec][ports][2][targetPort]').value
+        port:parseInt(document.getElementById('service[spec][ports][2][port]').value),
+        targetPort:parseInt(document.getElementById('service[spec][ports][2][targetPort]').value)
       },{
-        port:document.getElementById('service[spec][ports][3][port]').value,
-        targetPort:document.getElementById('service[spec][ports][3][targetPort]').value
+        port:parseInt(document.getElementById('service[spec][ports][3][port]').value),
+        targetPort:parseInt(document.getElementById('service[spec][ports][3][targetPort]').value)
       }],
       selector:{},
       type:document.getElementById('service[spec][type]').value
@@ -555,6 +571,7 @@
 
   configFiles[containerID]=service;
   cloneStandalone(service.metadata.name);
+  modalService.style.display = "none";
   }else{
 
   config={
@@ -578,22 +595,6 @@
             image:document.getElementById('config[spec][template][spec][containers][image]').value,
             args:[document.getElementById('config[spec][template][spec][containers][args][0]').value,document.getElementById('config[spec][template][spec][containers][args][1]').value,document.getElementById('config[spec][template][spec][containers][args][2]').value,document.getElementById('config[spec][template][spec][containers][args][3]').value,document.getElementById('config[spec][template][spec][containers][args][4]').value],
             command:[document.getElementById('config[spec][template][spec][containers][command][0]').value,document.getElementById('config[spec][template][spec][containers][command][1]').value,document.getElementById('config[spec][template][spec][containers][command][2]').value,document.getElementById('config[spec][template][spec][containers][command][3]').value,document.getElementById('config[spec][template][spec][containers][command][4]').value],
-            env:[{
-                name:document.getElementById('config[spec][template][spec][containers][env][0][name]').value,
-                value:document.getElementById('config[spec][template][spec][containers][env][0][value]').value
-              },{
-                name:document.getElementById('config[spec][template][spec][containers][env][1][name]').value,
-                value:document.getElementById('config[spec][template][spec][containers][env][1][value]').value
-              },{
-                name:document.getElementById('config[spec][template][spec][containers][env][2][name]').value,
-                value:document.getElementById('config[spec][template][spec][containers][env][2][value]').value
-              },{
-                name:document.getElementById('config[spec][template][spec][containers][env][3][name]').value,
-                value:document.getElementById('config[spec][template][spec][containers][env][3][value]').value
-              },{
-                name:document.getElementById('config[spec][template][spec][containers][env][4][name]').value,
-                value:document.getElementById('config[spec][template][spec][containers][env][4][value]').value
-            }],
             ports:[{
               containerPort:parseInt(document.getElementById('config[spec][template][spec][containers][ports][0][containerPort]').value),
               name:document.getElementById('config[spec][template][spec][containers][ports][0][name]').value,
@@ -623,6 +624,7 @@
   config.spec.selector[document.getElementById('config[spec][selector][key]').value]=document.getElementById('config[spec][selector][value]').value
   configFiles[containerID]=config;
   cloneStandalone(config.metadata.name);
+  modalContainer.style.display = "none";
   }
 ///////////////End////////////////////
 
@@ -630,11 +632,11 @@
 
 //End - values from modal box
     
-    modalContainer.style.display = "none";
+    
     //updateSessionValues(containerID,config);
     
 //var obj = JSON.parse(sessionStorage.user);
-
+console.log("Reaching here");
   }
   var modalContainer_save = function(){
 //***************
@@ -667,16 +669,40 @@
     //Save the entire diagram !!!
     saveFlowchart();
     //send flowChartJson and config to nodejs
-    
+    //console.log(projName);
+    //console.log(<%=projName%>);
+    //console.log("<%projName%>");
+    var projName= <%- JSON.stringify(projName) %>;
+    var projId = <%- JSON.stringify(projId) %>;
     var data ={
       chart:JSON.parse(flowChartJson),
-      config:configFiles
+      config:configFiles,
+      projName:projName,
+      projId:projId
+    }
+    function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
     }
 
-      var url = 'http://'+hostIP+':3000/workspace/fireUpContainers';
+      var url = 'http://'+hostIP+'/workspace/fireUpContainers';
       var xhr = new XMLHttpRequest();
       xhr.open("POST",url,true);
-      xhr.setRequestHeader('Content-Type' , 'application/json;charset=UTF-8');
+      xhr.setRequestHeader('Content-Type' , 'application/json; charset=utf-8');
+      xhr.setRequestHeader('access_token',getCookie('access_token'));
+      xhr.setRequestHeader('refresh_token',getCookie('refresh_token'));
+      xhr.setRequestHeader('connect.sid',getCookie('connect.sid'));
+      //xhr.setRequestHeader('X-XSRF-Token',);
       xhr.send(JSON.stringify(data));
 
   }
@@ -689,50 +715,62 @@
     document.getElementById('config[kind]').value=configFiles[cont.id].value;
     document.getElementById('config[metadata][name]').value=configFiles[cont.id].metadata.name;
     document.getElementById('config[metadata][namespace]').value=configFiles[cont.id].metadata.namespace;
-    document.getElementById('config[spec][replicas]').value=configFiles[cont.id].spec.replicas;
-    document.getElementById('config[spec][selector][key]').value=Object.Keys(configFiles[cont.id].spec.selector)[0];
-    document.getElementById('config[spec][selector][value]').value=configFiles[cont.id].spec.selector[Object.Keys(configFiles[cont.id].spec.selector)[0]];
-    document.getElementById('config[metadata][name]').value=configFiles[cont.id].metadata.namespace;
+    try{
+      document.getElementById('config[spec][replicas]').value=configFiles[cont.id].spec.replicas;
+    }catch(err){}
+    try{
+    document.getElementById('config[spec][selector][key]').value=Object.keys(configFiles[cont.id].spec.selector)[0];
+    document.getElementById('config[spec][selector][value]').value=configFiles[cont.id].spec.selector[Object.keys(configFiles[cont.id].spec.selector)[0]];
+    
+    }catch(err){}
+    document.getElementById('config[spec][template][spec][containers][image]').value=configFiles[cont.id].spec.template.spec.containers[0].image;
+    try{
+    document.getElementById('config[spec][template][spec][containers][args][0]').value=configFiles[cont.id].spec.template.spec.containers[0].args[0];
+    document.getElementById('config[spec][template][spec][containers][args][1]').value=configFiles[cont.id].spec.template.spec.containers[0].args[1];
+    document.getElementById('config[spec][template][spec][containers][args][2]').value=configFiles[cont.id].spec.template.spec.containers[0].args[2];
+    document.getElementById('config[spec][template][spec][containers][args][3]').value=configFiles[cont.id].spec.template.spec.containers[0].args[3];
+    }catch(err){}
 
-    document.getElementById('config[spec][template][spec][containers][image]').value=configFiles[cont.id].spec.template.spec.containers.image;
-    document.getElementById('config[spec][template][spec][containers][args][0]').value=configFiles[cont.id].spec.template.spec.containers.args[0];
-    document.getElementById('config[spec][template][spec][containers][args][1]').value=configFiles[cont.id].spec.template.spec.containers.args[1];
-    document.getElementById('config[spec][template][spec][containers][args][2]').value=configFiles[cont.id].spec.template.spec.containers.args[2];
-    document.getElementById('config[spec][template][spec][containers][args][3]').value=configFiles[cont.id].spec.template.spec.containers.args[3];
+    try{
+    document.getElementById('config[spec][template][spec][containers][command][0]').value=configFiles[cont.id].spec.template.spec.containers[0].command[0];
+    document.getElementById('config[spec][template][spec][containers][command][1]').value=configFiles[cont.id].spec.template.spec.containers[0].command[1];
+    document.getElementById('config[spec][template][spec][containers][command][2]').value=configFiles[cont.id].spec.template.spec.containers[0].command[2];
+    document.getElementById('config[spec][template][spec][containers][command][3]').value=configFiles[cont.id].spec.template.spec.containers[0].command[3];
+    }catch(err){}
 
+    try{
+    document.getElementById('config[spec][template][spec][containers][env][0][name]').value=configFiles[cont.id].spec.template.spec.containers[0].env[0].name;
+    document.getElementById('config[spec][template][spec][containers][env][0][value]').value=configFiles[cont.id].spec.template.spec.containers[0].env[0].value;
+    document.getElementById('config[spec][template][spec][containers][env][1][name]').value=configFiles[cont.id].spec.template.spec.containers[0].env[1].name;
+    document.getElementById('config[spec][template][spec][containers][env][1][value]').value=configFiles[cont.id].spec.template.spec.containers[0].env[1].value;
+    document.getElementById('config[spec][template][spec][containers][env][2][name]').value=configFiles[cont.id].spec.template.spec.containers[0].env[2].name;
+    document.getElementById('config[spec][template][spec][containers][env][2][value]').value=configFiles[cont.id].spec.template.spec.containers[0].env[2].value;
+    document.getElementById('config[spec][template][spec][containers][env][3][name]').value=configFiles[cont.id].spec.template.spec.containers[0].env[3].name;
+    document.getElementById('config[spec][template][spec][containers][env][3][value]').value=configFiles[cont.id].spec.template.spec.containers[0].env[3].value;
+    }catch(err){}
 
-    document.getElementById('config[spec][template][spec][containers][command][0]').value=configFiles[cont.id].spec.template.spec.containers.command[0];
-    document.getElementById('config[spec][template][spec][containers][command][1]').value=configFiles[cont.id].spec.template.spec.containers.command[1];
-    document.getElementById('config[spec][template][spec][containers][command][2]').value=configFiles[cont.id].spec.template.spec.containers.command[2];
-    document.getElementById('config[spec][template][spec][containers][command][3]').value=configFiles[cont.id].spec.template.spec.containers.command[3];
-
-    document.getElementById('config[spec][template][spec][containers][env][0][name]').value=configFiles[cont.id].spec.template.spec.containers.env[0].name;
-    document.getElementById('config[spec][template][spec][containers][env][0][value]').value=configFiles[cont.id].spec.template.spec.containers.env[0].value;
-    document.getElementById('config[spec][template][spec][containers][env][1][name]').value=configFiles[cont.id].spec.template.spec.containers.env[1].name;
-    document.getElementById('config[spec][template][spec][containers][env][1][value]').value=configFiles[cont.id].spec.template.spec.containers.env[1].value;
-    document.getElementById('config[spec][template][spec][containers][env][2][name]').value=configFiles[cont.id].spec.template.spec.containers.env[2].name;
-    document.getElementById('config[spec][template][spec][containers][env][2][value]').value=configFiles[cont.id].spec.template.spec.containers.env[2].value;
-    document.getElementById('config[spec][template][spec][containers][env][3][name]').value=configFiles[cont.id].spec.template.spec.containers.env[3].name;
-    document.getElementById('config[spec][template][spec][containers][env][3][value]').value=configFiles[cont.id].spec.template.spec.containers.env[3].value;
-
-    document.getElementById('config[spec][template][spec][containers][ports][0][containerPort]').value=configFiles[cont.id].spec.template.spec.containers.ports[0].containerPort;
-    document.getElementById('config[spec][template][spec][containers][ports][0][name]').value=configFiles[cont.id].spec.template.spec.containers.ports[0].name;
-    document.getElementById('config[spec][template][spec][containers][ports][0][protocol]').value=configFiles[cont.id].spec.template.spec.containers.ports[0].protocol;
-    document.getElementById('config[spec][template][spec][containers][ports][1][containerPort]').value=configFiles[cont.id].spec.template.spec.containers.ports[1].containerPort;
-    document.getElementById('config[spec][template][spec][containers][ports][1][name]').value=configFiles[cont.id].spec.template.spec.containers.ports[1].name;
-    document.getElementById('config[spec][template][spec][containers][ports][1][protocol]').value=configFiles[cont.id].spec.template.spec.containers.ports[1].protocol;
-    document.getElementById('config[spec][template][spec][containers][ports][2][containerPort]').value=configFiles[cont.id].spec.template.spec.containers.ports[2].containerPort;
-    document.getElementById('config[spec][template][spec][containers][ports][2][name]').value=configFiles[cont.id].spec.template.spec.containers.ports[2].name;
-    document.getElementById('config[spec][template][spec][containers][ports][2][protocol]').value=configFiles[cont.id].spec.template.spec.containers.ports[2].protocol;
-    document.getElementById('config[spec][template][spec][containers][ports][3][containerPort]').value=configFiles[cont.id].spec.template.spec.containers.ports[3].containerPort;
-    document.getElementById('config[spec][template][spec][containers][ports][3][name]').value=configFiles[cont.id].spec.template.spec.containers.ports[3].name;
-    document.getElementById('config[spec][template][spec][containers][ports][3][protocol]').value=configFiles[cont.id].spec.template.spec.containers.ports[3].protocol;
+    try{
+    document.getElementById('config[spec][template][spec][containers][ports][0][containerPort]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[0].containerPort;
+    document.getElementById('config[spec][template][spec][containers][ports][0][name]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[0].name;
+    document.getElementById('config[spec][template][spec][containers][ports][0][protocol]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[0].protocol;
+    document.getElementById('config[spec][template][spec][containers][ports][1][containerPort]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[1].containerPort;
+    document.getElementById('config[spec][template][spec][containers][ports][1][name]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[1].name;
+    document.getElementById('config[spec][template][spec][containers][ports][1][protocol]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[1].protocol;
+    document.getElementById('config[spec][template][spec][containers][ports][2][containerPort]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[2].containerPort;
+    document.getElementById('config[spec][template][spec][containers][ports][2][name]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[2].name;
+    document.getElementById('config[spec][template][spec][containers][ports][2][protocol]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[2].protocol;
+    document.getElementById('config[spec][template][spec][containers][ports][3][containerPort]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[3].containerPort;
+    document.getElementById('config[spec][template][spec][containers][ports][3][name]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[3].name;
+    document.getElementById('config[spec][template][spec][containers][ports][3][protocol]').value=configFiles[cont.id].spec.template.spec.containers[0].ports[3].protocol;
+    }catch(err){}
+    var modalContainer = document.getElementById('modalContainer');
+    modalContainer.style.display = "block";
   }
   else{
     document.getElementById('service[apiVersion]').value=configFiles[cont.id].apiVersion;
     document.getElementById('service[kind]').value=configFiles[cont.id].kind;
     document.getElementById('service[metadata][name]').value=configFiles[cont.id].metadata.name;
-
+    try{
     document.getElementById('service[spec][ports][0][port]').value=configFiles[cont.id].spec.ports[0].port;
     document.getElementById('service[spec][ports][0][targetPort]').value=configFiles[cont.id].spec.ports[0].targetPort;
     document.getElementById('service[spec][ports][1][port]').value=configFiles[cont.id].spec.ports[1].port;
@@ -741,11 +779,14 @@
     document.getElementById('service[spec][ports][2][targetPort]').value=configFiles[cont.id].spec.ports[2].targetPort;
     document.getElementById('service[spec][ports][3][port]').value=configFiles[cont.id].spec.ports[3].port;
     document.getElementById('service[spec][ports][3][targetPort]').value=configFiles[cont.id].spec.ports[3].targetPort;
-
-    document.getElementById('service[spec][selector][type]').value=configFiles[cont.id].spec.type;
-    document.getElementById('service[spec][selector][key]').value=configFiles[cont.id].spec.selector.key;
-    document.getElementById('service[spec][selector][value]').value=configFiles[cont.id].spec.selector.value;
-
+    }catch(err){}
+    try{
+    document.getElementById('service[spec][type]').value=configFiles[cont.id].spec.type;
+    document.getElementById('service[spec][selector][key]').value=Object.keys(configFiles[cont.id].spec.selector)[0];
+    document.getElementById('service[spec][selector][value]').value=configFiles[cont.id].spec.selector[Object.keys(configFiles[cont.id].spec.selector)[0]];
+    }catch(err){}
+    var modalService = document.getElementById('modalService');
+    modalService.style.display = "block";
   }
 
 
@@ -816,11 +857,12 @@
   var flowChartJson;
   var savedObj
   //var jsPlumbInst = window.j;
-  function loadFlowchart(){
+  function loadFlowchart(chartJson){
 
     var jsPlumb = window.j;
     //var flowChartJson = $('#jsonOutput').val();
-    var flowChart = JSON.parse(flowChartJson);
+    var flowChart = chartJson;
+    //var flowChart = JSON.parse(chartJson);
     var nodes = flowChart.nodes;
     function repositionElement(id, posX, posY, eindex){
       var dragMe = document.getElementById('standalone');

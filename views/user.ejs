@@ -81,6 +81,16 @@
 
 
     </style>
+    <script type="text/javascript">
+        $(function() {
+  $("#logout").on("click",function(e) {
+    e.preventDefault(); // cancel the link itself
+    $.post(this.href,function(data) {
+      window.location.href="http://pub-lb-497872815.us-west-2.elb.amazonaws.com/";
+    });
+  });
+});
+    </script>
 </head>
 <body>
 
@@ -93,28 +103,36 @@
         <div class="sidebar-wrapper">
 
             <ul class="nav">
-                <li class="active">
-                    <a href="dashboard">
+                <li>
+                    <a href="/dashboard">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li>
-                    <a href="users">
+                    <a href="/users">
                         <i class="pe-7s-user"></i>
-                        <p>User Settings</p>
+                        <p>User Profile</p>
                     </a>
                 </li>
+                <%if(role==='admin'){%>
                 <li>
-                    <a href="workspace">
+                    <a href="/users/create_user">
+                        <i class="pe-7s-user"></i>
+                        <p>Create User</p>
+                    </a>
+                </li>
+                <%}%>
+                <li>
+                    <a href="/projects">
                         <i class="pe-7s-news-paper"></i>
-                        <p>Create Project</p>
+                        <p>Projects</p>
                     </a>
                 </li>
                 <li>
-                    <a href="/log-me-out">
+                    <a id="logout" href="users/log-me-out">
                         <i class="pe-7s-bell"></i>
-                        <p>Logout</p>
+                                <p>Logout</p>
                     </a>
                 </li>
             </ul>
@@ -135,20 +153,6 @@
                            <a href="index.ejs">
                                Home
                             </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret"></b>
-                                    <span class="notification">5</span>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
                         </li>
                         <li>
                            <a href="">
