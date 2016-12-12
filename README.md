@@ -12,7 +12,7 @@ Its as simple as these diagrams depict:
 System Architecture
 —————————————————————————————————————————————
 
-![Alt text](public/images/projarch.jpg?raw=true "PAWN Architecture")
+![Alt text](public/images/projarch_1.jpg?raw=true "PAWN Architecture")
 
      A multi-tenant architecture where the user or a startup can subscribe for the application and then be able to use it for a monthly charge. 
 
