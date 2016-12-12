@@ -1,18 +1,18 @@
 What is PAWN? 
 
-		A deployment service, where the users don’t need to maintain their own infrastructure and can push all their codes to a private docker and then download it. 
+A deployment service, where the users don’t need to maintain their own infrastructure and can push all their codes to a private docker and then download it. 
 
 Its as simple as these diagrams depict:
 
-![Alt text](public/images/build.png?raw=true "Build you App")
+![Alt text](public/images/build_1.png?raw=true "Build you App")
 
-![Alt text](public/images/create.png?raw=true "Draw out your deployment")
+![Alt text](public/images/create_1.png?raw=true "Draw out your deployment")
 
 
 System Architecture
 —————————————————————————————————————————————
 
-![Alt text](public/images/projarch.tiff?raw=true "PAWN Architecture")
+![Alt text](public/images/projarch.jpg?raw=true "PAWN Architecture")
 
      A multi-tenant architecture where the user or a startup can subscribe for the application and then be able to use it for a monthly charge. 
 
@@ -22,10 +22,15 @@ MVC architecture was used for modularity.The entire platform was built on Node J
 
 Rabbit MQ becomes an important part in the implementation of the middle tier subsystem as the messages from the Node JS server were carried to the config servers where carried out by it. 
 
-Configuration
+Running the code
 —————————————————————————————————————————————
 
+All you need to do is edit the bin/www file to set the port and start the code with the following:
 
+		npm start
 
+To install the node modules use,
+
+		npm install .
 
 
