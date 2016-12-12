@@ -4,9 +4,9 @@ A deployment service, where the users don’t need to maintain their own infrast
 
 Its as simple as these diagrams depict:
 
-![Alt text](public/images/build_1.png?raw=true "Build you App")
+![Alt text](public/images/build_1.jpg?raw=true "Build you App")
 
-![Alt text](public/images/create_1.png?raw=true "Draw out your deployment")
+![Alt text](public/images/create_1.jpg?raw=true "Draw out your deployment")
 
 
 System Architecture
