@@ -4,15 +4,15 @@ A deployment service, where the users don’t need to maintain their own infrast
 
 Its as simple as these diagrams depict:
 
-![Alt text](public/images/build_1.png?raw=true "Build you App")
+![Alt text](public/images/build_1.jpg?raw=true "Build you App")  ![Alt text](public/images/create_1.jpg?raw=true "Draw out your deployment")
 
-![Alt text](public/images/create_1.png?raw=true "Draw out your deployment")
+
 
 
 System Architecture
 —————————————————————————————————————————————
 
-![Alt text](public/images/projarch.jpg?raw=true "PAWN Architecture")
+![Alt text](public/images/projarch_1.jpg?raw=true "PAWN Architecture")
 
      A multi-tenant architecture where the user or a startup can subscribe for the application and then be able to use it for a monthly charge. 
 
