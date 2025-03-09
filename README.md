@@ -1,6 +1,6 @@
 What is PAWN? 
 
-A deployment service, where the users don’t need to maintain their own infrastructure and can push all their codes to a private docker and then download it. 
+Drag and Drop deployment of applications and linking of APIs on a simple User Interface that looks like an application board. A deployment service, where the users don’t need to maintain their own infrastructure and can push all their codes to a private docker and then download it. The servers are deployed on AWS EC2 instances. 
 
 Its as simple as these diagrams depict:
 
