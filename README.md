@@ -1,8 +1,12 @@
 What is PAWN? 
 
-Drag and Drop deployment of applications and linking of APIs on a simple User Interface that looks like an application board. A deployment service, where the users don’t need to maintain their own infrastructure and can push all their codes to a private docker and then download it. The servers are deployed on AWS EC2 instances. 
+Our attempt at making DevOps and SREs cooler. It is a Drag and Drop deployment of applications and linking of APIs on a no-frill user interface that looks like an drawing board. It is a deployment service, where the users don’t need to maintain their own infrastructure as it is a cloud system. The servers where the user applications will be run are on AWS EC2 instances.
 
-Its as simple as these diagrams depict:
+The user develops their applications locally in a Docker container. After the development is complete, they push the changes to remote Docker Repository as a private container. The container can then be connected to the PAWN service and deployed through PAWN drawing board.
+
+Kubernetes is the backbone of this cloud system. The Docker containers that users locally develop are pushed to the PAWN cloud service from the Docker Repositories. 
+
+The below diagrams depict the architecture and what the interface looks like.
 
 ![Alt text](public/images/create_1.jpg?raw=true "Draw out your deployment")
 
