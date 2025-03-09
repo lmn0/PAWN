@@ -4,8 +4,9 @@ Drag and Drop deployment of applications and linking of APIs on a simple User In
 
 Its as simple as these diagrams depict:
 
-![Alt text](public/images/build_1.jpg?raw=true "Build you App")  ![Alt text](public/images/create_1.jpg?raw=true "Draw out your deployment")
+![Alt text](public/images/create_1.jpg?raw=true "Draw out your deployment")
 
+![Alt text](public/images/build_1.jpg?raw=true "Build you App") 
 
 
 
